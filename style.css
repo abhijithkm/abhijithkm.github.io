@@ -9,7 +9,8 @@
 
 :root {
 
-    --bodyBg: linear-gradient(to left, #003147, #004d6e, #006a99, #0089c5, #03a9f4);
+    /* --bodyBg: linear-gradient(to left, #003147, #004d6e, #006a99, #0089c5, #03a9f4); */
+    --bodyBg: lightblue;
     --sideBackground: #003147;
     --textColor: #03a9f4;
     --sideBarTitle: #fff;
@@ -19,7 +20,8 @@
 }
 
 body {
-    background: var(--bodyBg);
+    background: fixed var(--bodyBg);
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;

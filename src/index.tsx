@@ -1,15 +1,20 @@
+import { CssBaseline } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
+import { ThemeContextProvider } from './ThemeContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeContextProvider>
+      <CssBaseline />
+      <App />
+    </ThemeContextProvider>
   </React.StrictMode>
 );
 

@@ -1,7 +1,8 @@
+import { Home } from '@mui/icons-material';
 import { Paper } from '@mui/material';
+import React from 'react';
 import './App.css';
 import ThemeSwitcher from './components/ThemeSwitcher';
-import Home from './pages/Home';
 
 function App() {
   return (

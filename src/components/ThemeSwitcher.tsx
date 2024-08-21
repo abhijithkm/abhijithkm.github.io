@@ -2,7 +2,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ComputerIcon from '@mui/icons-material/Computer';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { ThemeContext } from '../ThemeContext';
 import { IThemeContext, IThemeMode } from '../ThemeContext/types';
 

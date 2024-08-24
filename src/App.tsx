@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Paper } from '@mui/material';
 import './App.css';
+import Home from './components/Home';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    return (
+        <Paper
+            sx={{
+                width: '100vw',
+                height: '100vh',
+                boxSizing: 'border-box',
+                display: 'flex',
+                flexDirection: 'column',
+                overflow: 'auto',
+                backgroundImage: `linear-gradient(to top, #e1e1e1, #e8e8e8, #f0f0f0, #f7f7f7, #ffffff);`
+            }}
+            square
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+            <Home />
+        </Paper>
+    );
 }
 
 export default App;

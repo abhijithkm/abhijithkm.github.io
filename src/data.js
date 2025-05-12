@@ -1,4 +1,3 @@
-
 export const personalDetails = {
     name: "Abhijith K M",
     tagline: "Web Developer",
@@ -7,7 +6,6 @@ export const personalDetails = {
     phone: "9188418821",
     address: "India",
 }
-
 
 export const skills = [
     { name: "JavaScript", level: "Expert", description: "Experienced in JavaScript for front-end and back-end development." },
@@ -21,7 +19,6 @@ export const skills = [
     { name: "CodeIgniter", level: "Intermediate", description: "Used for MVC-based development." },
     { name: "MySQL", level: "Expert", description: "Database management and optimization." }
 ]
-
 
 export const experience = [
     {
@@ -53,7 +50,6 @@ export const experience = [
     }
 ]
 
-
 export const projects = [
     {
         name: "Website for Kerala Gazetted Officer's Association (KGOA)",
@@ -75,7 +71,6 @@ export const projects = [
     }
 ]
 
-
 export const education = [
     {
         name: "Government Engineering College Idukki",
@@ -96,4 +91,3 @@ export const education = [
         image: "https://via.placeholder.com/150",
     }
 ]
-

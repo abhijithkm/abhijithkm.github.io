@@ -1,0 +1,83 @@
+:root {
+  /* Color Scheme */
+  --color-background: #0a0a0a;
+  --color-surface: #121212;
+  --color-surface-light: #1a1a1a;
+  --color-primary: #ff3366;
+  --color-secondary: #4cc9f0;
+  --color-accent: #7b2cbf;
+  --color-text: #ffffff;
+  --color-text-light: rgba(255, 255, 255, 0.85);
+  --color-text-dim: rgba(255, 255, 255, 0.6);
+  --color-border: rgba(255, 255, 255, 0.1);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(120deg, var(--color-primary), var(--color-accent));
+  --gradient-secondary: linear-gradient(120deg, var(--color-secondary), #49c628);
+  --gradient-surface: linear-gradient(120deg, rgba(18, 18, 18, 0.9), rgba(15, 15, 15, 0.95));
+
+  /* Typography */
+  --font-primary: 'Poppins', sans-serif;
+  --font-secondary: 'Montserrat', sans-serif;
+  --font-accent: 'Syncopate', sans-serif;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 3rem;
+  --font-size-5xl: 3.5rem;
+  --font-size-6xl: 4.5rem;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 2.5rem;
+  --spacing-3xl: 3rem;
+  --spacing-4xl: 4rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  --transition-normal: 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  --transition-slow: 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.25);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.3);
+
+  /* Z-indices */
+  --z-negative: -1;
+  --z-normal: 1;
+  --z-tooltip: 10;
+  --z-fixed: 100;
+  --z-modal: 1000;
+}
+
+/* Light mode colors */
+[data-theme="light"] {
+  --color-background: #f8f8f8;
+  --color-surface: #ffffff;
+  --color-surface-light: #f0f0f0;
+  --color-text: #111111;
+  --color-text-light: rgba(17, 17, 17, 0.85);
+  --color-text-dim: rgba(17, 17, 17, 0.6);
+  --color-border: rgba(0, 0, 0, 0.1);
+  --gradient-surface: linear-gradient(120deg, rgba(255, 255, 255, 0.95), rgba(248, 248, 248, 0.9));
+}

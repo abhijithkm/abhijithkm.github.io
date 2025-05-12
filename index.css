@@ -1,0 +1,63 @@
+body {
+    background: linear-gradient(to right, rgba(0, 123, 255, 0.8), rgba(0, 255, 255, 0.8)); /* Fullscreen gradient */
+    color: #212529; /* Light mode text color */
+    font-family: 'Arial', sans-serif; /* Set a default font */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+    min-height: 100vh; /* Ensure body takes full height */
+}
+
+body.bg-dark {
+    background-color: #343a40; /* Dark mode background */
+    color: #f8f9fa; /* Dark mode text color */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Helvetica Neue', sans-serif; /* Use a modern font for headings */
+}
+
+footer {
+    background-color: #343a40; /* Dark footer background */
+    color: white; /* White text in footer */
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.hero-section {
+    background: linear-gradient(to right, rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.5)), url('/path/to/your/image.jpg') no-repeat center center; /* Gradient overlay */
+    background-size: cover;
+    color: white;
+    padding: 80px 20px; /* Increased padding for better spacing */
+}
+
+.skill-section, .project-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    padding: 20px;
+    animation: fadeIn 0.5s ease; /* Fade-in animation */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.skill-card, .project-card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.skill-card:hover, .project-card:hover {
+    transform: scale(1.05);
+} 

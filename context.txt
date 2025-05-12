@@ -1,0 +1,24 @@
+
+Pages:
+1. **Home** - Introduction and overview
+2. **About** - Personal background, skills, and experience
+3. **Projects** - Showcase of past projects with descriptions and links
+4. **Resume** - Downloadable resume link
+5. **Contact** - Contact form for inquiries
+
+Components:
+- **Navbar** - Navigation menu with smooth scrolling
+- **Hero Section** - Name, tagline, and call-to-action button
+- **Skill Card** - Displaying skills dynamically
+- **Project Card** - Showcasing projects with images and links
+- **Footer** - Social media links and copyright info
+
+Features:
+- Responsive and mobile-friendly
+- Dark mode toggle
+- Smooth scrolling and animations
+- Contact form integration
+- SEO-friendly structure
+- Must be a professional web app.
+
+

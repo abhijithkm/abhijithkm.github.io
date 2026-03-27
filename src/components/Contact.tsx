@@ -28,7 +28,7 @@ export default function Contact() {
 
   return (
     <SectionWrapper id="contact" title="Get In Touch" subtitle="Let's work together">
-      <div className="grid gap-12 lg:grid-cols-5">
+      <div className="grid gap-14 lg:grid-cols-5">
         {/* Info */}
         <div className="space-y-8 lg:col-span-2">
           <p className="text-base leading-[1.8] text-surface-100/50">

@@ -3,7 +3,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
 function Particles() {
-  const count = 600;
+  const count = 400;
   const mesh = useRef<THREE.Points>(null!);
   const mouse = useRef({ x: 0, y: 0 });
   const { viewport } = useThree();
@@ -62,7 +62,7 @@ function Particles() {
         size={0.04}
         color="#818cf8"
         transparent
-        opacity={0.6}
+        opacity={0.4}
         sizeAttenuation
         depthWrite={false}
       />

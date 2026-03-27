@@ -68,7 +68,7 @@ export default function Achievements() {
       title="Featured Achievements"
       subtitle="Key highlights from my career"
     >
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {achievements.map((a, i) => (
           <AchievementCard key={a.title} achievement={a} i={i} />
         ))}

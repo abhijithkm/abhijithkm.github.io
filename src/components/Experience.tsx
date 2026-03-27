@@ -59,7 +59,7 @@ function TimelineItem({ exp, i }: { exp: (typeof experience)[0]; i: number }) {
       {/* Card */}
       <motion.div
         whileHover={{ y: -3, transition: { duration: 0.2 } }}
-        className="group mb-12 flex-1 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 backdrop-blur-sm transition-all duration-300 hover:border-primary-500/20 hover:bg-white/[0.05] hover:shadow-lg hover:shadow-primary-600/5"
+        className="group mb-14 flex-1 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 backdrop-blur-sm transition-all duration-300 hover:border-primary-500/20 hover:bg-white/[0.05] hover:shadow-lg hover:shadow-primary-600/5"
       >
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>

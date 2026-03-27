@@ -15,7 +15,7 @@ export default function SectionWrapper({ id, title, subtitle, children, classNam
   const { ref, controls, initial } = useScrollReveal();
 
   return (
-    <section id={id} className={clsx("relative py-24 px-6 md:px-12 lg:px-24", className)}>
+    <section id={id} className={clsx("relative py-20 md:py-28 lg:py-32 px-6", className)}>
       <motion.div
         ref={ref}
         initial={initial}
@@ -24,7 +24,7 @@ export default function SectionWrapper({ id, title, subtitle, children, classNam
           hidden: { opacity: 0, y: 40 },
           visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
         }}
-        className="mx-auto max-w-6xl"
+        className="mx-auto max-w-7xl"
       >
         {title && (
           <div className="mb-16 text-center">

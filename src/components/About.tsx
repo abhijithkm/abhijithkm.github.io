@@ -132,7 +132,7 @@ export default function About() {
             <span className="text-surface-100/70 font-medium">cloud deployments on AWS</span>.
           </p>
 
-          <div className="flex flex-wrap gap-x-6 gap-y-3 pt-2">
+          <div className="flex flex-wrap gap-x-6 gap-y-3 pt-4">
             {[
               { icon: MapPin, text: personalDetails.address },
               { icon: Mail, text: personalDetails.email },
@@ -151,7 +151,7 @@ export default function About() {
       </div>
 
       {/* Stats */}
-      <div className="mt-20 grid grid-cols-1 gap-5 sm:grid-cols-3">
+      <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-3">
         {stats.map((s, i) => (
           <StatCard key={s.label} {...s} i={i} />
         ))}

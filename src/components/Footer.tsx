@@ -10,11 +10,11 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="relative px-6 pb-8 pt-0">
+    <footer className="relative mt-16 px-6 pb-10 pt-0">
       {/* Gradient divider */}
-      <div className="mx-auto mb-8 h-px max-w-6xl bg-gradient-to-r from-transparent via-primary-500/20 to-transparent" />
+      <div className="mx-auto mb-10 h-px max-w-7xl bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 sm:flex-row">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 sm:flex-row">
         <div className="flex flex-col items-center gap-1 sm:items-start">
           <span className="text-sm font-medium bg-gradient-to-r from-primary-400 to-accent-cyan bg-clip-text text-transparent">
             {personalDetails.name}

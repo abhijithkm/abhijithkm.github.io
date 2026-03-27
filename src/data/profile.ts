@@ -111,6 +111,15 @@ export const experience = [
       "Assisted in labs, contributed to software development and website management.",
     techStack: ["PHP", "MySQL", "Laravel"],
   },
+  {
+    name: "Government Engineering College Idukki (GECI)",
+    position: "Tradesman",
+    startDate: "2017",
+    endDate: "2021",
+    description:
+      "Assisted in labs, contributed to software development and website management.",
+    techStack: ["PHP", "MySQL", "Codeigniter"],
+  },
 ];
 
 export const projects = [
@@ -173,18 +182,41 @@ export const achievements = [
 export const navLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
-  { label: "Achievements", href: "#achievements" },
   { label: "Projects", href: "#projects" },
-  { label: "Hobby Apps", href: "#hobby-apps" },
-  { label: "Education", href: "#education" },
+  { label: "Tools", href: "#hobby-apps" },
   { label: "Contact", href: "#contact" },
 ];
 
+/** All section ids for scroll-spy (includes sections not in nav) */
+export const allSectionIds = [
+  "home",
+  "about",
+  "skills",
+  "experience",
+  "achievements",
+  "projects",
+  "hobby-apps",
+  "education",
+  "contact",
+];
+
+/** Maps every section id to the nav item that should highlight */
+export const sectionToNav: Record<string, string> = {
+  home: "home",
+  about: "about",
+  skills: "about",
+  education: "about",
+  experience: "experience",
+  achievements: "experience",
+  projects: "projects",
+  "hobby-apps": "hobby-apps",
+  contact: "contact",
+};
+
 export const socialLinks = {
   github: "https://github.com/abhijithkm",
-  linkedin: "https://linkedin.com/in/abhijithkm",
+  linkedin: "https://www.linkedin.com/in/abhijith-km/",
   email: "mailto:meabhijithkm@gmail.com",
 };
 

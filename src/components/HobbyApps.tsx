@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ExternalLink,
@@ -42,6 +43,8 @@ function HobbyCard({ app, i }: { app: (typeof hobbyApps)[0]; i: number }) {
   const badgeClass =
     categoryStyles[app.category] ??
     "border-white/[0.08] bg-white/[0.04] text-surface-100/50";
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   return (
     <motion.div
@@ -56,49 +59,53 @@ function HobbyCard({ app, i }: { app: (typeof hobbyApps)[0]; i: number }) {
           transition: { duration: 0.5, delay: 0.08 * i },
         },
       }}
-      whileHover={{ y: -6, transition: { duration: 0.3 } }}
-      className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm transition-all duration-300 hover:border-primary-500/20 hover:shadow-xl hover:shadow-primary-600/8"
+      whileHover={{ y: -4, transition: { duration: 0.25 } }}
+      className="group overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm transition-all duration-300 hover:border-primary-500/20 hover:shadow-xl hover:shadow-primary-600/8"
     >
-      {/* Screenshot area */}
-      <div className="relative aspect-video overflow-hidden">
-        <img
-          src={app.image}
-          alt={app.name}
-          loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          onError={(e) => {
-            e.currentTarget.style.display = "none";
-          }}
-        />
-        {/* Fallback icon when image is missing */}
-        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-600/8 to-accent-purple/8">
+      {/* Image area */}
+      <div className="relative aspect-video overflow-hidden rounded-t-xl">
+        {/* Screenshot */}
+        {!imgError && (
+          <img
+            src={app.image}
+            alt={app.name}
+            loading="lazy"
+            onLoad={() => setImgLoaded(true)}
+            onError={() => setImgError(true)}
+            className={`relative z-10 h-full w-full object-cover transition-all duration-500 group-hover:scale-105 ${
+              imgLoaded ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        )}
+
+        {/* Fallback — always rendered behind, visible when image missing */}
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-600/6 to-accent-purple/6">
           <Icon
-            size={40}
-            className="text-white/[0.06] transition-all duration-500 group-hover:scale-110 group-hover:text-white/[0.12]"
+            size={36}
+            className="text-white/[0.07] transition-all duration-500 group-hover:scale-110 group-hover:text-white/[0.12]"
           />
         </div>
-        {/* Bottom gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-surface-950 via-surface-950/50 to-transparent" />
-        {/* Hover glow */}
-        <div className="absolute inset-0 bg-primary-500/0 transition-colors duration-300 group-hover:bg-primary-500/[0.03]" />
+
+        {/* Bottom gradient overlay */}
+        <div className="absolute inset-0 z-20 bg-gradient-to-t from-surface-950/80 via-transparent to-transparent" />
       </div>
 
-      <div className="relative p-6">
-        {/* Category badge */}
+      {/* Content */}
+      <div className="p-5">
         <span
           className={`inline-block rounded-full border px-3 py-1 text-[11px] font-medium ${badgeClass}`}
         >
           {app.category}
         </span>
 
-        <h3 className="mt-3 text-lg font-semibold text-white leading-snug">
+        <h3 className="mt-3 text-base font-semibold text-white leading-snug">
           {app.name}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-surface-100/45">
+        <p className="mt-1.5 text-sm leading-relaxed text-surface-100/45">
           {app.description}
         </p>
 
-        <div className="mt-5">
+        <div className="mt-4">
           <motion.a
             href={app.url}
             target="_blank"
@@ -125,7 +132,7 @@ export default function HobbyApps() {
       title="Hobby Apps"
       subtitle="Fun tools and experimental web applications I built"
     >
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {hobbyApps.map((app, i) => (
           <HobbyCard key={app.name} app={app} i={i} />
         ))}

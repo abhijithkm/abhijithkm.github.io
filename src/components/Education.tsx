@@ -49,7 +49,7 @@ function EduCard({ edu, i }: { edu: (typeof education)[0]; i: number }) {
 export default function Education() {
   return (
     <SectionWrapper id="education" title="Education" subtitle="Academic background">
-      <div className="mx-auto grid max-w-2xl gap-5">
+      <div className="mx-auto grid max-w-3xl gap-6">
         {education.map((edu, i) => (
           <EduCard key={edu.name} edu={edu} i={i} />
         ))}

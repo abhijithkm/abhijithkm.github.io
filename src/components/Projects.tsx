@@ -98,7 +98,7 @@ function ProjectCard({ project, i }: { project: (typeof projects)[0]; i: number 
 export default function Projects() {
   return (
     <SectionWrapper id="projects" title="Projects" subtitle="Featured work I've built">
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-8 md:grid-cols-2">
         {projects.map((project, i) => (
           <ProjectCard key={project.name} project={project} i={i} />
         ))}

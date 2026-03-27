@@ -1,26 +1,37 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Palette } from "lucide-react";
 import clsx from "clsx";
-import { navLinks, personalDetails } from "../data/profile";
+import {
+  navLinks,
+  allSectionIds,
+  sectionToNav,
+  personalDetails,
+} from "../data/profile";
 import { useScrollSpy } from "../hooks/useScrollSpy";
+import { CommandPaletteHint } from "./search/CommandPalette";
+import { useTheme, type ThemeName } from "../context/ThemeContext";
 
 const NAVBAR_HEIGHT = 72;
+
+const themeLabels: { name: ThemeName; label: string }[] = [
+  { name: "dark", label: "Dark" },
+  { name: "cyberpunk", label: "Cyber" },
+  { name: "minimal", label: "Minimal" },
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
 
-  // Extract section ids from navLinks (strip the leading #)
-  const sectionIds = useMemo(
-    () => navLinks.map((l) => l.href.slice(1)),
-    []
-  );
-
-  const active = useScrollSpy(sectionIds, {
+  // Track all sections, then map to the parent nav item
+  const rawActive = useScrollSpy(allSectionIds, {
     navbarOffset: NAVBAR_HEIGHT,
     defaultSection: "home",
   });
+  const activeNav = sectionToNav[rawActive] ?? "home";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -30,8 +41,7 @@ export default function Navbar() {
 
   const handleClick = (href: string) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -42,11 +52,12 @@ export default function Navbar() {
       className={clsx(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-surface-950/70 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/10"
+          ? "bg-black/30 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/10"
           : "bg-transparent"
       )}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        {/* Logo */}
         <a
           href="#home"
           onClick={(e) => {
@@ -56,13 +67,14 @@ export default function Navbar() {
           className="text-lg font-bold tracking-tight bg-gradient-to-r from-primary-400 to-accent-cyan bg-clip-text text-transparent"
         >
           {personalDetails.name.split(" ")[0]}
-          <span className="text-white/80">.dev</span>
+          <span className="text-white/70">.dev</span>
         </a>
 
-        {/* Desktop */}
-        <ul className="hidden md:flex items-center gap-1">
+        {/* Desktop nav — centered */}
+        <ul className="hidden md:flex items-center gap-0.5 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1">
           {navLinks.map((link) => {
-            const isActive = active === link.href.slice(1);
+            const id = link.href.slice(1);
+            const isActive = activeNav === id;
             return (
               <li key={link.href}>
                 <a
@@ -72,38 +84,77 @@ export default function Navbar() {
                     handleClick(link.href);
                   }}
                   className={clsx(
-                    "relative px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-lg",
-                    isActive
-                      ? "text-white"
-                      : "text-surface-100/60 hover:text-white"
+                    "relative block rounded-lg px-3.5 py-1.5 text-[13px] font-medium transition-colors duration-200",
+                    isActive ? "text-white" : "text-surface-100/50 hover:text-white"
                   )}
                 >
-                  {link.label}
                   {isActive && (
                     <motion.span
-                      layoutId="nav-underline"
-                      className="absolute inset-x-1 -bottom-0.5 h-0.5 rounded-full bg-gradient-to-r from-primary-400 to-accent-cyan"
-                      transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 30,
-                      }}
+                      layoutId="nav-pill"
+                      className="absolute inset-0 rounded-lg bg-white/10"
+                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
+                  <span className="relative z-10">{link.label}</span>
                 </a>
               </li>
             );
           })}
         </ul>
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 text-surface-100/60 hover:text-white transition-colors"
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        {/* Right controls */}
+        <div className="flex items-center gap-2">
+          <CommandPaletteHint />
+
+          {/* Theme switcher */}
+          <div className="relative">
+            <button
+              onClick={() => setThemeMenuOpen(!themeMenuOpen)}
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-surface-100/35 transition-colors hover:text-white hover:border-white/10"
+              aria-label="Switch theme"
+            >
+              <Palette size={14} />
+            </button>
+            <AnimatePresence>
+              {themeMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 4, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 4, scale: 0.95 }}
+                  transition={{ duration: 0.12 }}
+                  className="absolute right-0 top-full mt-2 overflow-hidden rounded-xl border border-white/[0.08] bg-surface-950/95 backdrop-blur-xl shadow-xl"
+                >
+                  {themeLabels.map((t) => (
+                    <button
+                      key={t.name}
+                      onClick={() => {
+                        setTheme(t.name);
+                        setThemeMenuOpen(false);
+                      }}
+                      className={clsx(
+                        "block w-full px-5 py-2.5 text-left text-xs font-medium transition-colors",
+                        theme === t.name
+                          ? "text-primary-400 bg-white/[0.04]"
+                          : "text-surface-100/50 hover:text-white hover:bg-white/[0.03]"
+                      )}
+                    >
+                      {t.label}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden p-2 text-surface-100/50 hover:text-white transition-colors"
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -113,11 +164,13 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-surface-950/95 backdrop-blur-xl border-b border-white/5 overflow-hidden"
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-surface-950/95 backdrop-blur-xl border-b border-white/[0.06] overflow-hidden"
           >
             <ul className="flex flex-col px-6 py-4 gap-1">
               {navLinks.map((link) => {
-                const isActive = active === link.href.slice(1);
+                const id = link.href.slice(1);
+                const isActive = activeNav === id;
                 return (
                   <li key={link.href}>
                     <a
@@ -127,10 +180,10 @@ export default function Navbar() {
                         handleClick(link.href);
                       }}
                       className={clsx(
-                        "block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                        "block px-4 py-3 rounded-lg text-sm font-medium transition-colors",
                         isActive
-                          ? "text-white bg-white/5"
-                          : "text-surface-100/60 hover:text-white hover:bg-white/5"
+                          ? "text-white bg-white/[0.06]"
+                          : "text-surface-100/50 hover:text-white hover:bg-white/[0.03]"
                       )}
                     >
                       {link.label}

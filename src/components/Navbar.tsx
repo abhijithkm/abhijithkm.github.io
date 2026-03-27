@@ -67,7 +67,7 @@ export default function Navbar() {
           className="text-lg font-bold tracking-tight bg-gradient-to-r from-primary-400 to-accent-cyan bg-clip-text text-transparent"
         >
           {personalDetails.name.split(" ")[0]}
-          <span className="text-white/70">.dev</span>
+          <span className="text-white/70">.KM</span>
         </a>
 
         {/* Desktop nav — centered */}

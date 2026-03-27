@@ -192,9 +192,9 @@ export const allSectionIds = [
   "home",
   "about",
   "skills",
+  "hobby-apps",
   "experience",
   "achievements",
-  "hobby-apps",
   "education",
   "contact",
 ];

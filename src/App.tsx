@@ -42,10 +42,10 @@ export default function App() {
         <Suspense fallback={<SectionFallback />}>
           <ImpactMetrics />
           <About />
+          <HobbyApps />
           <Skills />
           <Experience />
           <Achievements />
-          <HobbyApps />
           <Education />
           <ResumeSummary />
           <Contact />

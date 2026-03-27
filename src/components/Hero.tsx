@@ -105,16 +105,24 @@ export default function Hero() {
           {personalDetails.heroDescription}
         </motion.p>
 
+        {/* 5. Credibility line */}
+        <motion.p
+          variants={fadeUp}
+          className="mt-3 text-sm font-medium text-surface-100/25"
+        >
+          Built 8+ developer tools and web applications.
+        </motion.p>
+
         {/* 5. CTA Buttons */}
         <motion.div
           variants={fadeUp}
           className="mt-8 flex flex-wrap items-center justify-center gap-3"
         >
           <a
-            href="#projects"
+            href="#hobby-apps"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
+              document.querySelector("#hobby-apps")?.scrollIntoView({ behavior: "smooth" });
             }}
             className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-primary-600 to-accent-purple px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-600/20 transition-all duration-300 hover:shadow-xl hover:shadow-primary-600/30 hover:-translate-y-0.5"
           >

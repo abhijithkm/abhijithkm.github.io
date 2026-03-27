@@ -1,11 +1,22 @@
 export const hobbyApps = [
   {
+    name: "Schema Visualizer",
+    description: "Tool for visualizing database schemas and relationships.",
+    url: "https://schema-visualizer-nu.vercel.app/",
+    image: "/projects/hobby/schema-visualizer.png",
+    category: "Database Tool",
+    tags: ["React", "TypeScript", "Visualization"],
+    featured: false,
+  },
+  {
     name: "Capture",
     description:
       "A utility tool for capturing and sharing quick screenshots and snippets.",
     url: "https://capture-akm.vercel.app/",
     image: "/projects/hobby/capture.png",
     category: "Utility",
+    tags: ["React", "TypeScript", "Utility"],
+    featured: false,
   },
   {
     name: "Dev Toolbox",
@@ -13,6 +24,8 @@ export const hobbyApps = [
     url: "https://dev-toolbox-xi.vercel.app/",
     image: "/projects/hobby/dev-toolbox.png",
     category: "Developer Tools",
+    tags: ["React", "Developer Tool"],
+    featured: true,
   },
   {
     name: "Page Flow",
@@ -21,13 +34,8 @@ export const hobbyApps = [
     url: "https://page-flow-v2.vercel.app/",
     image: "/projects/hobby/page-flow.png",
     category: "Visualization",
-  },
-  {
-    name: "Schema Visualizer",
-    description: "Tool for visualizing database schemas and relationships.",
-    url: "https://schema-visualizer-nu.vercel.app/",
-    image: "/projects/hobby/schema-visualizer.png",
-    category: "Database Tool",
+    tags: ["React", "Visualization"],
+    featured: false,
   },
   {
     name: "Chrono",
@@ -35,6 +43,8 @@ export const hobbyApps = [
     url: "https://chrono-five.vercel.app/",
     image: "/projects/hobby/chrono.png",
     category: "Productivity",
+    tags: ["React", "Utility"],
+    featured: false,
   },
   {
     name: "JSON Generator",
@@ -43,6 +53,8 @@ export const hobbyApps = [
     url: "https://json-generator-chi.vercel.app/",
     image: "/projects/hobby/json-generator.png",
     category: "Developer Tool",
+    tags: ["React", "Developer Tool"],
+    featured: false,
   },
   {
     name: "Sudoku Studio",
@@ -50,6 +62,8 @@ export const hobbyApps = [
     url: "https://sudoku-studio.vercel.app/",
     image: "/projects/hobby/sudoku.png",
     category: "Game",
+    tags: ["React", "Game"],
+    featured: false,
   },
   {
     name: "Read Rhythm",
@@ -57,5 +71,7 @@ export const hobbyApps = [
     url: "https://read-rhythm.vercel.app/",
     image: "/projects/hobby/read-rhythm.png",
     category: "Productivity",
+    tags: ["React", "Utility"],
+    featured: false,
   },
 ];

@@ -10,6 +10,7 @@ import {
   Braces,
   Grid3X3,
   BookOpen,
+  Star,
 } from "lucide-react";
 import SectionWrapper from "./SectionWrapper";
 import { hobbyApps } from "../data/hobbyApps";
@@ -37,7 +38,13 @@ const categoryStyles: Record<string, string> = {
   Productivity: "border-emerald-500/25 bg-emerald-500/10 text-emerald-400",
 };
 
-function HobbyCard({ app, i }: { app: (typeof hobbyApps)[0]; i: number }) {
+function ProjectCard({
+  app,
+  i,
+}: {
+  app: (typeof hobbyApps)[0];
+  i: number;
+}) {
   const { ref, controls, initial } = useScrollReveal({ delay: 0.08 * i });
   const Icon = appIcons[app.name] ?? Wrench;
   const badgeClass =
@@ -60,11 +67,16 @@ function HobbyCard({ app, i }: { app: (typeof hobbyApps)[0]; i: number }) {
         },
       }}
       whileHover={{ y: -4, transition: { duration: 0.25 } }}
-      className="group overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm transition-all duration-300 hover:border-primary-500/20 hover:shadow-xl hover:shadow-primary-600/8"
+      className={`group flex flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm transition-all duration-300 hover:border-primary-500/20 hover:shadow-xl hover:shadow-primary-600/8 ${
+        app.featured ? "md:col-span-2" : ""
+      }`}
     >
-      {/* Image area */}
-      <div className="relative aspect-video overflow-hidden rounded-t-xl">
-        {/* Screenshot */}
+      {/* Image */}
+      <div
+        className={`relative overflow-hidden ${
+          app.featured ? "aspect-[2.2/1]" : "aspect-video"
+        }`}
+      >
         {!imgError && (
           <img
             src={app.image}
@@ -77,23 +89,26 @@ function HobbyCard({ app, i }: { app: (typeof hobbyApps)[0]; i: number }) {
             }`}
           />
         )}
-
-        {/* Fallback — always rendered behind, visible when image missing */}
         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-600/6 to-accent-purple/6">
           <Icon
-            size={36}
+            size={app.featured ? 48 : 36}
             className="text-white/[0.07] transition-all duration-500 group-hover:scale-110 group-hover:text-white/[0.12]"
           />
         </div>
-
-        {/* Bottom gradient overlay */}
         <div className="absolute inset-0 z-20 bg-gradient-to-t from-surface-950/80 via-transparent to-transparent" />
+
+        {/* Featured badge */}
+        {app.featured && (
+          <div className="absolute top-3 left-3 z-30 inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-[11px] font-medium text-amber-400 backdrop-blur-sm">
+            <Star size={12} /> Featured Tool
+          </div>
+        )}
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="flex flex-1 flex-col p-5">
         <span
-          className={`inline-block rounded-full border px-3 py-1 text-[11px] font-medium ${badgeClass}`}
+          className={`inline-block w-fit rounded-full border px-3 py-1 text-[11px] font-medium ${badgeClass}`}
         >
           {app.category}
         </span>
@@ -101,9 +116,21 @@ function HobbyCard({ app, i }: { app: (typeof hobbyApps)[0]; i: number }) {
         <h3 className="mt-3 text-base font-semibold text-white leading-snug">
           {app.name}
         </h3>
-        <p className="mt-1.5 text-sm leading-relaxed text-surface-100/45">
+        <p className="mt-1.5 flex-1 text-sm leading-relaxed text-surface-100/45">
           {app.description}
         </p>
+
+        {/* Tech tags */}
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {app.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-white/[0.06] bg-white/[0.03] px-2.5 py-0.5 text-[10px] font-medium text-surface-100/35"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
 
         <div className="mt-4">
           <motion.a
@@ -126,15 +153,17 @@ function HobbyCard({ app, i }: { app: (typeof hobbyApps)[0]; i: number }) {
 }
 
 export default function HobbyApps() {
+  const sorted = [...hobbyApps].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+
   return (
     <SectionWrapper
       id="hobby-apps"
-      title="Hobby Apps"
-      subtitle="Fun tools and experimental web applications I built"
+      title="Projects & Tools"
+      subtitle="Real-world tools and experimental applications I've built"
     >
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {hobbyApps.map((app, i) => (
-          <HobbyCard key={app.name} app={app} i={i} />
+        {sorted.map((app, i) => (
+          <ProjectCard key={app.name} app={app} i={i} />
         ))}
       </div>
     </SectionWrapper>

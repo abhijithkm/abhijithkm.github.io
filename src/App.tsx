@@ -9,7 +9,6 @@ const About = lazy(() => import("./components/About"));
 const Skills = lazy(() => import("./components/Skills"));
 const Experience = lazy(() => import("./components/Experience"));
 const Achievements = lazy(() => import("./components/Achievements"));
-const Projects = lazy(() => import("./components/Projects"));
 const HobbyApps = lazy(() => import("./components/HobbyApps"));
 const Education = lazy(() => import("./components/Education"));
 const ResumeSummary = lazy(() => import("./components/ai/ResumeSummary"));
@@ -46,7 +45,6 @@ export default function App() {
           <Skills />
           <Experience />
           <Achievements />
-          <Projects />
           <HobbyApps />
           <Education />
           <ResumeSummary />

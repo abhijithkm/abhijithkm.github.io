@@ -183,8 +183,7 @@ export const navLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Tools", href: "#hobby-apps" },
+  { label: "Projects", href: "#hobby-apps" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -195,7 +194,6 @@ export const allSectionIds = [
   "skills",
   "experience",
   "achievements",
-  "projects",
   "hobby-apps",
   "education",
   "contact",
@@ -209,7 +207,6 @@ export const sectionToNav: Record<string, string> = {
   education: "about",
   experience: "experience",
   achievements: "experience",
-  projects: "projects",
   "hobby-apps": "hobby-apps",
   contact: "contact",
 };

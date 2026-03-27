@@ -1,14 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import clsx from "clsx";
 import { navLinks, personalDetails } from "../data/profile";
-import { useActiveSection } from "../hooks/useActiveSection";
+import { useScrollSpy } from "../hooks/useScrollSpy";
+
+const NAVBAR_HEIGHT = 72;
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const active = useActiveSection();
+
+  // Extract section ids from navLinks (strip the leading #)
+  const sectionIds = useMemo(
+    () => navLinks.map((l) => l.href.slice(1)),
+    []
+  );
+
+  const active = useScrollSpy(sectionIds, {
+    navbarOffset: NAVBAR_HEIGHT,
+    defaultSection: "home",
+  });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -37,7 +49,10 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a
           href="#home"
-          onClick={(e) => { e.preventDefault(); handleClick("#home"); }}
+          onClick={(e) => {
+            e.preventDefault();
+            handleClick("#home");
+          }}
           className="text-lg font-bold tracking-tight bg-gradient-to-r from-primary-400 to-accent-cyan bg-clip-text text-transparent"
         >
           {personalDetails.name.split(" ")[0]}
@@ -52,10 +67,15 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  onClick={(e) => { e.preventDefault(); handleClick(link.href); }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleClick(link.href);
+                  }}
                   className={clsx(
-                    "relative px-3 py-2 text-sm font-medium transition-colors rounded-lg",
-                    isActive ? "text-white" : "text-surface-100/60 hover:text-white"
+                    "relative px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-lg",
+                    isActive
+                      ? "text-white"
+                      : "text-surface-100/60 hover:text-white"
                   )}
                 >
                   {link.label}
@@ -63,7 +83,11 @@ export default function Navbar() {
                     <motion.span
                       layoutId="nav-underline"
                       className="absolute inset-x-1 -bottom-0.5 h-0.5 rounded-full bg-gradient-to-r from-primary-400 to-accent-cyan"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 30,
+                      }}
                     />
                   )}
                 </a>
@@ -92,22 +116,28 @@ export default function Navbar() {
             className="md:hidden bg-surface-950/95 backdrop-blur-xl border-b border-white/5 overflow-hidden"
           >
             <ul className="flex flex-col px-6 py-4 gap-1">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => { e.preventDefault(); handleClick(link.href); }}
-                    className={clsx(
-                      "block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
-                      active === link.href.slice(1)
-                        ? "text-white bg-white/5"
-                        : "text-surface-100/60 hover:text-white hover:bg-white/5"
-                    )}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = active === link.href.slice(1);
+                return (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleClick(link.href);
+                      }}
+                      className={clsx(
+                        "block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                        isActive
+                          ? "text-white bg-white/5"
+                          : "text-surface-100/60 hover:text-white hover:bg-white/5"
+                      )}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </motion.div>
         )}

@@ -8,6 +8,7 @@ const Skills = lazy(() => import("./components/Skills"));
 const Experience = lazy(() => import("./components/Experience"));
 const Achievements = lazy(() => import("./components/Achievements"));
 const Projects = lazy(() => import("./components/Projects"));
+const HobbyApps = lazy(() => import("./components/HobbyApps"));
 const Education = lazy(() => import("./components/Education"));
 const Contact = lazy(() => import("./components/Contact"));
 
@@ -31,6 +32,7 @@ export default function App() {
           <Experience />
           <Achievements />
           <Projects />
+          <HobbyApps />
           <Education />
           <Contact />
         </Suspense>

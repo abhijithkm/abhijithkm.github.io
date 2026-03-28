@@ -15,7 +15,7 @@ export default function TerminalAnimation() {
   }, []);
 
   return (
-    <div className="overflow-hidden rounded-xl border border-white/[0.06] bg-black/30 shadow-lg backdrop-blur-sm max-h-40">
+    <div className="overflow-hidden rounded-xl border border-white/[0.06] bg-black/30 shadow-lg backdrop-blur-sm">
       <div className="flex items-center gap-2 border-b border-white/[0.05] px-3.5 py-2">
         <div className="flex gap-1.5">
           <span className="h-2 w-2 rounded-full bg-red-500/50" />
@@ -24,7 +24,7 @@ export default function TerminalAnimation() {
         </div>
         <span className="ml-1.5 text-[10px] text-surface-100/20 font-mono">terminal</span>
       </div>
-      <div className="px-3.5 py-3 font-mono text-[12px] leading-relaxed space-y-0.5">
+      <div className="px-4 py-4 font-mono text-[13px] leading-loose space-y-1">
         {lines.slice(0, visibleLines).map((line, i) => (
           <motion.div
             key={i}

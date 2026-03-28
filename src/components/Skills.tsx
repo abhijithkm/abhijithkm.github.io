@@ -39,8 +39,18 @@ function SkillCard({ skill, i }: { skill: (typeof skills)[0]; i: number }) {
         },
       }}
       whileHover={{ y: -5, transition: { duration: 0.25 } }}
-      className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 backdrop-blur-sm transition-all duration-300 hover:border-primary-500/25 hover:bg-white/[0.05] hover:shadow-lg hover:shadow-primary-600/5"
+      className={clsx(
+        "group relative rounded-2xl border bg-white/[0.02] p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.05] hover:shadow-lg hover:shadow-primary-600/5",
+        skill.highlight
+          ? "border-primary-500/15 hover:border-primary-500/30"
+          : "border-white/[0.06] hover:border-primary-500/25"
+      )}
     >
+      {/* Highlight glow */}
+      {skill.highlight && (
+        <div className="absolute -inset-px -z-10 rounded-2xl bg-gradient-to-br from-primary-500/10 via-transparent to-accent-cyan/5 blur-sm" />
+      )}
+
       {/* Icon dot + name */}
       <div className="flex items-center gap-3">
         <div
@@ -55,6 +65,11 @@ function SkillCard({ skill, i }: { skill: (typeof skills)[0]; i: number }) {
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-white truncate">{skill.name}</h3>
         </div>
+        {skill.highlight && (
+          <span className="shrink-0 rounded-full border border-primary-500/25 bg-primary-500/10 px-2 py-0.5 text-[10px] font-medium text-primary-400">
+            Core
+          </span>
+        )}
         <span
           className={clsx(
             "shrink-0 rounded-full border px-2.5 py-0.5 text-[11px] font-medium",

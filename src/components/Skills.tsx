@@ -5,7 +5,7 @@ import SectionWrapper from "./SectionWrapper";
 import { skills, skillLevelPercent, skillIconColors } from "../data/profile";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
-const categories = ["All", "Frontend", "Backend", "Database"] as const;
+const categories = ["All", "Frontend", "Backend", "Database", "DevOps"] as const;
 
 const levelColor: Record<string, string> = {
   Expert: "from-emerald-400 to-emerald-500",

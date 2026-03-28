@@ -64,10 +64,13 @@ export default function Navbar() {
             e.preventDefault();
             handleClick("#home");
           }}
-          className="text-lg font-bold tracking-tight bg-gradient-to-r from-primary-400 to-accent-cyan bg-clip-text text-transparent"
+          className="flex items-center gap-2"
         >
-          {personalDetails.name.split(" ")[0]}
-          <span className="text-white/70">.KM</span>
+          <img src="/logo.png" alt={personalDetails.name} className="h-8 w-8 rounded-lg" />
+          <span className="text-lg font-bold tracking-tight bg-gradient-to-r from-primary-400 to-accent-cyan bg-clip-text text-transparent">
+            {personalDetails.name.split(" ")[0]}
+            <span className="text-white/70">{personalDetails.logoSuffix}</span>
+          </span>
         </a>
 
         {/* Desktop nav — centered */}

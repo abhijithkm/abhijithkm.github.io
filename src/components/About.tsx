@@ -7,7 +7,7 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 const stats = [
   {
     icon: Briefcase,
-    value: `${new Date().getFullYear() - 2021}+`,
+    value: `${new Date().getFullYear() - personalDetails.careerStartYear}+`,
     label: "Years Experience",
     color: "from-primary-400 to-primary-600",
   },
@@ -113,10 +113,16 @@ export default function About() {
         {/* Right — info */}
         <div className="lg:col-span-3 space-y-7">
           <h3 className="text-2xl font-bold text-white">
-            Software Engineer &{" "}
-            <span className="bg-gradient-to-r from-primary-400 to-accent-cyan bg-clip-text text-transparent">
-              React Developer
-            </span>
+            {personalDetails.aboutTitle.includes("&") ? (
+              <>
+                {personalDetails.aboutTitle.split("&")[0]}&{" "}
+                <span className="bg-gradient-to-r from-primary-400 to-accent-cyan bg-clip-text text-transparent">
+                  {personalDetails.aboutTitle.split("&")[1]?.trim()}
+                </span>
+              </>
+            ) : (
+              personalDetails.aboutTitle
+            )}
           </h3>
 
           <p className="text-base leading-[1.8] text-surface-100/60">
@@ -124,12 +130,7 @@ export default function About() {
           </p>
 
           <p className="text-base leading-[1.8] text-surface-100/45">
-            I enjoy building{" "}
-            <span className="text-surface-100/70 font-medium">clean, performant web applications</span>{" "}
-            and continuously learning new technologies. My experience spans from{" "}
-            <span className="text-surface-100/70 font-medium">frontend React development</span> to{" "}
-            <span className="text-surface-100/70 font-medium">backend PHP/Laravel systems</span> and{" "}
-            <span className="text-surface-100/70 font-medium">cloud deployments on AWS</span>.
+            {personalDetails.aboutExtended}
           </p>
 
           <div className="flex flex-wrap gap-x-6 gap-y-3 pt-4">

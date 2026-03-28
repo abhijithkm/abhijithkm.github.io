@@ -16,7 +16,7 @@ interface Message {
 }
 
 const knowledgeBase = {
-  greeting: `Hi! I'm Abhijith's portfolio assistant. Ask me about his skills, experience, projects, or education.`,
+  greeting: `Hi! I'm ${personalDetails.name.split(" ")[0]}'s portfolio assistant. Ask me about his skills, experience, projects, or education.`,
   skills: `Abhijith is proficient in: ${skills.map((s) => `${s.name} (${s.level})`).join(", ")}.`,
   experience: experience
     .map(
@@ -37,7 +37,7 @@ const knowledgeBase = {
 
 const keywordMap: [string[], string][] = [
   [["skill", "technolog", "know", "stack", "proficien", "language"], knowledgeBase.skills],
-  [["experience", "work", "job", "company", "career", "employ"], `Here's Abhijith's experience:\n${knowledgeBase.experience}`],
+  [["experience", "work", "job", "company", "career", "employ"], `Here's ${personalDetails.name.split(" ")[0]}'s experience:\n${knowledgeBase.experience}`],
   [["project", "built", "portfolio", "app", "hobby"], `Here are his projects:\n${knowledgeBase.projects}`],
   [["education", "degree", "college", "university", "study", "school"], `Education:\n${knowledgeBase.education}`],
   [["contact", "email", "phone", "reach", "hire"], knowledgeBase.contact],
@@ -50,7 +50,7 @@ function getResponse(input: string): string {
   for (const [keywords, response] of keywordMap) {
     if (keywords.some((k) => lower.includes(k))) return response;
   }
-  return "I can answer questions about Abhijith's skills, experience, projects, education, or contact info. Try asking about one of those!";
+  return `I can answer questions about ${personalDetails.name.split(" ")[0]}'s skills, experience, projects, education, or contact info. Try asking about one of those!`;
 }
 
 export default function AIChat() {

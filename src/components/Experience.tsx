@@ -5,12 +5,19 @@ import { experience } from "../data/profile";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const techColors: Record<string, string> = {
+  React: "border-cyan-500/20 bg-cyan-500/8 text-cyan-400",
   ReactJS: "border-cyan-500/20 bg-cyan-500/8 text-cyan-400",
   JavaScript: "border-yellow-500/20 bg-yellow-500/8 text-yellow-400",
+  "C#": "border-violet-500/20 bg-violet-500/8 text-violet-400",
+  ".NET 8": "border-violet-500/20 bg-violet-500/8 text-violet-400",
+  "SQL Server": "border-red-500/20 bg-red-500/8 text-red-400",
+  Redis: "border-red-500/20 bg-red-500/8 text-red-400",
   AWS: "border-orange-500/20 bg-orange-500/8 text-orange-400",
+  Docker: "border-blue-500/20 bg-blue-500/8 text-blue-400",
   PHP: "border-indigo-500/20 bg-indigo-500/8 text-indigo-400",
   MySQL: "border-blue-500/20 bg-blue-500/8 text-blue-400",
   Laravel: "border-red-500/20 bg-red-500/8 text-red-400",
+  Codeigniter: "border-orange-500/20 bg-orange-500/8 text-orange-400",
 };
 
 function TimelineItem({ exp, i }: { exp: (typeof experience)[0]; i: number }) {

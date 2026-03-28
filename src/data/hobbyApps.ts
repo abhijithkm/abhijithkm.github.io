@@ -25,7 +25,7 @@ export const hobbyApps = [
     image: "/projects/hobby/dev-toolbox.png",
     category: "Developer Tools",
     tags: ["React", "Developer Tool"],
-    featured: true,
+    featured: false,
   },
   {
     name: "Page Flow",
@@ -72,6 +72,6 @@ export const hobbyApps = [
     image: "/projects/hobby/read-rhythm.png",
     category: "Productivity",
     tags: ["React", "Utility"],
-    featured: false,
+    featured: true,
   },
 ];

@@ -68,6 +68,7 @@ export default function Hero() {
         className="relative z-10 mx-auto max-w-3xl text-center"
       >
         {/* 1. Availability badge */}
+        {personalDetails.availableForWork && (
         <motion.div variants={fadeUp}>
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-sm text-surface-100/50 backdrop-blur-md">
             <span className="relative flex h-2 w-2">
@@ -77,6 +78,7 @@ export default function Hero() {
             Available for opportunities
           </span>
         </motion.div>
+        )}
 
         {/* 2. Heading */}
         <motion.h1
@@ -110,7 +112,7 @@ export default function Hero() {
           variants={fadeUp}
           className="mt-3 text-sm font-medium text-surface-100/25"
         >
-          Built 8+ developer tools and web applications.
+          {personalDetails.credibilityLine}
         </motion.p>
 
         {/* 5. CTA Buttons */}
@@ -144,7 +146,7 @@ export default function Hero() {
             <Send size={14} className="text-surface-100/40" />
           </a>
           <a
-            href="/resume.pdf"
+            href={personalDetails.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-xl border border-white/[0.12] bg-white/[0.03] px-6 py-3 text-sm font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.06] hover:border-white/20 hover:-translate-y-0.5"

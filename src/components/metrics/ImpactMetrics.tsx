@@ -2,13 +2,13 @@ import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Briefcase, Code2, FolderKanban, Rocket } from "lucide-react";
 import { useInView } from "react-intersection-observer";
-import { skills, projects } from "../../data/profile";
+import { skills, projects, personalDetails } from "../../data/profile";
 import { hobbyApps } from "../../data/hobbyApps";
 
 const metrics = [
   {
     icon: Briefcase,
-    value: new Date().getFullYear() - 2021,
+    value: new Date().getFullYear() - personalDetails.careerStartYear,
     suffix: "+",
     label: "Years Experience",
   },

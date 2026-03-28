@@ -1,14 +1,7 @@
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
+import { personalDetails } from "../../data/profile";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
-
-const highlights = [
-  "Frontend Engineer",
-  "React + TypeScript Specialist",
-  "Experience deploying applications to AWS",
-  "Full-stack experience with Laravel & MySQL",
-  "Built production apps used by real organizations",
-];
 
 export default function ResumeSummary() {
   const { ref, controls, initial } = useScrollReveal();
@@ -21,11 +14,7 @@ export default function ResumeSummary() {
         animate={controls}
         variants={{
           hidden: { opacity: 0, y: 30 },
-          visible: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.6 },
-          },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
         }}
         className="mx-auto max-w-2xl"
       >
@@ -37,12 +26,12 @@ export default function ResumeSummary() {
 
           <h3 className="text-2xl font-bold">
             <span className="bg-gradient-to-r from-primary-400 to-accent-cyan bg-clip-text text-transparent">
-              Abhijith K M
+              {personalDetails.name}
             </span>
           </h3>
 
           <ul className="mt-6 space-y-3">
-            {highlights.map((h, i) => (
+            {personalDetails.recruiterHighlights.map((h, i) => (
               <motion.li
                 key={h}
                 initial={{ opacity: 0, x: -12 }}

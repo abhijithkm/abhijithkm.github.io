@@ -1,7 +1,7 @@
 export const personalDetails = {
   name: "Abhijith K M",
   tagline: "Full-Stack Software Engineer",
-  logoSuffix: ".dev",
+  logoSuffix: ".KM",
   heroDescription:
     "Full-Stack Software Engineer building enterprise React applications with .NET/C# backends, Redux, MUI, and AWS cloud infrastructure. I ship scalable, production-grade software.",
   credibilityLine: "Currently building enterprise SaaS at NimbleXcel with React, .NET 8, and AWS.",

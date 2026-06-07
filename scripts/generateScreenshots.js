@@ -7,14 +7,18 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = resolve(__dirname, "../public/projects/hobby");
 
 const apps = [
-  { name: "capture", url: "https://capture-akm.vercel.app/" },
-  { name: "dev-toolbox", url: "https://dev-toolbox-xi.vercel.app/" },
-  { name: "page-flow", url: "https://page-flow-v2.vercel.app/" },
-  { name: "schema-visualizer", url: "https://schema-visualizer-nu.vercel.app/" },
-  { name: "chrono", url: "https://chrono-five.vercel.app/" },
-  { name: "json-generator", url: "https://json-generator-chi.vercel.app/" },
-  { name: "sudoku", url: "https://sudoku-studio.vercel.app/" },
-  { name: "read-rhythm", url: "https://read-rhythm.vercel.app/" },
+  { name: "schema-visualizer", url: "https://schema.abhijithkm.space" },
+  { name: "capture", url: "https://capture.abhijithkm.space" },
+  { name: "cardamom-app", url: "https://cardamom-app.abhijithkm.space" },
+  { name: "chrono", url: "https://chrono.abhijithkm.space" },
+  { name: "chuttum", url: "https://chuttum.abhijithkm.space" },
+  { name: "dev-toolbox", url: "https://tools.abhijithkm.space" },
+  { name: "ballotrix", url: "https://ballotrix.abhijithkm.space" },
+  { name: "festcape", url: "https://festcape.abhijithkm.space" },
+  { name: "json-generator", url: "https://json.abhijithkm.space" },
+  { name: "page-flow", url: "https://pageflow.abhijithkm.space" },
+  { name: "read-rhythm", url: "https://read.abhijithkm.space" },
+  { name: "sudoku", url: "https://sudoku.abhijithkm.space" },
 ];
 
 async function generateScreenshots() {

@@ -1,21 +1,20 @@
 import React from 'react';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { personalDetails } from '../config/data';
 
 function Footer() {
     return (
-        <footer className="bg-dark text-white">
-            <p>© 2023 Your Name. All rights reserved.</p>
-            <p>
-                <a href="https://github.com/yourusername" className="text-white" style={{ marginRight: '10px' }}>
-                    <GitHubIcon />
-                </a>
-                <a href="https://linkedin.com/in/yourusername" className="text-white">
-                    <LinkedInIcon />
-                </a>
-            </p>
+        <footer id="contact" className="site-footer">
+            <p className="eyebrow">Contact</p>
+            <h2>Let's build something.</h2>
+            <a className="footer-email" href={`mailto:${personalDetails.email}`}>{personalDetails.email}</a>
+            <ul className="footer-links">
+                <li><a href={personalDetails.github} target="_blank" rel="noreferrer">GitHub</a></li>
+                <li><a href={`tel:${personalDetails.phone.replace(/\s/g, '')}`}>{personalDetails.phone}</a></li>
+                <li><a href={personalDetails.resumeUrl} target="_blank" rel="noreferrer">Resume</a></li>
+            </ul>
+            <p className="footer-copyright">© {new Date().getFullYear()} {personalDetails.name}</p>
         </footer>
     );
 }
 
-export default Footer; 
+export default Footer;

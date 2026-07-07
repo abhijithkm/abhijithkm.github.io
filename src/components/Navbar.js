@@ -1,39 +1,46 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { personalDetails } from '../config/data';
+
+function currentTheme() {
+    const set = document.documentElement.getAttribute('data-theme');
+    if (set) return set;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
 
 function Navbar() {
-    const [darkMode, setDarkMode] = useState(false);
+    const [theme, setTheme] = useState(() => currentTheme());
 
-    const toggleDarkMode = () => {
-        setDarkMode(!darkMode);
-        document.body.classList.toggle('bg-dark', !darkMode);
-        document.body.classList.toggle('text-white', !darkMode);
+    const toggleTheme = () => {
+        const next = theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) { /* private mode */ }
+        setTheme(next);
     };
 
     return (
-        <nav className={`navbar navbar-expand-lg ${darkMode ? 'bg-dark' : 'bg-light'} text-white`}>
-            <div className="container-fluid">
-                <Link className="navbar-brand" to="/">My Portfolio</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/about">About</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/projects">Projects</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/resume">Resume</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li>
-                        <li className="nav-item">
-                            <button onClick={toggleDarkMode} className="btn btn-secondary ms-2">
-                                {darkMode ? 'Light Mode' : 'Dark Mode'}
-                            </button>
-                        </li>
-                    </ul>
+        <header className="site-nav">
+            <nav aria-label="Main">
+                <a className="brand" href="#top">Abhijith K M</a>
+                <ul className="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div className="nav-actions">
+                    <a className="btn btn-ghost btn-sm" href={personalDetails.resumeUrl} target="_blank" rel="noreferrer">Resume</a>
+                    <button
+                        type="button"
+                        className="theme-toggle"
+                        onClick={toggleTheme}
+                        aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+                    >
+                        {theme === 'dark' ? '☀' : '☾'}
+                    </button>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </header>
     );
 }
 
-export default Navbar; 
+export default Navbar;

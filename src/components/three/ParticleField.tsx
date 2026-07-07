@@ -71,6 +71,14 @@ function Particles() {
 }
 
 export default function ParticleField() {
+  // Skip the animated canvas entirely for users who prefer reduced motion.
+  if (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    return null;
+  }
+
   return (
     <div className="absolute inset-0 -z-10">
       <Canvas

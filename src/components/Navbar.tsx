@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Palette } from "lucide-react";
 import clsx from "clsx";
@@ -24,7 +24,24 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
+  const themeMenuRef = useRef<HTMLDivElement>(null);
   const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    if (!themeMenuOpen) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!themeMenuRef.current?.contains(e.target as Node)) setThemeMenuOpen(false);
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setThemeMenuOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [themeMenuOpen]);
 
   // Track all sections, then map to the parent nav item
   const rawActive = useScrollSpy(allSectionIds, {
@@ -110,7 +127,7 @@ export default function Navbar() {
           <CommandPaletteHint />
 
           {/* Theme switcher */}
-          <div className="relative">
+          <div className="relative" ref={themeMenuRef}>
             <button
               onClick={() => setThemeMenuOpen(!themeMenuOpen)}
               className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-surface-100/35 transition-colors hover:text-white hover:border-white/10"

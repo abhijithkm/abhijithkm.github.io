@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import { MotionConfig } from "framer-motion";
 import { ThemeProvider } from "./context/ThemeContext";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -27,6 +28,7 @@ function SectionFallback() {
 export default function App() {
   return (
     <ThemeProvider>
+      <MotionConfig reducedMotion="user">
       <Navbar />
       <main className="relative">
         {/* Gradient fade — dims background noise toward bottom */}
@@ -57,6 +59,7 @@ export default function App() {
         <AIChat />
         <CommandPalette />
       </Suspense>
+      </MotionConfig>
     </ThemeProvider>
   );
 }

@@ -2,7 +2,7 @@
 
 > **Purpose of this file:** single source of truth for project state so work can continue
 > from any machine or chat session. **Always update this file when making changes.**
-> Last updated: 2026-07-17
+> Last updated: 2026-07-17 (evening)
 
 ## Project Overview
 
@@ -47,16 +47,16 @@ Hero (3D particle field + terminal animation) → ImpactMetrics → About → Ho
 - [x] Theme menu closes on outside click / Escape
 - [x] puppeteer moved to devDependencies
 - [x] Build + typecheck verified locally
+- [x] Replaced outdated resume with new Full-Stack version in `public/resume.pdf` (link `/resume.pdf` unchanged, already correct)
 
 ## What's Left / TODO
 
 1. **Merge `site-improvements` → `dev`** to deploy (PR: https://github.com/abhijithkm/abhijithkm.github.io/pull/new/site-improvements)
 2. **FormSubmit activation** (owner action): after deploy, submit form once; FormSubmit emails meabhijithkm@gmail.com one-time confirmation link — must click or messages won't deliver
 3. **Profile photo missing**: About section wants `public/profile.jpg` — currently shows initials fallback. Drop photo in `public/`
-4. **resume.pdf content outdated**: still says "Web Developer", no NimbleXcel/.NET/AWS. Regenerate
-5. **Dependabot: 17 vulnerabilities** on default branch (1 critical, 2 high) — https://github.com/abhijithkm/abhijithkm.github.io/security/dependabot
-6. **`Projects.tsx` never rendered**: professional projects (KGOA, feedback software) exist as component + data but missing from App.tsx; referenced images `/projects/kgoa.png`, `/projects/feedback.png` don't exist in public/
-7. Optional: default branch on GitHub is `master` (stale) — consider switching default to `dev`
+4. **Dependabot: 17 vulnerabilities** on default branch (1 critical, 2 high) — https://github.com/abhijithkm/abhijithkm.github.io/security/dependabot
+5. **`Projects.tsx` never rendered**: professional projects (KGOA, feedback software) exist as component + data but missing from App.tsx; referenced images `/projects/kgoa.png`, `/projects/feedback.png` don't exist in public/
+6. Optional: default branch on GitHub is `master` (stale) — consider switching default to `dev`
 
 ## Dev Commands
 

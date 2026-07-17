@@ -25,6 +25,8 @@ Personal portfolio site for Abhijith K M — Full-Stack Software Engineer, Keral
 
 **Never edit master/gh-pages expecting live changes.** Deployment = merge to `dev`, GitHub Actions builds (`tsc -b && vite build`) and publishes `dist/`.
 
+**RULE: never merge/push to `dev` without explicit owner approval** — dev auto-deploys production. Work on feature branches; owner merges when ready.
+
 ## Site Structure
 
 Single-page app. Sections rendered in `src/App.tsx` (most lazy-loaded):

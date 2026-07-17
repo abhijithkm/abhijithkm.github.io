@@ -50,10 +50,11 @@ Hero (3D particle field + terminal animation) → ImpactMetrics → About → Ho
 - [x] puppeteer moved to devDependencies
 - [x] Build + typecheck verified locally
 - [x] Replaced outdated resume with new Full-Stack version in `public/resume.pdf` (link `/resume.pdf` unchanged, already correct)
+- [x] **DEPLOYED (2026-07-18, owner-approved):** resume.pdf cherry-picked onto `dev` (commit `dddcdfb`) — live /resume.pdf now 200. Rest of branch still unmerged
 
 ## What's Left / TODO
 
-1. **Merge `site-improvements` → `dev`** to deploy (PR: https://github.com/abhijithkm/abhijithkm.github.io/pull/new/site-improvements)
+1. **Merge `site-improvements` → `dev`** to deploy remaining fixes — contact form, SEO, a11y (PR: https://github.com/abhijithkm/abhijithkm.github.io/pull/new/site-improvements). Owner merges; resume.pdf already on dev (same content, merges clean)
 2. **FormSubmit activation** (owner action): after deploy, submit form once; FormSubmit emails meabhijithkm@gmail.com one-time confirmation link — must click or messages won't deliver
 3. **Profile photo missing**: About section wants `public/profile.jpg` — currently shows initials fallback. Drop photo in `public/`
 4. **Dependabot: 17 vulnerabilities** on default branch (1 critical, 2 high) — https://github.com/abhijithkm/abhijithkm.github.io/security/dependabot

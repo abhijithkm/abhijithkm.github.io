@@ -51,6 +51,7 @@ Hero (3D particle field + terminal animation) → ImpactMetrics → About → Ho
 - [x] Build + typecheck verified locally
 - [x] Replaced outdated resume with new Full-Stack version in `public/resume.pdf` (link `/resume.pdf` unchanged, already correct)
 - [x] **DEPLOYED (2026-07-18, owner-approved):** resume.pdf cherry-picked onto `dev` (commit `dddcdfb`) — live /resume.pdf now 200. Rest of branch still unmerged
+- [x] **DEPLOYED (2026-07-20, owner-approved):** improved resume pushed to `dev` (commit `8624b14`), live and verified. Changes: 9+ years summary, stronger verbs (Ship/Design/Own/Migrate), Tradesman dates fixed 2017–2021 (gap closed), Kerala location, dropped jQuery/HTML5/ES2023+ noise. Rebuilt via puppeteer + system Chrome from HTML source (scratchpad make-resume-pdf.mjs pattern; still no real metrics — owner to supply tenant/user counts for next revision)
 
 ## What's Left / TODO
 

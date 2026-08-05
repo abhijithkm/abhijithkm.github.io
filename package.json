@@ -8,7 +8,8 @@
     "generate:screenshots": "node scripts/generateScreenshots.js",
     "generate:og": "node scripts/generateOgImage.js",
     "generate": "npm run generate:screenshots && npm run generate:og",
-    "build": "npm run generate && tsc -b && vite build",
+    "prerender": "node scripts/prerender.js",
+    "build": "npm run generate && tsc -b && vite build && npm run prerender",
     "build:quick": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -24,6 +25,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-intersection-observer": "^10.0.3",
+    "react-router-dom": "^7.18.2",
     "three": "^0.183.2"
   },
   "devDependencies": {

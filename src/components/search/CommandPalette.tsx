@@ -2,8 +2,10 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ArrowRight, Command, ExternalLink } from "lucide-react";
 import Fuse from "fuse.js";
+import { useNavigate } from "react-router-dom";
 import { navLinks, allSectionIds, skills, projects } from "../../data/profile";
 import { hobbyApps } from "../../data/hobbyApps";
+import { androidApps } from "../../data/androidApps";
 
 interface SearchItem {
   label: string;
@@ -16,6 +18,7 @@ export default function CommandPalette() {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   const items = useMemo<SearchItem[]>(() => {
     const scrollTo = (id: string) => {
@@ -55,8 +58,16 @@ export default function CommandPalette() {
           window.open(a.url, "_blank", "noopener,noreferrer");
         },
       })),
+      ...androidApps.map((a) => ({
+        label: `Android App: ${a.name}`,
+        type: "app" as const,
+        action: () => {
+          setOpen(false);
+          navigate(`/apps/${a.slug}`);
+        },
+      })),
     ];
-  }, []);
+  }, [navigate]);
 
   const fuse = useMemo(
     () => new Fuse(items, { keys: ["label"], threshold: 0.4 }),

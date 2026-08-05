@@ -298,6 +298,7 @@ export const achievements = [
 export const navLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
+  { label: "Android Apps", href: "#android-apps" },
   { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#hobby-apps" },
@@ -308,6 +309,7 @@ export const navLinks = [
 export const allSectionIds = [
   "home",
   "about",
+  "android-apps",
   "skills",
   "hobby-apps",
   "experience",
@@ -320,6 +322,7 @@ export const allSectionIds = [
 export const sectionToNav: Record<string, string> = {
   home: "home",
   about: "about",
+  "android-apps": "android-apps",
   skills: "skills",
   "hobby-apps": "hobby-apps",
   experience: "experience",

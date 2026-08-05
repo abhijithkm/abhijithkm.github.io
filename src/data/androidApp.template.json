@@ -1,0 +1,63 @@
+{
+  "slug": "my-app-name",
+  "name": "My App Name",
+  "tagline": "One short line describing the app (shown under the name, ~60-80 chars)",
+  "category": "Productivity",
+  "tags": ["Android", "Kotlin", "Jetpack Compose"],
+  "icon": "/apps/my-app-name/icon.png",
+  "screenshots": [
+    "/apps/my-app-name/1.png",
+    "/apps/my-app-name/2.png",
+    "/apps/my-app-name/3.png",
+    "/apps/my-app-name/4.png"
+  ],
+  "playStoreUrl": "https://play.google.com/store/apps/details?id=com.yourname.myapp",
+  "packageId": "com.yourname.myapp",
+  "releaseYear": 2025,
+  "description": [
+    "First paragraph — what the app is and the problem it solves. Two or three sentences.",
+    "Second paragraph — how it works, what makes it different, anything notable about the experience. Add more paragraphs as extra array items if needed."
+  ],
+  "features": [
+    "Feature one — short benefit-focused line",
+    "Feature two",
+    "Feature three",
+    "Feature four (4-8 items look best in the two-column grid)"
+  ],
+  "tech": ["Kotlin", "Jetpack Compose", "Room", "Firebase"],
+  "privacy": {
+    "effectiveDate": "August 5, 2026",
+    "collectsPersonalData": false,
+    "dataCollected": [
+      {
+        "type": "EXAMPLE — Email address (delete this array's items if collectsPersonalData is false)",
+        "purpose": "Why it is collected and where it is stored, e.g. 'Used for account sign-in. Stored securely in Firebase.'"
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Camera",
+        "reason": "Why the app needs it, e.g. 'Used to scan documents. Images never leave your device.'"
+      },
+      {
+        "name": "Notifications",
+        "reason": "Used to deliver reminder alerts you schedule."
+      }
+    ],
+    "thirdPartyServices": [
+      {
+        "name": "Google AdMob (delete if unused)",
+        "url": "https://support.google.com/admob/answer/6128543"
+      },
+      {
+        "name": "Firebase Analytics (delete if unused)",
+        "url": "https://firebase.google.com/support/privacy"
+      }
+    ],
+    "showsAds": false,
+    "usesAnalytics": false,
+    "accountRequired": false,
+    "childDirected": false,
+    "dataDeletionNote": "How users can delete their data, e.g. 'All data lives only on your device. Uninstalling the app or clearing its storage removes everything.'"
+  }
+}

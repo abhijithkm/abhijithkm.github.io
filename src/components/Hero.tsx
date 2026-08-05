@@ -3,7 +3,8 @@ import { motion, type Variants } from "framer-motion";
 import { ArrowDown, Send, FileText, Mail } from "lucide-react";
 import { personalDetails, socialLinks } from "../data/profile";
 import { GithubIcon, LinkedinIcon } from "./SocialIcons";
-import TerminalAnimation from "./terminal/TerminalAnimation";
+// Terminal card hidden for now — restore the import and the block below to bring it back
+// import TerminalAnimation from "./terminal/TerminalAnimation";
 
 const ParticleField = lazy(() => import("./three/ParticleField"));
 
@@ -176,7 +177,7 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* ── Terminal (separate, subdued) ── */}
+      {/* ── Terminal (hidden for now) ──
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 0.85, y: 0 }}
@@ -185,6 +186,7 @@ export default function Hero() {
       >
         <TerminalAnimation />
       </motion.div>
+      */}
 
       {/* ── Scroll indicator ── */}
       <motion.div

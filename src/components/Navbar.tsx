@@ -8,6 +8,7 @@ import {
   sectionToNav,
   personalDetails,
 } from "../data/profile";
+import { androidApps } from "../data/androidApps";
 import { useScrollSpy } from "../hooks/useScrollSpy";
 import { CommandPaletteHint } from "./search/CommandPalette";
 import { useTheme, type ThemeName } from "../context/ThemeContext";
@@ -19,6 +20,11 @@ const themeLabels: { name: ThemeName; label: string }[] = [
   { name: "cyberpunk", label: "Cyber" },
   { name: "minimal", label: "Minimal" },
 ];
+
+// Hide the Android Apps link until real (non-sample) apps exist
+const visibleNavLinks = androidApps.length
+  ? navLinks
+  : navLinks.filter((l) => l.href !== "#android-apps");
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -75,7 +81,7 @@ export default function Navbar() {
 
         {/* Desktop nav — centered */}
         <ul className="hidden md:flex items-center gap-0.5 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1">
-          {navLinks.map((link) => {
+          {visibleNavLinks.map((link) => {
             const id = link.href.slice(1);
             const isActive = activeNav === id;
             return (
@@ -171,7 +177,7 @@ export default function Navbar() {
             className="md:hidden bg-surface-950/95 backdrop-blur-xl border-b border-white/[0.06] overflow-hidden"
           >
             <ul className="flex flex-col px-6 py-4 gap-1">
-              {navLinks.map((link) => {
+              {visibleNavLinks.map((link) => {
                 const id = link.href.slice(1);
                 const isActive = activeNav === id;
                 return (

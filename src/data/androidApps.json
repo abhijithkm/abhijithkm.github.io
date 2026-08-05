@@ -1,0 +1,191 @@
+[
+  {
+    "slug": "motora",
+    "name": "Motora",
+    "tagline": "Your vehicle's digital logbook — fuel, service, and expenses",
+    "category": "Auto & Vehicles",
+    "tags": [
+      "Android",
+      "React Native",
+      "Expo",
+      "TypeScript"
+    ],
+    "icon": "/apps/motora/icon.png",
+    "screenshots": [
+      "/apps/motora/1.png",
+      "/apps/motora/2.png",
+      "/apps/motora/3.png",
+      "/apps/motora/4.png"
+    ],
+    "playStoreUrl": null,
+    "packageId": "com.motora.app",
+    "releaseYear": 2026,
+    "description": [
+      "Motora is a private service book for your vehicles. Log every fill-up, service, and expense in seconds, and keep the full history of each car or bike in one place — the kind of record that pays for itself when something needs proving.",
+      "It works entirely offline. There is no account to create and nothing is uploaded, so your registration details, mileage, and spending stay on your phone. Set your own currency and units, get reminded before insurance or a service falls due, and export the whole book as a PDF or spreadsheet whenever you need it."
+    ],
+    "features": [
+      "Log fuel, service, expenses, and reminders in seconds",
+      "A running timeline of everything each vehicle has been through",
+      "Reminders by date or by distance, so nothing lapses",
+      "Fuel efficiency and spending trends over time",
+      "Your currency, your units — rupees or dollars, kilometres or miles",
+      "Fully offline: no account, no sync, no tracking",
+      "Export any vehicle history as a PDF service book or CSV",
+      "Multiple vehicles, each with its own record"
+    ],
+    "tech": [
+      "React Native",
+      "Expo SDK 57",
+      "TypeScript",
+      "SQLite",
+      "Zod"
+    ],
+    "privacy": {
+      "effectiveDate": "August 5, 2026",
+      "collectsPersonalData": false,
+      "dataCollected": [],
+      "permissions": [],
+      "thirdPartyServices": [],
+      "showsAds": false,
+      "usesAnalytics": false,
+      "accountRequired": false,
+      "childDirected": false,
+      "dataDeletionNote": "Everything you record stays in Motora's own storage on your device. Deleting a vehicle removes its records, and uninstalling the app or clearing its storage from Android settings permanently removes all of it. Because nothing is ever uploaded, there is no copy for us to delete."
+    }
+  },
+  {
+    "slug": "sample-notes",
+    "sample": true,
+    "name": "Quick Notes (Sample)",
+    "tagline": "Fast, offline-first note taking with markdown support",
+    "category": "Productivity",
+    "tags": [
+      "Android",
+      "Kotlin",
+      "Jetpack Compose"
+    ],
+    "icon": "/apps/sample-notes/icon.svg",
+    "screenshots": [
+      "/apps/sample-notes/1.svg",
+      "/apps/sample-notes/2.svg",
+      "/apps/sample-notes/3.svg"
+    ],
+    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.example.quicknotes",
+    "packageId": "com.example.quicknotes",
+    "releaseYear": 2024,
+    "description": [
+      "Quick Notes is a lightweight, offline-first note taking app built for speed. Capture ideas the moment they strike — no sign-up, no sync delays, no clutter.",
+      "Notes are stored locally on your device using Room, with full markdown rendering, tag-based organization, and reminder notifications so nothing slips through."
+    ],
+    "features": [
+      "Offline-first — works with zero network access",
+      "Markdown editing with live preview",
+      "Tags and full-text search",
+      "Reminder notifications for time-sensitive notes",
+      "Light and dark themes",
+      "Local backup and restore"
+    ],
+    "tech": [
+      "Kotlin",
+      "Jetpack Compose",
+      "Room",
+      "WorkManager",
+      "Material 3"
+    ],
+    "privacy": {
+      "effectiveDate": "August 5, 2026",
+      "collectsPersonalData": false,
+      "dataCollected": [],
+      "permissions": [
+        {
+          "name": "Notifications",
+          "reason": "Used to deliver the reminder alerts you schedule for your notes."
+        }
+      ],
+      "thirdPartyServices": [],
+      "showsAds": false,
+      "usesAnalytics": false,
+      "accountRequired": false,
+      "childDirected": false,
+      "dataDeletionNote": "All notes live only on your device. Uninstalling the app, or clearing its storage from Android settings, permanently removes all data."
+    }
+  },
+  {
+    "slug": "sample-trailfit",
+    "sample": true,
+    "name": "TrailFit (Sample)",
+    "tagline": "Track walks, hikes, and daily steps with route maps",
+    "category": "Health & Fitness",
+    "tags": [
+      "Android",
+      "Kotlin",
+      "Maps"
+    ],
+    "icon": "/apps/sample-trailfit/icon.svg",
+    "screenshots": [
+      "/apps/sample-trailfit/1.svg",
+      "/apps/sample-trailfit/2.svg",
+      "/apps/sample-trailfit/3.svg"
+    ],
+    "playStoreUrl": null,
+    "packageId": "com.example.trailfit",
+    "releaseYear": 2025,
+    "description": [
+      "TrailFit turns your phone into a simple activity companion. Track walks, runs, and hikes with live route maps, distance, pace, and elevation.",
+      "A clean dashboard summarizes your week at a glance, and every workout is stored on your device so your history is always available — even offline."
+    ],
+    "features": [
+      "Live GPS route tracking with map view",
+      "Daily step counting via device sensors",
+      "Weekly distance and pace summaries",
+      "Elevation and calorie estimates",
+      "Workout history stored on-device"
+    ],
+    "tech": [
+      "Kotlin",
+      "Jetpack Compose",
+      "Google Maps SDK",
+      "Room"
+    ],
+    "privacy": {
+      "effectiveDate": "August 5, 2026",
+      "collectsPersonalData": true,
+      "dataCollected": [
+        {
+          "type": "Location (GPS)",
+          "purpose": "To draw your route on the map and measure distance while a workout is being recorded. Location history is stored only on your device."
+        },
+        {
+          "type": "Physical activity (step count)",
+          "purpose": "To show daily step totals. Read from your device's built-in sensors and stored only on your device."
+        }
+      ],
+      "permissions": [
+        {
+          "name": "Location (precise)",
+          "reason": "Required to record your route while tracking a walk, run, or hike. Only active during a workout."
+        },
+        {
+          "name": "Physical activity",
+          "reason": "Required to count steps using the device's activity sensors."
+        }
+      ],
+      "thirdPartyServices": [
+        {
+          "name": "Google Maps Platform",
+          "url": "https://policies.google.com/privacy"
+        },
+        {
+          "name": "Google AdMob",
+          "url": "https://support.google.com/admob/answer/6128543"
+        }
+      ],
+      "showsAds": true,
+      "usesAnalytics": false,
+      "accountRequired": false,
+      "childDirected": false,
+      "dataDeletionNote": "Workout history is stored only on your device. You can delete individual workouts inside the app, or remove everything by clearing the app's storage or uninstalling it."
+    }
+  }
+]

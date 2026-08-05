@@ -1,24 +1,24 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Footer from "./components/Footer";
+import Home from "./pages/Home";
 
-const ImpactMetrics = lazy(() => import("./components/metrics/ImpactMetrics"));
-const About = lazy(() => import("./components/About"));
-const Skills = lazy(() => import("./components/Skills"));
-const Experience = lazy(() => import("./components/Experience"));
-const Achievements = lazy(() => import("./components/Achievements"));
-const HobbyApps = lazy(() => import("./components/HobbyApps"));
-const Education = lazy(() => import("./components/Education"));
-const ResumeSummary = lazy(() => import("./components/ai/ResumeSummary"));
-const Contact = lazy(() => import("./components/Contact"));
-const AIChat = lazy(() => import("./components/ai/AIChat"));
-import CommandPalette from "./components/search/CommandPalette";
+const AppsIndex = lazy(() => import("./pages/apps/AppsIndex"));
+const AppDetail = lazy(() => import("./pages/apps/AppDetail"));
+const AppPrivacy = lazy(() => import("./pages/apps/AppPrivacy"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
-function SectionFallback() {
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname]);
+  return null;
+}
+
+function PageFallback() {
   return (
-    <div className="flex items-center justify-center py-32 text-surface-100/10">
+    <div className="flex min-h-screen items-center justify-center">
       <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary-500/30 border-t-primary-500" />
     </div>
   );
@@ -27,35 +27,15 @@ function SectionFallback() {
 export default function App() {
   return (
     <ThemeProvider>
-      <Navbar />
-      <main className="relative">
-        {/* Gradient fade — dims background noise toward bottom */}
-        <div
-          className="pointer-events-none fixed inset-0 z-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(2,6,23,0) 0%, rgba(2,6,23,0.3) 40%, rgba(2,6,23,0.85) 100%)",
-          }}
-        />
-        <div className="relative z-10">
-        <Hero />
-        <Suspense fallback={<SectionFallback />}>
-          <ImpactMetrics />
-          <About />
-          <HobbyApps />
-          <Skills />
-          <Experience />
-          <Achievements />
-          <Education />
-          <ResumeSummary />
-          <Contact />
-        </Suspense>
-        </div>
-      </main>
-      <Footer />
-      <Suspense fallback={null}>
-        <AIChat />
-        <CommandPalette />
+      <ScrollToTop />
+      <Suspense fallback={<PageFallback />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/apps" element={<AppsIndex />} />
+          <Route path="/apps/:slug" element={<AppDetail />} />
+          <Route path="/apps/:slug/privacy" element={<AppPrivacy />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </Suspense>
     </ThemeProvider>
   );

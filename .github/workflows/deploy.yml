@@ -36,6 +36,11 @@ jobs:
       - name: Build
         run: npx vite build
 
+      - name: Prerender app pages
+        run: |
+          npx puppeteer browsers install chrome
+          node scripts/prerender.js
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

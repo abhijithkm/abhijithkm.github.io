@@ -22,7 +22,7 @@
     "releaseYear": 2026,
     "description": [
       "Motora is a private service book for your vehicles. Log every fill-up, service, and expense in seconds, and keep the full history of each car or bike in one place — the kind of record that pays for itself when something needs proving.",
-      "It works entirely offline. There is no account to create and nothing is uploaded, so your registration details, mileage, and spending stay on your phone. Set your own currency and units, get reminded before insurance or a service falls due, and export the whole book as a PDF or spreadsheet whenever you need it."
+      "It works entirely offline. There is no account to create and nothing is uploaded, so your registration details, mileage, and spending stay on your phone. Set your own currency and units, get a reminder before insurance or a service falls due, and keep a backup file you can carry to a new phone."
     ],
     "features": [
       "Log fuel, service, expenses, and reminders in seconds",
@@ -31,7 +31,9 @@
       "Fuel efficiency and spending trends over time",
       "Your currency, your units — rupees or dollars, kilometres or miles",
       "Fully offline: no account, no sync, no tracking",
-      "Export any vehicle history as a PDF service book or CSV",
+      "Back up and restore your whole logbook as a single file",
+      "Keep insurance and registration documents on your phone, not in a drawer",
+      "Light and dark themes, or just follow your device",
       "Multiple vehicles, each with its own record"
     ],
     "tech": [
@@ -45,13 +47,22 @@
       "effectiveDate": "August 5, 2026",
       "collectsPersonalData": false,
       "dataCollected": [],
-      "permissions": [],
+      "permissions": [
+        {
+          "name": "Notifications",
+          "reason": "Used only to deliver the reminders you set yourself, scheduled on the device. Motora does not use push notifications, so no messages are ever sent to it from a server."
+        },
+        {
+          "name": "Storage",
+          "reason": "Used only when you pick a file yourself — a document to attach, or a backup to save or restore. Documents you attach are copied into Motora's own private storage on the device. Motora reads and writes nothing on its own, and never scans your files."
+        }
+      ],
       "thirdPartyServices": [],
       "showsAds": false,
       "usesAnalytics": false,
       "accountRequired": false,
       "childDirected": false,
-      "dataDeletionNote": "Everything you record stays in Motora's own storage on your device. Deleting a vehicle removes its records, and uninstalling the app or clearing its storage from Android settings permanently removes all of it. Because nothing is ever uploaded, there is no copy for us to delete."
+      "dataDeletionNote": "Everything you record stays in Motora's own storage on your device. Deleting a vehicle removes its records, 'Delete all records' in Settings › Backup and restore clears everything at once, and uninstalling the app removes all of it. Any backup file you chose to save stays wherever you saved it, under your control. Because nothing is ever uploaded, there is no copy for us to delete."
     }
   },
   {

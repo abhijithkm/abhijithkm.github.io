@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Play Store Publish Checklist</title>
+<style>
+  :root {
+    --bg: #f6f8fa;
+    --surface: #ffffff;
+    --surface-2: #eef1f5;
+    --text: #121821;
+    --text-2: #59636f;
+    --text-3: #8c96a3;
+    --border: rgba(18,24,33,0.10);
+    --border-strong: rgba(18,24,33,0.18);
+    --accent: #0b8457;
+    --accent-soft: rgba(11,132,87,0.10);
+    --on-accent: #ffffff;
+    --warn: #9a6b0c;
+    --warn-soft: rgba(154,107,12,0.12);
+    --danger: #c33726;
+    --danger-soft: rgba(195,55,38,0.10);
+    --shadow: 0 1px 3px rgba(18,24,33,0.08), 0 4px 16px rgba(18,24,33,0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #11151c;
+    --surface: #1a2029;
+    --surface-2: #212834;
+    --text: #edf1f7;
+    --text-2: #98a2b3;
+    --text-3: #6b7686;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.16);
+    --accent: #2ec48e;
+    --accent-soft: rgba(46,196,142,0.14);
+    --on-accent: #06281c;
+    --warn: #e8b04b;
+    --warn-soft: rgba(232,176,75,0.14);
+    --danger: #f07a66;
+    --danger-soft: rgba(240,122,102,0.14);
+    --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.25);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    font-size: 15px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 16px 16px 80px; }
+
+  /* ── Header ─────────────────────────── */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0 8px;
+    margin-bottom: 16px;
+  }
+  .header-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  h1 { font-size: 19px; font-weight: 700; letter-spacing: -0.2px; margin-right: auto; white-space: nowrap; }
+  h1 .badge { font-size: 11px; font-weight: 600; vertical-align: middle; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 1px 8px; margin-left: 8px; }
+  select, button, input[type="text"], input[type="search"] {
+    font: inherit; color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 6px 10px;
+  }
+  select:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 1px;
+  }
+  button { cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 600; }
+  button.subtle { background: transparent; border-color: transparent; color: var(--text-2); }
+  button.subtle:hover { color: var(--text); border-color: var(--border-strong); }
+  #appSelect { min-width: 160px; max-width: 260px; font-weight: 600; }
+
+  /* ── Progress ───────────────────────── */
+  .progress-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    box-shadow: var(--shadow); padding: 16px 18px; margin-bottom: 14px;
+  }
+  .progress-top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .progress-pct { font-size: 34px; font-weight: 800; letter-spacing: -1px; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .progress-counts { color: var(--text-2); font-size: 13.5px; }
+  .progress-counts b { color: var(--text); }
+  .bar { height: 10px; background: var(--surface-2); border-radius: 999px; overflow: hidden; margin-top: 10px; }
+  .bar-fill { height: 100%; width: 0%; background: var(--accent); border-radius: 999px; transition: width .35s ease; }
+
+  /* ── Toolbar ────────────────────────── */
+  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 18px; }
+  .toolbar input[type="search"] { flex: 1 1 220px; min-width: 180px; }
+  .toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; color: var(--text-2); cursor: pointer; user-select: none; padding: 6px 4px; }
+
+  /* ── Sections ───────────────────────── */
+  .section {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    box-shadow: var(--shadow); margin-bottom: 14px; overflow: hidden;
+  }
+  .section-head {
+    display: flex; align-items: center; gap: 10px; width: 100%;
+    padding: 13px 16px; background: transparent; border: 0; text-align: left;
+    cursor: pointer; color: var(--text);
+  }
+  .section-head:hover { background: var(--surface-2); border-color: transparent; }
+  .section-num {
+    flex: none; width: 28px; height: 28px; border-radius: 8px;
+    background: var(--accent-soft); color: var(--accent);
+    font-weight: 700; font-size: 13px; display: grid; place-items: center;
+  }
+  .section-title { font-size: 15.5px; font-weight: 700; flex: 1; }
+  .section-count { font-size: 12.5px; color: var(--text-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .section-count.done-all { color: var(--accent); font-weight: 700; }
+  .chev { flex: none; color: var(--text-3); transition: transform .2s; font-size: 12px; }
+  .section.collapsed .chev { transform: rotate(-90deg); }
+  .section.collapsed .section-body { display: none; }
+  .section-body { border-top: 1px solid var(--border); }
+
+  /* ── Items ──────────────────────────── */
+  .item { display: flex; gap: 11px; padding: 11px 16px 11px 14px; border-bottom: 1px solid var(--border); }
+  .item:last-child { border-bottom: 0; }
+  .item.hidden-by-filter { display: none; }
+  .item-check {
+    flex: none; width: 22px; height: 22px; margin-top: 2px;
+    accent-color: var(--accent); cursor: pointer;
+  }
+  .item-main { flex: 1; min-width: 0; }
+  .item-title-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .item-title { font-weight: 600; font-size: 14.5px; cursor: pointer; }
+  .spec {
+    font-family: Consolas, "Cascadia Mono", monospace; font-size: 11.5px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 1px 7px; color: var(--text-2); white-space: nowrap;
+  }
+  .item-detail { color: var(--text-2); font-size: 13.5px; margin-top: 2px; }
+  .item-actions { display: flex; gap: 4px; flex: none; align-items: flex-start; padding-top: 1px; }
+  .mini-btn {
+    font-size: 11.5px; padding: 3px 9px; border-radius: 6px;
+    border: 1px solid var(--border-strong); background: transparent; color: var(--text-2);
+  }
+  .mini-btn:hover { color: var(--text); }
+  .mini-btn.active-na { background: var(--warn-soft); border-color: var(--warn); color: var(--warn); font-weight: 700; }
+  .mini-btn.has-note { color: var(--accent); border-color: var(--accent); }
+  .item.state-done .item-title, .item.state-na .item-title { text-decoration: line-through; color: var(--text-3); }
+  .item.state-done .item-detail, .item.state-na .item-detail { color: var(--text-3); }
+  .item.state-na { opacity: 0.75; }
+  .note-box { margin-top: 8px; }
+  .note-box textarea {
+    width: 100%; min-height: 56px; resize: vertical;
+    font: inherit; font-size: 13px; color: var(--text);
+    background: var(--surface-2); border: 1px solid var(--border-strong);
+    border-radius: 8px; padding: 8px 10px;
+  }
+
+  /* ── Misc ───────────────────────────── */
+  .storage-warning {
+    background: var(--danger-soft); border: 1px solid var(--danger); color: var(--danger);
+    padding: 10px 14px; border-radius: 10px; margin-bottom: 14px; font-size: 13.5px; display: none;
+  }
+  footer { margin-top: 28px; color: var(--text-3); font-size: 12.5px; text-align: center; }
+  dialog {
+    border: 1px solid var(--border-strong); border-radius: 14px; padding: 20px;
+    background: var(--surface); color: var(--text); max-width: 420px; width: calc(100% - 40px);
+    box-shadow: var(--shadow);
+  }
+  dialog::backdrop { background: rgba(0,0,0,0.45); }
+  dialog h2 { font-size: 16px; margin-bottom: 10px; }
+  dialog p { font-size: 13.5px; color: var(--text-2); margin-bottom: 12px; }
+  dialog input[type="text"] { width: 100%; margin-bottom: 14px; }
+  .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; }
+
+  /* ── Asset templates ────────────────── */
+  .asset-controls {
+    display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+    padding: 12px 16px; border-bottom: 1px solid var(--border);
+    font-size: 13px; color: var(--text-2);
+  }
+  .asset-controls label { display: inline-flex; align-items: center; gap: 6px; }
+  .asset-controls input[type="color"] {
+    width: 36px; height: 26px; padding: 2px;
+    border: 1px solid var(--border-strong); border-radius: 6px;
+    background: var(--surface); cursor: pointer;
+  }
+  .asset-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 10px; padding: 14px 16px;
+  }
+  .asset-btn {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 5px;
+    text-align: left; padding: 10px 12px; border-radius: 10px;
+  }
+  .asset-btn b { font-size: 13.5px; }
+  .asset-note { padding: 0 16px 14px; font-size: 12.5px; color: var(--text-3); }
+
+  @media print {
+    header, .toolbar, .item-actions, .storage-warning, .no-print, #assetCard { display: none !important; }
+    .section { break-inside: avoid; box-shadow: none; }
+    .section.collapsed .section-body { display: block; }
+    body { background: #fff; color: #000; font-size: 12px; }
+    .progress-card { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="header-row">
+      <h1>Play Store publish checklist<span class="badge">Aug 2026</span></h1>
+      <label for="appSelect" style="font-size:13px;color:var(--text-2)">App:</label>
+      <select id="appSelect" aria-label="Select app profile"></select>
+      <button id="newAppBtn" class="primary" title="Start a fresh checklist for a new app">+ New app</button>
+      <button id="renameBtn" class="subtle" title="Rename current app profile">✏️</button>
+      <button id="themeBtn" class="subtle" title="Toggle theme (auto / light / dark)">◐</button>
+    </div>
+  </header>
+
+  <div class="storage-warning" id="storageWarning">
+    ⚠️ This browser is blocking local storage, so ticks will NOT be saved. Open the file in a
+    regular (non-private) window to keep your progress.
+  </div>
+
+  <div class="progress-card" role="region" aria-label="Overall progress">
+    <div class="progress-top">
+      <span class="progress-pct" id="pct">0%</span>
+      <span class="progress-counts" id="counts"></span>
+    </div>
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="barOuter">
+      <div class="bar-fill" id="barFill"></div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <input type="search" id="search" placeholder="Filter items… (e.g. screenshot, keystore, data safety)" aria-label="Filter checklist items">
+    <label class="toggle"><input type="checkbox" id="hideDone"> Hide completed</label>
+    <button id="expandAll" class="subtle">Expand all</button>
+    <button id="collapseAll" class="subtle">Collapse all</button>
+  </div>
+
+  <section class="section" id="assetCard">
+    <button class="section-head" id="assetHead" aria-expanded="true">
+      <span class="section-num">🎨</span>
+      <span class="section-title">Placeholder asset templates</span>
+      <span class="section-count">6 downloads</span>
+      <span class="chev">▼</span>
+    </button>
+    <div class="section-body">
+      <div class="asset-controls">
+        <label>Accent <input type="color" id="assetAccent" value="#2ec48e" aria-label="Template accent color"></label>
+        <label>Background <input type="color" id="assetBg" value="#11151c" aria-label="Template background color"></label>
+        <span>Generated in-browser at the exact required size, stamped with the current app's name — download and customize.</span>
+      </div>
+      <div class="asset-grid" id="assetGrid"></div>
+      <div class="asset-note">
+        ⚠️ The screenshot frames are for drafting and size reference only — Play's metadata policy requires final
+        screenshots to show the real app. The icon and feature-graphic templates are safe starting points to build on.
+      </div>
+    </div>
+  </section>
+
+  <main id="sections"></main>
+
+  <footer>
+    <div>Progress saves automatically in this browser (localStorage), separately per app profile.</div>
+    <div>Specs and policy facts verified August 2026 — Google changes limits yearly, so re-check anything critical when reusing this much later.</div>
+    <div class="no-print" style="margin-top:6px">
+      <button id="exportBtn" class="subtle">Export JSON</button>
+      <button id="importBtn" class="subtle">Import JSON</button>
+      <button id="printBtn" class="subtle">Print</button>
+      <button id="resetBtn" class="subtle">Reset this app's checklist</button>
+      <button id="deleteBtn" class="subtle" style="color:var(--danger)">Delete this app profile</button>
+      <input type="file" id="importFile" accept="application/json" style="display:none">
+    </div>
+  </footer>
+</div>
+
+<dialog id="promptDialog">
+  <h2 id="promptTitle">New app</h2>
+  <p id="promptMsg">Name the app you're publishing. A fresh, empty checklist is created for it.</p>
+  <input type="text" id="promptInput" placeholder="e.g. Motora" maxlength="60">
+  <div class="dialog-actions">
+    <button id="promptCancel" class="subtle">Cancel</button>
+    <button id="promptOk" class="primary">Create</button>
+  </div>
+</dialog>
+
+<script>
+'use strict';
+
+/* ════════════════════════════════════════════════════════════════════
+   CHECKLIST CONTENT — facts verified Aug 2026 against Google's docs.
+   Item ids are permanent: state is stored against them, so never rename
+   an id; add new ones instead.
+   ════════════════════════════════════════════════════════════════════ */
+const CHECKLIST = [
+{
+  id: 'account', title: 'Google Play developer account (one-time)',
+  items: [
+    { id: 'acct-create', title: 'Create the Play Console developer account', spec: '$25 one-time',
+      detail: 'play.google.com/console — sign up with the Google account you want to own your apps permanently (the Account Owner is very hard to change). $25 non-refundable fee; prepaid cards are rejected, and the card + any requested government ID should be in your real legal name.' },
+    { id: 'acct-type', title: 'Choose account type deliberately: personal vs organization',
+      detail: 'No in-place conversion later — switching means a new account and app transfers. Organizations need a D-U-N-S number (free, but can take 30+ days to issue) and publish under a business identity. Personal accounts are tied to your legal name AND must pass the closed-testing gate before their first production release. Government and finance apps effectively require an organization account.' },
+    { id: 'acct-address', title: 'Understand what becomes public before you monetize',
+      detail: 'Personal accounts show developer name, country and email publicly — and once you sell anything (paid app or IAP), your full legal address is published on every listing too. If that address is your home, consider an organization account with a business address instead.' },
+    { id: 'acct-verify', title: 'Complete identity verification before the deadline',
+      detail: 'Personal: legal name + address (via payments profile) + government ID. Organization: D-U-N-S match — the legal name/address on your payments profile must match the D&B record exactly (mismatch is the #1 verification failure). Your deadline is shown on the Account details page; missing it gets the account restricted and apps removed. Payment-method verification can take up to 5 days.' },
+    { id: 'acct-contact', title: 'Verify contact email and phone (OTP) — and keep them alive',
+      detail: 'Both are verified with one-time codes and must stay operational for the life of the account. These are for Google and are NOT shown publicly (the public listing email is separate).' },
+    { id: 'acct-device', title: 'Verify access to a real Android device (new personal accounts)',
+      detail: 'Since early 2024, new personal accounts must confirm access to a physical Android device via the Play Console mobile app before publishing. Install the Play Console app on your phone and complete this early so it never blocks a release.' },
+    { id: 'acct-dsa', title: 'Declare EU DSA trader status',
+      detail: 'Required to distribute in the EEA; collected during account verification. Monetized = trader: your address, phone and email are shown publicly on EU listings. Non-traders get a consumer-notice label instead. No declaration → app removed from EU storefronts.' },
+    { id: 'acct-payments', title: 'Set up the payments profile (only if paid app or IAP)',
+      detail: 'Doubles as your merchant profile for selling. Create it with exact legal details — it feeds identity verification and the public profile. Only the Account Owner can link or edit it. Includes tax forms (W-8/W-9).' },
+    { id: 'acct-2fa', title: 'Turn on 2-Step Verification',
+      detail: 'Mandatory for Play Console sign-in. Use an authenticator app or security key rather than SMS, and require 2SV of anyone you invite.' },
+    { id: 'acct-users', title: 'Invite collaborators via Users & permissions (never share the owner login)',
+      detail: 'Play Console → Users and permissions: per-user roles with account-level or app-level permissions, optional expiry; invites lapse after 30 days. Only the Account Owner can manage payments. Solo dev: mark N/A.' },
+    { id: 'acct-devverify', title: 'Be aware: Android developer verification (2026+)',
+      detail: 'Separate from Play Console — from Sept 30, 2026 certified Android devices in Brazil, Indonesia, Singapore and Thailand block installs from unverified developers, with global rollout planned 2027+. Developers verified through Play Console are covered; staying verified covers you here too.' },
+  ]
+},
+{
+  id: 'identity', title: 'App identity & project configuration',
+  items: [
+    { id: 'id-package', title: 'Choose the final application ID (package name)', spec: 'permanent, never reusable',
+      detail: 'e.g. com.yourname.appname — all lowercase, a domain you control. It can NEVER be changed after the first upload, and a deleted app’s package can never be reused. A new package name = a new app with zero users and reviews.' },
+    { id: 'id-name', title: 'Decide the app display name', spec: '≤30 chars',
+      detail: 'Metadata policy bans emoji/emoticons/repeated special characters, ALL CAPS (unless it is genuinely your brand), rank claims ("#1", "best"), and price/promo text in the name.' },
+    { id: 'id-version', title: 'Set a versioning scheme (versionCode / versionName)', spec: 'max 2,100,000,000',
+      detail: 'versionCode is an integer that must strictly increase with every upload, including test-track uploads, with a hard ceiling of 2,100,000,000 — so don’t burn huge ranges (like datetime stamps) casually. versionName is the human-readable "1.0.0".' },
+    { id: 'id-icon-src', title: 'Prepare the icon source art as a flat, full-bleed square',
+      detail: 'No rounded corners, drop shadows or bevels baked into the pixels — Play masks icons itself with a 30%-radius corner and adds its own shadow, so pre-baked effects double up and look broken.' },
+    { id: 'id-adaptive', title: 'Configure the adaptive icon (foreground + background layers)', spec: 'artwork inside 66% circle',
+      detail: 'Foreground layer needs a transparent background, with all important artwork inside a centered circle 66% of the canvas wide — launchers crop to circles/squircles and clip anything outside. Background layer is a solid color or simple pattern.' },
+    { id: 'id-splash', title: 'Configure the splash screen',
+      detail: 'Android 12+ builds a system splash from your icon and a background color — verify it looks intentional, not like a default white flash.' },
+    { id: 'id-debug', title: 'Strip debug artifacts from the release build',
+      detail: 'debuggable=false, verbose logging compiled out, no dev menu reachable, no hardcoded dev-server URLs. usesCleartextTraffic already defaults to false on modern targets — don’t re-enable it globally for one endpoint.' },
+    { id: 'id-perms', title: 'Remove every permission you do not actually use',
+      detail: 'Audit the MERGED manifest — libraries add permissions silently. Each sensitive permission must map to a visible user-facing feature; unjustified permissions are a classic rejection. See the "Restricted permissions" section for the high-risk ones.' },
+  ]
+},
+{
+  id: 'legal', title: 'Legal & privacy preparation',
+  items: [
+    { id: 'legal-privacy', title: 'Write and host the privacy policy at a stable public URL',
+      detail: 'Required for every app, even with zero data collection. Must: be labeled "privacy policy", name the developer entity from the listing, describe data access/collection/use/sharing, include retention and deletion policy, and live at an active, publicly accessible, non-geo-fenced, NON-EDITABLE URL that is not a PDF (so no Google Doc links). It must match your Data safety answers exactly.' },
+    { id: 'legal-deletion', title: 'Build BOTH account-deletion paths (if users can create accounts)',
+      detail: 'Apps allowing in-app account creation must offer deletion (1) inside the app AND (2) via a web link that works without reinstalling the app. Deletion must actually delete associated data (not deactivate), with any retention exceptions disclosed. The web link is declared in the Data safety form. No accounts → N/A.' },
+    { id: 'legal-tos', title: 'Terms of service (optional but recommended)',
+      detail: 'Not required by Play, but wise once you have subscriptions, user content, or anything users could dispute.' },
+    { id: 'legal-oss', title: 'Add open-source license attributions',
+      detail: 'Most OSS licenses (Apache-2.0, MIT) require attribution in distributed products. An "Open source licenses" screen or About section covers it.' },
+    { id: 'legal-ip', title: 'Check name, icon and screenshots for trademark/copyright conflicts',
+      detail: 'Search Play and a trademark database for confusingly similar names. No third-party logos, characters or brand assets anywhere; "Official" claims require rights. Impersonation is enforced aggressively, including developer names implying Google affiliation.' },
+    { id: 'legal-inventory', title: 'Build a data inventory (feeds the Data safety form)',
+      detail: 'List every data type your app touches across Google’s 14 categories: what you collect AND what every SDK collects (analytics, crash reporting, ads). For each: collected or shared? purpose? optional or required? encrypted in transit? deletable? You alone are responsible for accuracy — Google’s review does not verify it, but misrepresentation blocks updates or removes the app later.' },
+    { id: 'legal-region', title: 'Consider regional rules (GDPR / CCPA / consent)',
+      detail: 'Collecting personal data from the EU/California needs a lawful basis, disclosure, and (for tracking/ads) consent UI. Offline-only apps with no collection: N/A.' },
+  ]
+},
+{
+  id: 'build', title: 'Build, signing & technical requirements',
+  items: [
+    { id: 'build-aab', title: 'Build an Android App Bundle (.aab)', spec: 'AAB required',
+      detail: 'New apps must be app bundles, not APKs (required since Aug 2021). Play generates optimized per-device APKs from it.' },
+    { id: 'build-pas', title: 'Enroll in Play App Signing',
+      detail: 'Automatic for new apps: Google holds the app signing key, you keep an upload key. A lost/leaked upload key can be reset via Play Console (Test and release → App integrity, account owner only, ~24–48h) — the reason this setup is strongly recommended over self-managing the signing key, which is unrecoverable.' },
+    { id: 'build-keystore', title: 'Back up your keystore and every credential', spec: 'do this today',
+      detail: 'Store the upload keystore file, its passwords and key alias in a password manager plus one offline copy, and write down where they live in your release runbook.' },
+    { id: 'build-target', title: 'Target API level meets the current requirement', spec: 'API 36 as of Aug 31, 2026',
+      detail: 'New apps and updates must target an API level within one year of the latest Android release — as of Aug 31, 2026 that means API 36 (Android 16) for phones/tablets. Existing non-updated apps need ≥API 35 to stay visible to new users. The bar rises every Aug 31; check developer.android.com if reading this later.' },
+    { id: 'build-64', title: 'Include 64-bit native libraries', spec: 'arm64-v8a',
+      detail: 'Required for apps with native code (most cross-platform frameworks). Standard tooling handles it; only exotic native deps break it.' },
+    { id: 'build-size', title: 'Check download size against limits', spec: 'base module ≤500MB',
+      detail: 'The AAB base module can be up to 500MB compressed (the old 150/200MB cap was raised). Bigger assets go to Play Asset Delivery (asset packs ≤1.5GB each). Apps over 1GB must set minSdk ≥21. In practice: if your utility app is anywhere near these numbers, investigate why first.' },
+    { id: 'build-r8', title: 'Test the release build with shrinking/minification enabled',
+      detail: 'R8 (minifyEnabled + shrinkResources) runs only in release mode and regularly breaks reflection-based code. A passing debug build proves nothing here — test the actual release configuration.' },
+    { id: 'build-artifact', title: 'Install and smoke-test the actual signed release artifact on a real device',
+      detail: 'Via the internal testing track or bundletool. This catches signing, shrinking and bundling issues that never appear in dev builds.' },
+    { id: 'build-vcode', title: 'Bump versionCode for this upload',
+      detail: 'Play rejects any bundle whose versionCode isn’t higher than every previously uploaded one — including uploads that only ever hit testing tracks.' },
+  ]
+},
+{
+  id: 'expo', title: 'Expo / EAS specifics (skip if not using Expo)',
+  items: [
+    { id: 'expo-doctor', title: 'Run npx expo-doctor and fix everything',
+      detail: 'Validates SDK/dependency alignment and app config. EAS Build also runs it automatically after installing dependencies — better to catch failures locally than in a queued build.' },
+    { id: 'expo-appjson', title: 'Verify app config: package, icons, permissions',
+      detail: 'android.package is the permanent application ID. Check adaptiveIcon foreground/background paths, android.permissions (an explicit array strips library-added defaults you don’t use), and that name/slug/scheme are final.' },
+    { id: 'expo-easjson', title: 'Configure eas.json production profile', spec: 'app-bundle + autoIncrement',
+      detail: 'Production profile: buildType app-bundle, autoIncrement true, and cli.appVersionSource "remote" so EAS tracks versionCode server-side — no more manual bumping.' },
+    { id: 'expo-creds', title: 'Let EAS manage the keystore — then back it up yourself',
+      detail: 'Run eas credentials → "Download credentials from EAS to credentials.json" and store keystore.jks + passwords in your password manager. EAS holding credentials is convenience, not a backup.' },
+    { id: 'expo-build', title: 'Build production: eas build --platform android --profile production',
+      detail: 'Produces the signed .aab. Build from a clean, committed tree so the artifact is traceable to a commit (EAS archives your working directory — uncommitted changes DO ship).' },
+    { id: 'expo-submit', title: 'Set up eas submit with a Google service account',
+      detail: 'Create a service account in Google Cloud, grant it release access under Play Console → Users & permissions, save the JSON key, reference it in eas.json. The app record must already exist in Play Console (created manually), but eas submit can then handle uploads — including the first one, which it places on the internal testing track.' },
+  ]
+},
+{
+  id: 'qa', title: 'Pre-submission QA (on real devices)',
+  items: [
+    { id: 'qa-matrix', title: 'Test on your oldest supported Android version and the newest',
+      detail: 'Plus at least one small-screen and one large-screen device. Emulators count, but keep at least one real device in the mix.' },
+    { id: 'qa-install', title: 'Test fresh install AND upgrade-in-place',
+      detail: 'Install the previous release, create real data, then update to the new build over it. This is the only way to catch database-migration and storage-format bugs your existing users will hit.' },
+    { id: 'qa-offline', title: 'Test offline / airplane mode behavior',
+      detail: 'Every screen should degrade gracefully — no infinite spinners, no crashes on request failure.' },
+    { id: 'qa-perms', title: 'Test every permission flow, including deny and "don’t ask again"',
+      detail: 'The app must stay usable (or explain itself) when a permission is refused. Crashing on denial is a rejection-grade bug.' },
+    { id: 'qa-back', title: 'Test back button / gesture navigation on every screen',
+      detail: 'Back should never dead-end, exit unexpectedly, or silently discard entered data.' },
+    { id: 'qa-themes', title: 'Walk every screen in dark AND light theme',
+      detail: 'Look for invisible text and hardcoded colors — theme bugs cluster in rarely-visited screens.' },
+    { id: 'qa-fonts', title: 'Test at maximum font scale', spec: 'up to 200% on Android 14+',
+      detail: 'Settings → Accessibility → font size to max (Android 14+ scales non-linearly up to 200%, which Google recommends testing at). Text must not truncate into meaninglessness or overlap controls.' },
+    { id: 'qa-talkback', title: 'Run a TalkBack pass over the core flows',
+      detail: 'Every interactive control needs a sensible spoken label; custom controls need roles/states.' },
+    { id: 'qa-rotate', title: 'Rotate on every screen (or verify orientation is locked intentionally)',
+      detail: 'Rotation recreates activities — a classic source of lost state and crashes.' },
+    { id: 'qa-links', title: 'Verify deep links and app links',
+      detail: 'If you handle https links: host /.well-known/assetlinks.json, then check with "adb shell pm get-app-links <package>" (allow ~20s after install for async verification). No deep links → N/A.' },
+    { id: 'qa-stability', title: 'Confirm zero crashes/ANRs in a full manual pass',
+      detail: 'Watch logcat while testing. The pre-launch report will catch some, but a reviewer hitting a crash is an instant rejection.' },
+    { id: 'qa-credentials', title: 'Prepare reviewer test credentials (if any login exists)', spec: 'up to 5 sets',
+      detail: 'Working demo credentials that don’t expire, work from any location, and bypass 2FA/OTP — never production-user accounts. Entered under App content → App access. "Reviewer couldn’t get past login" is one of the most common rejections. No login → N/A.' },
+    { id: 'qa-screens-capture', title: 'Capture final screenshots while QA-ing',
+      detail: 'Clean status bar (demo mode), realistic-but-fake data, final UI. Screenshots must show real in-app functionality — mockups of features that don’t exist violate metadata policy.' },
+  ]
+},
+{
+  id: 'policy', title: 'Restricted permissions & policy pre-flight',
+  items: [
+    { id: 'pol-sms', title: 'No SMS / Call Log permissions (unless you are the default handler)',
+      detail: 'READ_SMS, READ_CALL_LOG etc. are only allowed for the active default SMS/Phone/Assistant handler, with narrow exceptions. If any library dragged one in, remove it — this is an automatic rejection otherwise.' },
+    { id: 'pol-bgloc', title: 'Background location only if truly core',
+      detail: 'ACCESS_BACKGROUND_LOCATION needs strong justification, prominent in-app disclosure, explicit consent, and a feature that is central to the app’s purpose. Never for ads or analytics. Foreground-only location avoids the whole review.' },
+    { id: 'pol-fsi', title: 'Full-screen intent: declare or downgrade',
+      detail: 'USE_FULL_SCREEN_INTENT requires a Console declaration; on Android 14+ it is default-granted only for calling/alarm apps — everything else must request it at runtime and degrade to a normal notification when refused.' },
+    { id: 'pol-photos', title: 'Photo/video permissions: use the system photo picker if possible',
+      detail: 'Broad READ_MEDIA_IMAGES / READ_MEDIA_VIDEO access requires a declared core-functionality need; one-off or occasional selection must use the Android photo picker instead (no permission needed). Enforced since 2025.' },
+    { id: 'pol-adid', title: 'Advertising ID: manifest and declaration must agree',
+      detail: 'Targeting API 33+? If anything uses the ad ID, com.google.android.gms.permission.AD_ID must be in the merged manifest (ad SDKs usually merge it in) and declared in Console; declaring use without the permission blocks the release, and undeclared collection violates Data safety.' },
+    { id: 'pol-wakelocks', title: 'Check battery behavior (wake locks vital)',
+      detail: 'Since March 2026, apps holding ≥2 cumulative hours of non-exempt wake locks in 24h across ≥5% of sessions get excluded from recommendations and can carry a store-listing warning. Audio/location/user-initiated-job locks are exempt.' },
+    { id: 'pol-families', title: 'If children are in the target audience: Families policy',
+      detail: 'Any under-13 age band pulls you into Families: self-certified ads SDKs only, no ad-ID transmission for children, stricter content/data rules, and a neutral age screen for mixed audiences. Not for kids → don’t tick child bands, and mark N/A.' },
+  ]
+},
+{
+  id: 'console', title: 'Play Console: create app & App content declarations',
+  items: [
+    { id: 'con-create', title: 'Create the app in Play Console',
+      detail: 'All apps → Create app: name, default language, App or Game, Free or Paid. FREE IS PERMANENT — a published free app can never become paid (IAP remains possible; paid→free is one-way too).' },
+    { id: 'con-managed', title: 'Turn on managed publishing',
+      detail: 'Publishing overview → Managed publishing. Approved changes then go live only when you press publish — without it, approval means instant, possibly out-of-order, release.' },
+    { id: 'con-access', title: 'App content → App access',
+      detail: 'Declare "all functionality available without special access" or provide the credentials/instructions you prepared in QA. Keep them valid at all times — Google re-reviews.' },
+    { id: 'con-ads', title: 'App content → Ads declaration',
+      detail: 'Declare whether the app shows ads. Must match reality including ad SDKs that are merely bundled — mismatches trigger enforcement.' },
+    { id: 'con-rating', title: 'App content → Content rating questionnaire (IARC)',
+      detail: 'Needs a contact email for the rating authorities. Generates ESRB/PEGI/USK/etc. ratings. Answer honestly — misrepresentation causes removal, and UNRATED apps get filtered or blocked in the EEA, UK, Australia, Brazil, Singapore and more.' },
+    { id: 'con-audience', title: 'App content → Target audience & content',
+      detail: 'Age bands: 5-, 6–8, 9–12, 13–15, 16–17, 18+. Ticking any band under 13 triggers the Families policy (see pre-flight section). If the app is not for kids, don’t tick child bands — but marketing that appeals to children can force reclassification.' },
+    { id: 'con-news', title: 'App content → News app declaration',
+      detail: 'News apps must provide entity type and a contact-info URL (social links are not enough). Most apps: No.' },
+    { id: 'con-datasafety', title: 'App content → Data safety form', spec: 'the big one',
+      detail: 'Declare every data type collected or shared across the 14 categories — from your data inventory, INCLUDING third-party SDK behavior — plus purposes, optional/required, encryption in transit, deletion mechanism, and the account-deletion URL if applicable. Shown publicly on your listing. The #1 rejection source: answers contradicting the privacy policy or actual app traffic.' },
+    { id: 'con-adid-form', title: 'App content → Advertising ID declaration',
+      detail: 'Required when targeting API 33+. Select the purposes (or "no ad ID use"). Must agree with the AD_ID permission state in your merged manifest — see the pre-flight section.' },
+    { id: 'con-gov', title: 'App content → Government apps declaration',
+      detail: 'Apps for/on behalf of a government must be published from an organization account. Most apps: No.' },
+    { id: 'con-financial', title: 'App content → Financial features declaration',
+      detail: 'Mandatory for EVERY app since Aug 2023, even just to say "no financial features". Loan/banking/crypto/insurance features require per-country documentation and licenses.' },
+    { id: 'con-health', title: 'App content → Health declaration',
+      detail: 'Also completed by every developer. Health apps need the privacy policy both in Console and in-app; medical-device claims need regulatory approval proof; non-medical health apps need a "not a medical device" style disclaimer.' },
+    { id: 'con-privacy-url', title: 'Enter the privacy policy URL in App content',
+      detail: 'Paste the hosted URL from your legal prep. Google actually loads it — a 404, PDF, or editable doc is a rejection.' },
+  ]
+},
+{
+  id: 'listing', title: 'Store listing (assets & text)',
+  items: [
+    { id: 'list-shortdesc', title: 'Write the short description', spec: '≤80 chars',
+      detail: 'The one-liner under the name in search. Plain benefit statement — no keyword lists, no emoji, no "best/#1" claims.' },
+    { id: 'list-fulldesc', title: 'Write the full description', spec: '≤4000 chars',
+      detail: 'Lead with what the app does in the first two lines (visible before "read more"). Feature bullets work well. No repetitive keywords, no unattributed testimonials, no price/promo text.' },
+    { id: 'list-icon', title: 'Upload the store icon', spec: '512×512 PNG 32-bit ≤1MB',
+      detail: 'Full-bleed square artwork with alpha allowed; Play applies its own 30%-radius corner mask and shadow. Must be visually consistent with the in-app icon.' },
+    { id: 'list-feature', title: 'Create and upload the feature graphic', spec: '1024×500 JPG/24-bit PNG, no alpha',
+      detail: 'Required to publish. Used as the video cover and in promotional placements. Keep text minimal and away from edges; don’t just stretch the icon.' },
+    { id: 'list-screens', title: 'Upload phone screenshots', spec: '2–8, sides 320–3840px',
+      detail: 'JPEG or 24-bit PNG (no alpha); max side at most 2× the min side. For promotion/recommendation placements Play wants ≥4 screenshots at ≥1080px (1920×1080 landscape or 1080×1920 portrait). Put your strongest two first.' },
+    { id: 'list-tablet', title: 'Upload 7-inch and 10-inch tablet screenshots (if supporting tablets)',
+      detail: 'Min 4 per size at 1080–7680px for the large-screen promotional treatment. Phone-only layout → N/A, and expect a "designed for phones" label on tablets.' },
+    { id: 'list-video', title: 'Add a promo video (optional)',
+      detail: 'YouTube URL: public or unlisted (not private), ads disabled, not age-restricted. Only the first 30 seconds autoplay.' },
+    { id: 'list-ai', title: 'Declare AI-generated listing assets (if any)',
+      detail: 'Store listing flows now include a per-asset checkbox for AI-generated content; declared assets get an AI label on the Play Store. If you generated screenshots/graphics with AI, declare them — and note in-app AI-content labeling requirements began rolling out in 2026.' },
+    { id: 'list-category', title: 'Set category and tags', spec: '≤5 tags',
+      detail: 'Store settings → App category (app vs game trees differ). Pick where your real users browse; up to 5 tags refine ranking. Changeable later; takes up to 24h to reflect.' },
+    { id: 'list-contact', title: 'Set public contact details',
+      detail: 'Contact email is required and shown publicly; website and phone optional. Use an address you actually monitor — users and Google both write to it.' },
+    { id: 'list-l10n', title: 'Add localized listings for your main markets (optional)',
+      detail: 'Each language gets its own text and optionally its own screenshots. Untranslated locales fall back to your default language (with optional machine translation).' },
+    { id: 'list-policy-check', title: 'Final metadata policy pass over all text and images',
+      detail: 'No emoji/decorative unicode in the name, no rank/award claims or badges, no price text ("free", "10% off") in text or images, no other brands’ marks, no "Editor’s Choice"-style Play references, screenshots only of real functionality.' },
+  ]
+},
+{
+  id: 'pricing', title: 'Pricing & distribution',
+  items: [
+    { id: 'price-free', title: 'Confirm free vs paid',
+      detail: 'Free is irreversible after publishing. Paid needs the payments profile; since late 2025 prices are set per product (templates were removed) and Play auto-converts currencies and handles tax in many countries.' },
+    { id: 'price-countries', title: 'Select countries/regions',
+      detail: 'Production → Countries/regions. Start broad unless you have legal or language reasons not to. EEA distribution requires the DSA trader declaration to be complete.' },
+    { id: 'price-iap', title: 'Set up in-app products/subscriptions (if any)',
+      detail: 'Monetize → Products. Digital goods must use Play Billing in most markets (regional exceptions now exist, e.g. US external offers since late 2025; Korea/India user-choice billing). Service fee is 15% up to $1M/yr with enrollment, 30% above — fee structures are changing regionally in 2026, so check current terms if IAP matters to you. Physical goods must NOT use Play Billing.' },
+    { id: 'price-devices', title: 'Review device-category opt-ins',
+      detail: 'Wear OS, Android TV and Android Auto are explicit opt-ins under Test and release → Advanced settings → Form factors, each with its own quality review. Don’t opt into form factors you never tested; phone/tablet/foldable/ChromeOS ride the default tracks.' },
+    { id: 'price-prereg', title: 'Consider pre-registration (optional)', spec: 'max 90 days',
+      detail: 'Users register pre-launch and get notified on release; campaigns must convert to a production launch within 90 days. Only worth it with a waiting audience.' },
+  ]
+},
+{
+  id: 'testing', title: 'Testing tracks & rollout',
+  items: [
+    { id: 'test-internal', title: 'Release to Internal testing first', spec: '≤100 testers, live in minutes',
+      detail: 'Fastest track: near-instant availability, no review wait, paid apps are free for internal testers. Add tester emails, install via the opt-in link, verify the produced artifact end-to-end.' },
+    { id: 'test-prelaunch', title: 'Review the pre-launch report', spec: '~10 devices, ~1h',
+      detail: 'Publishing to any test track auto-runs your app (Robo crawler on real Firebase Test Lab devices). Check crashes, ANRs, accessibility flags and security warnings; fix real findings before production.' },
+    { id: 'test-closed', title: 'Run the closed test (mandatory for newer personal accounts)', spec: '≥12 testers, 14 consecutive days',
+      detail: 'Personal accounts created after Nov 13, 2023: a closed test with at least 12 testers continuously opted in for the last 14 days is required before production. Opt-outs reset the clock, and Google checks that testers actually engaged, not just enrolled. Recruit 15+ real people early — this is the long pole in most first launches.' },
+    { id: 'test-prodaccess', title: 'Apply for production access (if gated)', spec: '~7-day review',
+      detail: 'After the 12/14 threshold, "Apply for production" appears on the Dashboard: a three-part questionnaire on your closed test, your app, and readiness. Applications where testers clearly didn’t use the app get rejected.' },
+    { id: 'test-notes', title: 'Write release notes', spec: '≤500 chars/language',
+      detail: 'Per-language "what’s new" text inside <xx-XX> language tags in the release flow. For a first release, one line describing the app is fine.' },
+    { id: 'test-rollout', title: 'Plan staged rollouts for UPDATES',
+      detail: 'The first production release always goes to 100% — staged rollout applies from your first update onward: start at 5–20%, watch crashes/vitals and 1–2 star reviews, then ramp. Percentages never increase on their own, and you can halt a bad rollout (users who already got it keep it).' },
+  ]
+},
+{
+  id: 'submit', title: 'Submit & review',
+  items: [
+    { id: 'sub-overview', title: 'Clear every error and warning on the Publishing overview',
+      detail: 'The dashboard lists every incomplete declaration and blocked step. Everything must be resolved before "Send for review" appears.' },
+    { id: 'sub-send', title: 'Send for review', spec: 'new accounts: ~7–14 days',
+      detail: 'Google commits only to "up to 7 days or longer"; first submissions from new accounts commonly take 7–14 days (up to ~21 in sensitive categories). Never promise a launch date less than two weeks out.' },
+    { id: 'sub-publish', title: 'Publish (managed publishing)',
+      detail: 'Once approved, press publish yourself. The listing typically appears within hours; search indexing takes longer.' },
+    { id: 'sub-verify', title: 'Verify the live listing',
+      detail: 'Install from Play on a real device (not a tester account), check listing text/images render correctly, and test the store link you’ll share.' },
+    { id: 'sub-rejection', title: 'If rejected: read the exact policy cited, fix, resubmit', spec: '1 appeal, 180-day window',
+      detail: 'Rejection emails cite the policy section; status lives under Play Console → Policy status. Most first rejections are Data-safety mismatches, login walls without credentials, or metadata violations — all fixable. You get one appeal per enforcement action for genuine reviewer error.' },
+  ]
+},
+{
+  id: 'postlaunch', title: 'Post-launch',
+  items: [
+    { id: 'post-vitals', title: 'Monitor Android vitals', spec: 'crash <1.09%, ANR <0.47%',
+      detail: 'Play Console → Quality → Android vitals. Bad-behavior thresholds: user-perceived crash rate 1.09% and ANR rate 0.47% of daily users (8% per single device model). Exceeding them reduces Play visibility and can put a warning on your listing.' },
+    { id: 'post-reviews', title: 'Reply to user reviews', spec: '≤350 chars/reply',
+      detail: 'Replies are public, notify the user by push + email, and are editable later — users often revise their stars after a helpful reply. Set up alerts for new reviews.' },
+    { id: 'post-target-api', title: 'Keep target API compliant every year', spec: 'Aug 31 deadline',
+      detail: 'The minimum target API rises each Aug 31 (extensions to Nov 1 available in Console). Fall too far behind and the app stops being installable by new users. Put a recurring reminder in your calendar now.' },
+    { id: 'post-datasafety-sync', title: 'Re-check Data safety with every feature release',
+      detail: 'New SDK? New permission? The Data safety form and privacy policy must be updated in the same release — drift here is the main post-launch enforcement trigger.' },
+    { id: 'post-runbook', title: 'Write the release runbook',
+      detail: 'One document: keystore location + password reference, service account JSON location, versioning scheme, build command, submission steps, rollout policy. Future-you ships updates in minutes instead of re-deriving all of this.' },
+    { id: 'post-experiments', title: 'Try store listing experiments (optional)',
+      detail: 'A/B test icons, screenshots and descriptions against real traffic: one default-graphics experiment or up to five localized ones at a time; experiments auto-stop after 6 months.' },
+  ]
+},
+];
+
+/* ════════════════════════════════════════════════════════════════════
+   STATE — localStorage, multi-app profiles
+   ════════════════════════════════════════════════════════════════════ */
+const LS_KEY = 'playPublishChecklist.v1';
+const TOTAL_ITEMS = CHECKLIST.reduce((n, s) => n + s.items.length, 0);
+
+let storageOk = true;
+function loadStore() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) { storageOk = false; }
+  return null;
+}
+function persist() {
+  if (!storageOk) return;
+  try { localStorage.setItem(LS_KEY, JSON.stringify(store)); }
+  catch (e) { storageOk = false; showStorageWarning(); }
+}
+function showStorageWarning() {
+  document.getElementById('storageWarning').style.display = storageOk ? 'none' : 'block';
+}
+
+function freshApp() { return { createdAt: new Date().toISOString(), items: {}, collapsed: {} }; }
+
+let store = loadStore();
+if (!store || typeof store !== 'object' || !store.apps) {
+  store = { version: 1, currentApp: 'My app', theme: 'auto', hideDone: false, apps: { 'My app': freshApp() } };
+}
+if (!store.apps[store.currentApp]) {
+  store.currentApp = Object.keys(store.apps)[0] || 'My app';
+  if (!store.apps[store.currentApp]) store.apps[store.currentApp] = freshApp();
+}
+// Probe that storage actually writes (private-mode Safari throws on setItem only).
+try { localStorage.setItem(LS_KEY + '.probe', '1'); localStorage.removeItem(LS_KEY + '.probe'); }
+catch (e) { storageOk = false; }
+
+function app() { return store.apps[store.currentApp]; }
+function itemState(id) { return (app().items[id] || {}).s || ''; }
+function itemNote(id)  { return (app().items[id] || {}).note || ''; }
+function setItem(id, patch) {
+  const cur = app().items[id] || {};
+  app().items[id] = Object.assign(cur, patch);
+  persist();
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   THEME
+   ════════════════════════════════════════════════════════════════════ */
+function applyTheme() {
+  const mode = store.theme || 'auto';
+  const dark = mode === 'dark' || (mode === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+
+/* ════════════════════════════════════════════════════════════════════
+   RENDER
+   ════════════════════════════════════════════════════════════════════ */
+const $sections = document.getElementById('sections');
+
+function esc(s) {
+  return s.replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+
+function render() {
+  const frag = document.createDocumentFragment();
+  CHECKLIST.forEach((section, si) => {
+    const sec = document.createElement('section');
+    sec.className = 'section' + (app().collapsed[section.id] ? ' collapsed' : '');
+    sec.dataset.sec = section.id;
+
+    const head = document.createElement('button');
+    head.className = 'section-head';
+    head.setAttribute('aria-expanded', String(!app().collapsed[section.id]));
+    head.innerHTML =
+      '<span class="section-num">' + (si + 1) + '</span>' +
+      '<span class="section-title">' + esc(section.title) + '</span>' +
+      '<span class="section-count" data-count></span>' +
+      '<span class="chev">▼</span>';
+    head.addEventListener('click', () => {
+      app().collapsed[section.id] = !app().collapsed[section.id];
+      sec.classList.toggle('collapsed', app().collapsed[section.id]);
+      head.setAttribute('aria-expanded', String(!app().collapsed[section.id]));
+      persist();
+    });
+    sec.appendChild(head);
+
+    const body = document.createElement('div');
+    body.className = 'section-body';
+
+    section.items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'item';
+      row.dataset.id = item.id;
+      row.dataset.search = (item.title + ' ' + item.detail + ' ' + (item.spec || '')).toLowerCase();
+
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.className = 'item-check';
+      cb.id = 'cb-' + item.id;
+      cb.setAttribute('aria-label', item.title);
+      cb.addEventListener('change', () => {
+        setItem(item.id, { s: cb.checked ? 'd' : '' });
+        row._refresh();
+        refreshCounts();
+        applyFilter();
+      });
+
+      const main = document.createElement('div');
+      main.className = 'item-main';
+      const specHtml = item.spec ? ' <span class="spec">' + esc(item.spec) + '</span>' : '';
+      main.innerHTML =
+        '<div class="item-title-row"><label class="item-title" for="cb-' + item.id + '">' + esc(item.title) + '</label>' + specHtml + '</div>' +
+        '<div class="item-detail">' + esc(item.detail) + '</div>';
+
+      const noteBox = document.createElement('div');
+      noteBox.className = 'note-box';
+      noteBox.style.display = 'none';
+      const ta = document.createElement('textarea');
+      ta.placeholder = 'Notes for this item (URLs, decisions, credential pointers)…';
+      ta.setAttribute('aria-label', 'Notes: ' + item.title);
+      ta.addEventListener('input', () => {
+        setItem(item.id, { note: ta.value });
+        noteBtn.classList.toggle('has-note', ta.value.trim() !== '');
+      });
+      noteBox.appendChild(ta);
+      main.appendChild(noteBox);
+
+      const actions = document.createElement('div');
+      actions.className = 'item-actions';
+      const naBtn = document.createElement('button');
+      naBtn.className = 'mini-btn';
+      naBtn.textContent = 'N/A';
+      naBtn.title = 'Mark not applicable for this app';
+      naBtn.addEventListener('click', () => {
+        const na = itemState(item.id) === 'n';
+        setItem(item.id, { s: na ? '' : 'n' });
+        row._refresh();
+        refreshCounts();
+        applyFilter();
+      });
+      const noteBtn = document.createElement('button');
+      noteBtn.className = 'mini-btn';
+      noteBtn.textContent = '✎';
+      noteBtn.title = 'Add a note';
+      noteBtn.setAttribute('aria-label', 'Toggle note for: ' + item.title);
+      noteBtn.addEventListener('click', () => {
+        const show = noteBox.style.display === 'none';
+        noteBox.style.display = show ? 'block' : 'none';
+        if (show) ta.focus();
+      });
+      actions.appendChild(naBtn);
+      actions.appendChild(noteBtn);
+
+      row.appendChild(cb);
+      row.appendChild(main);
+      row.appendChild(actions);
+      body.appendChild(row);
+
+      row._refresh = () => {
+        const s = itemState(item.id);
+        cb.checked = s === 'd';
+        cb.disabled = s === 'n';
+        row.classList.toggle('state-done', s === 'd');
+        row.classList.toggle('state-na', s === 'n');
+        naBtn.classList.toggle('active-na', s === 'n');
+        const note = itemNote(item.id);
+        if (ta.value !== note) ta.value = note;
+        noteBtn.classList.toggle('has-note', note.trim() !== '');
+        if (note.trim() !== '') noteBox.style.display = 'block';
+      };
+      row._refresh();
+    });
+
+    sec.appendChild(body);
+    frag.appendChild(sec);
+  });
+  $sections.replaceChildren(frag);
+  refreshCounts();
+  applyFilter();
+}
+
+function refreshCounts() {
+  let done = 0, na = 0;
+  CHECKLIST.forEach(s => s.items.forEach(i => {
+    const st = itemState(i.id);
+    if (st === 'd') done++; else if (st === 'n') na++;
+  }));
+  const complete = done + na;
+  const pct = TOTAL_ITEMS === 0 ? 0 : Math.round((complete / TOTAL_ITEMS) * 100);
+  document.getElementById('pct').textContent = pct + '%';
+  document.getElementById('counts').innerHTML =
+    '<b>' + done + '</b> done · <b>' + na + '</b> n/a · <b>' + (TOTAL_ITEMS - complete) + '</b> remaining of ' + TOTAL_ITEMS;
+  document.getElementById('barFill').style.width = pct + '%';
+  document.getElementById('barOuter').setAttribute('aria-valuenow', String(pct));
+
+  document.querySelectorAll('#sections .section').forEach(sec => {
+    const s = CHECKLIST.find(x => x.id === sec.dataset.sec);
+    if (!s) return;
+    let c = 0;
+    s.items.forEach(i => { const st = itemState(i.id); if (st === 'd' || st === 'n') c++; });
+    const el = sec.querySelector('[data-count]');
+    el.textContent = c + ' / ' + s.items.length;
+    el.classList.toggle('done-all', c === s.items.length);
+  });
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   FILTER
+   ════════════════════════════════════════════════════════════════════ */
+function applyFilter() {
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  const hideDone = document.getElementById('hideDone').checked;
+  // Scoped to #sections: the asset-templates card shares the .section class
+  // but holds no checklist items, and an unscoped query hides it as "no matches".
+  document.querySelectorAll('#sections .section').forEach(sec => {
+    let visible = 0;
+    sec.querySelectorAll('.item').forEach(row => {
+      const st = itemState(row.dataset.id);
+      const matches = q === '' || row.dataset.search.includes(q);
+      const hidden = !matches || (hideDone && (st === 'd' || st === 'n'));
+      row.classList.toggle('hidden-by-filter', hidden);
+      if (!hidden) visible++;
+    });
+    sec.style.display = visible === 0 ? 'none' : '';
+    if (q !== '' && visible > 0) sec.classList.remove('collapsed');
+  });
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   APP PROFILES
+   ════════════════════════════════════════════════════════════════════ */
+function refreshAppSelect() {
+  const sel = document.getElementById('appSelect');
+  sel.replaceChildren(...Object.keys(store.apps).sort().map(name => {
+    const o = document.createElement('option');
+    o.value = name; o.textContent = name;
+    if (name === store.currentApp) o.selected = true;
+    return o;
+  }));
+}
+
+function askName(title, msg, initial, okLabel) {
+  return new Promise(resolve => {
+    const dlg = document.getElementById('promptDialog');
+    document.getElementById('promptTitle').textContent = title;
+    document.getElementById('promptMsg').textContent = msg;
+    const input = document.getElementById('promptInput');
+    const okBtn = document.getElementById('promptOk');
+    okBtn.textContent = okLabel || 'OK';
+    input.value = initial || '';
+    const ok = () => { cleanup(); resolve(input.value.trim()); };
+    const cancel = () => { cleanup(); resolve(null); };
+    const onKey = e => { if (e.key === 'Enter') { e.preventDefault(); ok(); } };
+    function cleanup() {
+      okBtn.removeEventListener('click', ok);
+      document.getElementById('promptCancel').removeEventListener('click', cancel);
+      input.removeEventListener('keydown', onKey);
+      dlg.close();
+    }
+    okBtn.addEventListener('click', ok);
+    document.getElementById('promptCancel').addEventListener('click', cancel);
+    input.addEventListener('keydown', onKey);
+    dlg.showModal();
+    input.focus(); input.select();
+  });
+}
+
+async function newApp() {
+  const name = await askName('New app', 'Name the app you’re publishing. A fresh, empty checklist is created for it.', '', 'Create');
+  if (!name) return;
+  if (store.apps[name]) { alert('An app with that name already exists — select it from the dropdown instead.'); return; }
+  store.apps[name] = freshApp();
+  store.currentApp = name;
+  persist(); refreshAppSelect(); render();
+}
+
+async function renameApp() {
+  const name = await askName('Rename app', 'New name for "' + store.currentApp + '". Progress is kept.', store.currentApp, 'Rename');
+  if (!name || name === store.currentApp) return;
+  if (store.apps[name]) { alert('An app with that name already exists.'); return; }
+  store.apps[name] = store.apps[store.currentApp];
+  delete store.apps[store.currentApp];
+  store.currentApp = name;
+  persist(); refreshAppSelect();
+}
+
+function resetApp() {
+  if (!confirm('Reset every tick and note for "' + store.currentApp + '"? This cannot be undone.')) return;
+  store.apps[store.currentApp] = freshApp();
+  persist(); render();
+}
+
+function deleteApp() {
+  if (!confirm('Delete the app profile "' + store.currentApp + '" and all its progress? This cannot be undone.')) return;
+  delete store.apps[store.currentApp];
+  const remaining = Object.keys(store.apps);
+  if (remaining.length === 0) { store.apps['My app'] = freshApp(); store.currentApp = 'My app'; }
+  else store.currentApp = remaining[0];
+  persist(); refreshAppSelect(); render();
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   EXPORT / IMPORT
+   ════════════════════════════════════════════════════════════════════ */
+function exportJson() {
+  const blob = new Blob([JSON.stringify(store, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'play-checklist-backup.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function importJson(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(String(reader.result));
+      if (!data || typeof data !== 'object' || !data.apps) throw new Error('not a checklist backup');
+      store = data;
+      if (!store.apps[store.currentApp]) store.currentApp = Object.keys(store.apps)[0];
+      persist(); applyTheme(); refreshAppSelect(); render();
+      document.getElementById('hideDone').checked = !!store.hideDone;
+    } catch (e) { alert('That file is not a valid checklist backup.'); }
+  };
+  reader.readAsText(file);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   PLACEHOLDER ASSET TEMPLATES
+   Canvas-generated PNGs at the exact sizes Play requires, stamped with
+   the current app profile's name — download, then customize in any
+   editor. Exposed on window.PlayChecklist for testing.
+   ════════════════════════════════════════════════════════════════════ */
+function assetSlug() {
+  return ((store.currentApp || 'app').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')) || 'app';
+}
+function appInitial() {
+  const n = (store.currentApp || 'A').trim();
+  return (n[0] || 'A').toUpperCase();
+}
+function mkCanvas(w, h) {
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  return c;
+}
+function tplColors() {
+  return {
+    accent: document.getElementById('assetAccent').value,
+    bg: document.getElementById('assetBg').value,
+  };
+}
+function hexLum(h) {
+  h = h.replace('#', '');
+  const r = parseInt(h.substr(0, 2), 16), g = parseInt(h.substr(2, 2), 16), b = parseInt(h.substr(4, 2), 16);
+  return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+}
+function onColor(bg) { return hexLum(bg) > 0.5 ? '#15181d' : '#ffffff'; }
+function guideColor(bg) { return hexLum(bg) > 0.5 ? 'rgba(0,0,0,0.30)' : 'rgba(255,255,255,0.30)'; }
+function pathRound(x, px, py, w, h, r) {
+  x.beginPath();
+  if (x.roundRect) x.roundRect(px, py, w, h, r);
+  else x.rect(px, py, w, h);
+}
+function tplLabel(x, cx, y, text, bg) {
+  x.font = '500 20px "Segoe UI", Arial, sans-serif';
+  x.textAlign = 'center'; x.textBaseline = 'alphabetic';
+  x.fillStyle = guideColor(bg);
+  x.fillText(text, cx, y);
+}
+function downloadCanvas(c, filename) {
+  c.toBlob(blob => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  }, 'image/png');
+}
+
+function genIcon() {
+  const S = 512, c = mkCanvas(S, S), x = c.getContext('2d');
+  const { accent, bg } = tplColors();
+  x.fillStyle = bg; x.fillRect(0, 0, S, S);
+  const g = x.createLinearGradient(0, 0, S, S);
+  g.addColorStop(0, 'rgba(255,255,255,0.07)');
+  g.addColorStop(1, 'rgba(0,0,0,0.12)');
+  x.fillStyle = g; x.fillRect(0, 0, S, S);
+  x.fillStyle = accent;
+  x.font = '700 300px "Segoe UI", Arial, sans-serif';
+  x.textAlign = 'center'; x.textBaseline = 'middle';
+  x.fillText(appInitial(), S / 2, S / 2 + 14);
+  // Where Play's own 30%-radius mask will land — keep art inside it.
+  x.strokeStyle = guideColor(bg); x.setLineDash([10, 8]); x.lineWidth = 2;
+  pathRound(x, 5, 5, S - 10, S - 10, S * 0.30);
+  x.stroke(); x.setLineDash([]);
+  tplLabel(x, S / 2, S - 24, '512 × 512 · Play rounds corners itself', bg);
+  return c;
+}
+
+function genAdaptive() {
+  const S = 1024, c = mkCanvas(S, S), x = c.getContext('2d');
+  const { accent, bg } = tplColors();
+  // Transparent background — that is the point of this layer.
+  const r = S * 0.33; // 66%-diameter safe circle
+  x.fillStyle = accent;
+  x.font = '700 380px "Segoe UI", Arial, sans-serif';
+  x.textAlign = 'center'; x.textBaseline = 'middle';
+  x.fillText(appInitial(), S / 2, S / 2 + 18);
+  x.strokeStyle = 'rgba(127,127,127,0.55)'; x.setLineDash([14, 10]); x.lineWidth = 3;
+  x.beginPath(); x.arc(S / 2, S / 2, r, 0, Math.PI * 2); x.stroke();
+  x.setLineDash([]);
+  x.font = '500 34px "Segoe UI", Arial, sans-serif';
+  x.fillStyle = 'rgba(127,127,127,0.8)';
+  x.fillText('keep all art inside this circle', S / 2, S / 2 + r + 52);
+  return c;
+}
+
+function genFeature() {
+  const W = 1024, H = 500, c = mkCanvas(W, H), x = c.getContext('2d');
+  const { accent, bg } = tplColors();
+  x.fillStyle = bg; x.fillRect(0, 0, W, H);
+  const g = x.createLinearGradient(0, 0, W, H);
+  g.addColorStop(0, 'rgba(255,255,255,0.06)');
+  g.addColorStop(1, 'rgba(0,0,0,0.14)');
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  x.fillStyle = onColor(bg);
+  x.font = '700 78px "Segoe UI", Arial, sans-serif';
+  x.textAlign = 'center'; x.textBaseline = 'alphabetic';
+  x.fillText(store.currentApp || 'App name', W / 2, H / 2 - 8);
+  x.fillStyle = accent;
+  x.font = '500 34px "Segoe UI", Arial, sans-serif';
+  x.fillText('Your tagline goes here', W / 2, H / 2 + 48);
+  x.strokeStyle = guideColor(bg); x.setLineDash([10, 8]); x.lineWidth = 2;
+  x.strokeRect(40, 40, W - 80, H - 80);
+  x.setLineDash([]);
+  tplLabel(x, W / 2, H - 16, '1024 × 500 · keep text inside the dashed area', bg);
+  return c;
+}
+
+function genShot(W, H, formLabel) {
+  const c = mkCanvas(W, H), x = c.getContext('2d');
+  const { accent, bg } = tplColors();
+  const scale = W / 1080;
+  x.fillStyle = bg; x.fillRect(0, 0, W, H);
+  // Headline band — the caption area most listing screenshots use.
+  const bandH = Math.round(H * 0.17);
+  x.fillStyle = accent; x.fillRect(0, 0, W, bandH);
+  x.fillStyle = onColor(accent);
+  x.textAlign = 'center'; x.textBaseline = 'middle';
+  x.font = '700 ' + Math.round(64 * scale) + 'px "Segoe UI", Arial, sans-serif';
+  x.fillText(store.currentApp || 'App name', W / 2, bandH * 0.38);
+  x.font = '500 ' + Math.round(40 * scale) + 'px "Segoe UI", Arial, sans-serif';
+  x.fillText('One-line feature headline', W / 2, bandH * 0.72);
+  // Screenshot placement area.
+  const m = Math.round(60 * scale);
+  const top = bandH + m;
+  pathRound(x, m, top, W - m * 2, H - top - m * 2, Math.round(36 * scale));
+  x.fillStyle = hexLum(bg) > 0.5 ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.07)';
+  x.fill();
+  x.strokeStyle = guideColor(bg); x.setLineDash([12, 10]); x.lineWidth = Math.max(2, 3 * scale);
+  x.stroke(); x.setLineDash([]);
+  x.fillStyle = guideColor(bg);
+  x.font = '500 ' + Math.round(44 * scale) + 'px "Segoe UI", Arial, sans-serif';
+  x.fillText('Place the real app screenshot here', W / 2, H / 2);
+  x.font = '500 ' + Math.round(34 * scale) + 'px "Segoe UI", Arial, sans-serif';
+  x.fillText(W + ' × ' + H + ' · ' + formLabel, W / 2, H - m - Math.round(50 * scale));
+  return c;
+}
+
+const ASSET_TEMPLATES = [
+  { id: 'icon',     name: 'Store icon',               spec: '512×512 PNG',   file: () => assetSlug() + '-icon-512.png',                     gen: genIcon },
+  { id: 'adaptive', name: 'Adaptive icon foreground', spec: '1024×1024 PNG · transparent', file: () => assetSlug() + '-adaptive-foreground-1024.png', gen: genAdaptive },
+  { id: 'feature',  name: 'Feature graphic',          spec: '1024×500 PNG',  file: () => assetSlug() + '-feature-graphic-1024x500.png',     gen: genFeature },
+  { id: 'phone',    name: 'Phone screenshot frame',   spec: '1080×1920',     file: () => assetSlug() + '-screenshot-phone-1080x1920.png',   gen: () => genShot(1080, 1920, 'phone') },
+  { id: 'tab7',     name: '7-inch tablet frame',      spec: '1440×2560',     file: () => assetSlug() + '-screenshot-tablet7-1440x2560.png', gen: () => genShot(1440, 2560, '7-inch tablet') },
+  { id: 'tab10',    name: '10-inch tablet frame',     spec: '2160×3840',     file: () => assetSlug() + '-screenshot-tablet10-2160x3840.png', gen: () => genShot(2160, 3840, '10-inch tablet') },
+];
+
+function initAssets() {
+  const grid = document.getElementById('assetGrid');
+  grid.replaceChildren(...ASSET_TEMPLATES.map(t => {
+    const b = document.createElement('button');
+    b.className = 'asset-btn';
+    b.innerHTML = '<b>⬇ ' + t.name + '</b><span class="spec">' + t.spec + '</span>';
+    b.addEventListener('click', () => downloadCanvas(t.gen(), t.file()));
+    return b;
+  }));
+
+  const accentInput = document.getElementById('assetAccent');
+  const bgInput = document.getElementById('assetBg');
+  if (store.assetAccent) accentInput.value = store.assetAccent;
+  if (store.assetBg) bgInput.value = store.assetBg;
+  accentInput.addEventListener('change', () => { store.assetAccent = accentInput.value; persist(); });
+  bgInput.addEventListener('change', () => { store.assetBg = bgInput.value; persist(); });
+
+  const card = document.getElementById('assetCard');
+  const head = document.getElementById('assetHead');
+  if (store.assetsCollapsed) { card.classList.add('collapsed'); head.setAttribute('aria-expanded', 'false'); }
+  head.addEventListener('click', () => {
+    store.assetsCollapsed = !store.assetsCollapsed;
+    card.classList.toggle('collapsed', store.assetsCollapsed);
+    head.setAttribute('aria-expanded', String(!store.assetsCollapsed));
+    persist();
+  });
+}
+
+// Test/automation hook: window.PlayChecklist.generate('icon') -> canvas
+window.PlayChecklist = {
+  generate: id => { const t = ASSET_TEMPLATES.find(t => t.id === id); return t ? t.gen() : null; },
+  templates: ASSET_TEMPLATES.map(t => t.id),
+};
+
+/* ════════════════════════════════════════════════════════════════════
+   WIRE UP
+   ════════════════════════════════════════════════════════════════════ */
+document.getElementById('appSelect').addEventListener('change', e => {
+  store.currentApp = e.target.value; persist(); render();
+});
+document.getElementById('newAppBtn').addEventListener('click', newApp);
+document.getElementById('renameBtn').addEventListener('click', renameApp);
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const order = ['auto', 'light', 'dark'];
+  store.theme = order[(order.indexOf(store.theme || 'auto') + 1) % order.length];
+  persist(); applyTheme();
+  document.getElementById('themeBtn').title = 'Theme: ' + store.theme;
+});
+document.getElementById('search').addEventListener('input', applyFilter);
+document.getElementById('hideDone').addEventListener('change', e => {
+  store.hideDone = e.target.checked; persist(); applyFilter();
+});
+document.getElementById('expandAll').addEventListener('click', () => {
+  CHECKLIST.forEach(s => { app().collapsed[s.id] = false; });
+  document.querySelectorAll('#sections .section').forEach(sec => {
+    sec.classList.remove('collapsed');
+    sec.querySelector('.section-head').setAttribute('aria-expanded', 'true');
+  });
+  persist();
+});
+document.getElementById('collapseAll').addEventListener('click', () => {
+  CHECKLIST.forEach(s => { app().collapsed[s.id] = true; });
+  document.querySelectorAll('#sections .section').forEach(sec => {
+    sec.classList.add('collapsed');
+    sec.querySelector('.section-head').setAttribute('aria-expanded', 'false');
+  });
+  persist();
+});
+document.getElementById('exportBtn').addEventListener('click', exportJson);
+document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change', e => {
+  if (e.target.files[0]) importJson(e.target.files[0]);
+  e.target.value = '';
+});
+document.getElementById('printBtn').addEventListener('click', () => window.print());
+document.getElementById('resetBtn').addEventListener('click', resetApp);
+document.getElementById('deleteBtn').addEventListener('click', deleteApp);
+
+document.getElementById('hideDone').checked = !!store.hideDone;
+applyTheme();
+refreshAppSelect();
+render();
+initAssets();
+showStorageWarning();
+persist();
+</script>
+</body>
+</html>

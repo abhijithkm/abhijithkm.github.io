@@ -1,0 +1,78 @@
+{
+  "slug": "tinysteps",
+  "name": "TinySteps",
+  "tagline": "Every moment matters — feeding, sleep, growth, and health in one place",
+  "category": "Parenting",
+  "tags": [
+    "Android",
+    "React Native",
+    "Expo",
+    "TypeScript"
+  ],
+  "icon": "/apps/tinysteps/icon.png",
+  "screenshots": [
+    "/apps/tinysteps/1.png",
+    "/apps/tinysteps/2.png",
+    "/apps/tinysteps/3.png",
+    "/apps/tinysteps/4.png"
+  ],
+  "playStoreUrl": null,
+  "packageId": "com.envisagesystems.tinysteps",
+  "releaseYear": 2026,
+  "description": [
+    "TinySteps is a baby tracker for the first years, when the days blur together and the details still matter. Log a feed, a nap, a diaper, a dose of medicine, or a growth measurement in a few taps, and get back a clear picture of the day instead of a notebook full of guesses.",
+    "Everything lives on your phone first, so the app works with no signal and no account. A single timeline pulls every module together, insights chart weight and height against percentiles as they come in, and reminders keep vaccinations, medicine, and doctor visits from slipping. Sign in only if you want a cloud backup you can restore onto a new phone."
+  ],
+  "features": [
+    "Feeding log — breast, bottle, and solids, with a running Today summary",
+    "Sleep sessions with start/stop tracking and daily totals",
+    "Diaper, medicine, and dose-by-dose medication history",
+    "Growth measurements with weight, height, and head circumference charts",
+    "Vaccination schedule with reminders generated automatically",
+    "Doctor visits and a baby profile with blood group, allergies, and emergency contacts",
+    "One timeline across every module, with filters, search, and swipe actions",
+    "Works fully offline — no account needed to use any screen",
+    "Optional cloud backup and restore when you sign in",
+    "Light and dark themes that follow your device"
+  ],
+  "tech": [
+    "React Native",
+    "Expo SDK 57",
+    "TypeScript",
+    "SQLite",
+    "Supabase",
+    "TanStack Query",
+    "NativeWind"
+  ],
+  "privacy": {
+    "effectiveDate": "August 5, 2026",
+    "collectsPersonalData": true,
+    "dataCollected": [
+      {
+        "type": "Email address (only if you create an account)",
+        "purpose": "Used solely to sign you in so your records can be backed up and restored. Handled by Supabase Auth. TinySteps works fully without an account, and no email is collected if you stay offline."
+      },
+      {
+        "type": "Baby records you enter (feeding, sleep, diaper, medicine, growth, vaccination, doctor visits, baby profile)",
+        "purpose": "Stored locally on your device. If — and only if — you sign in, these records are also copied to your own private rows in the cloud database so you can restore them on a new phone. Row-level security means no other user can read them."
+      }
+    ],
+    "permissions": [
+      {
+        "name": "Notifications",
+        "reason": "Used only to deliver the reminders you set for medicine, vaccinations, and doctor visits. Scheduled on the device — TinySteps does not send push messages from a server."
+      }
+    ],
+    "thirdPartyServices": [
+      {
+        "name": "Supabase (authentication and cloud backup, used only if you sign in)",
+        "url": "https://supabase.com/privacy"
+      }
+    ],
+    "showsAds": false,
+    "usesAnalytics": false,
+    "accountRequired": false,
+    "childDirected": false,
+    "dataDeletionNote": "All records live in TinySteps' own storage on your device. Deleting an entry removes it, and uninstalling the app or clearing its storage removes everything local. If you signed in for backup, signing out stops any further upload, and you can ask us to delete your account and every backed-up row by writing to the contact address on this page."
+  }
+}

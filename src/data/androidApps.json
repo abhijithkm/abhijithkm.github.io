@@ -66,137 +66,81 @@
     }
   },
   {
-    "slug": "sample-notes",
-    "sample": true,
-    "name": "Quick Notes (Sample)",
-    "tagline": "Fast, offline-first note taking with markdown support",
-    "category": "Productivity",
+    "slug": "tinysteps",
+    "name": "TinySteps",
+    "tagline": "Every moment matters — feeding, sleep, growth, and health in one place",
+    "category": "Parenting",
     "tags": [
       "Android",
-      "Kotlin",
-      "Jetpack Compose"
+      "React Native",
+      "Expo",
+      "TypeScript"
     ],
-    "icon": "/apps/sample-notes/icon.svg",
+    "icon": "/apps/tinysteps/icon.png",
     "screenshots": [
-      "/apps/sample-notes/1.svg",
-      "/apps/sample-notes/2.svg",
-      "/apps/sample-notes/3.svg"
-    ],
-    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.example.quicknotes",
-    "packageId": "com.example.quicknotes",
-    "releaseYear": 2024,
-    "description": [
-      "Quick Notes is a lightweight, offline-first note taking app built for speed. Capture ideas the moment they strike — no sign-up, no sync delays, no clutter.",
-      "Notes are stored locally on your device using Room, with full markdown rendering, tag-based organization, and reminder notifications so nothing slips through."
-    ],
-    "features": [
-      "Offline-first — works with zero network access",
-      "Markdown editing with live preview",
-      "Tags and full-text search",
-      "Reminder notifications for time-sensitive notes",
-      "Light and dark themes",
-      "Local backup and restore"
-    ],
-    "tech": [
-      "Kotlin",
-      "Jetpack Compose",
-      "Room",
-      "WorkManager",
-      "Material 3"
-    ],
-    "privacy": {
-      "effectiveDate": "August 5, 2026",
-      "collectsPersonalData": false,
-      "dataCollected": [],
-      "permissions": [
-        {
-          "name": "Notifications",
-          "reason": "Used to deliver the reminder alerts you schedule for your notes."
-        }
-      ],
-      "thirdPartyServices": [],
-      "showsAds": false,
-      "usesAnalytics": false,
-      "accountRequired": false,
-      "childDirected": false,
-      "dataDeletionNote": "All notes live only on your device. Uninstalling the app, or clearing its storage from Android settings, permanently removes all data."
-    }
-  },
-  {
-    "slug": "sample-trailfit",
-    "sample": true,
-    "name": "TrailFit (Sample)",
-    "tagline": "Track walks, hikes, and daily steps with route maps",
-    "category": "Health & Fitness",
-    "tags": [
-      "Android",
-      "Kotlin",
-      "Maps"
-    ],
-    "icon": "/apps/sample-trailfit/icon.svg",
-    "screenshots": [
-      "/apps/sample-trailfit/1.svg",
-      "/apps/sample-trailfit/2.svg",
-      "/apps/sample-trailfit/3.svg"
+      "/apps/tinysteps/1.png",
+      "/apps/tinysteps/2.png",
+      "/apps/tinysteps/3.png",
+      "/apps/tinysteps/4.png"
     ],
     "playStoreUrl": null,
-    "packageId": "com.example.trailfit",
-    "releaseYear": 2025,
+    "packageId": "com.envisagesystems.tinysteps",
+    "releaseYear": 2026,
     "description": [
-      "TrailFit turns your phone into a simple activity companion. Track walks, runs, and hikes with live route maps, distance, pace, and elevation.",
-      "A clean dashboard summarizes your week at a glance, and every workout is stored on your device so your history is always available — even offline."
+      "TinySteps is a baby tracker for the first years, when the days blur together and the details still matter. Log a feed, a nap, a diaper, a dose of medicine, or a growth measurement in a few taps, and get back a clear picture of the day instead of a notebook full of guesses.",
+      "Everything lives on your phone first, so the app works with no signal and no account. A single timeline pulls every module together, insights chart weight and height against percentiles as they come in, and reminders keep vaccinations, medicine, and doctor visits from slipping. Sign in only if you want a cloud backup you can restore onto a new phone."
     ],
     "features": [
-      "Live GPS route tracking with map view",
-      "Daily step counting via device sensors",
-      "Weekly distance and pace summaries",
-      "Elevation and calorie estimates",
-      "Workout history stored on-device"
+      "Feeding log — breast, bottle, and solids, with a running Today summary",
+      "Sleep sessions with start/stop tracking and daily totals",
+      "Diaper, medicine, and dose-by-dose medication history",
+      "Growth measurements with weight, height, and head circumference charts",
+      "Vaccination schedule with reminders generated automatically",
+      "Doctor visits and a baby profile with blood group, allergies, and emergency contacts",
+      "One timeline across every module, with filters, search, and swipe actions",
+      "Works fully offline — no account needed to use any screen",
+      "Optional cloud backup and restore when you sign in",
+      "Light and dark themes that follow your device"
     ],
     "tech": [
-      "Kotlin",
-      "Jetpack Compose",
-      "Google Maps SDK",
-      "Room"
+      "React Native",
+      "Expo SDK 57",
+      "TypeScript",
+      "SQLite",
+      "Supabase",
+      "TanStack Query",
+      "NativeWind"
     ],
     "privacy": {
       "effectiveDate": "August 5, 2026",
       "collectsPersonalData": true,
       "dataCollected": [
         {
-          "type": "Location (GPS)",
-          "purpose": "To draw your route on the map and measure distance while a workout is being recorded. Location history is stored only on your device."
+          "type": "Email address (only if you create an account)",
+          "purpose": "Used solely to sign you in so your records can be backed up and restored. Handled by Supabase Auth. TinySteps works fully without an account, and no email is collected if you stay offline."
         },
         {
-          "type": "Physical activity (step count)",
-          "purpose": "To show daily step totals. Read from your device's built-in sensors and stored only on your device."
+          "type": "Baby records you enter (feeding, sleep, diaper, medicine, growth, vaccination, doctor visits, baby profile)",
+          "purpose": "Stored locally on your device. If — and only if — you sign in, these records are also copied to your own private rows in the cloud database so you can restore them on a new phone. Row-level security means no other user can read them."
         }
       ],
       "permissions": [
         {
-          "name": "Location (precise)",
-          "reason": "Required to record your route while tracking a walk, run, or hike. Only active during a workout."
-        },
-        {
-          "name": "Physical activity",
-          "reason": "Required to count steps using the device's activity sensors."
+          "name": "Notifications",
+          "reason": "Used only to deliver the reminders you set for medicine, vaccinations, and doctor visits. Scheduled on the device — TinySteps does not send push messages from a server."
         }
       ],
       "thirdPartyServices": [
         {
-          "name": "Google Maps Platform",
-          "url": "https://policies.google.com/privacy"
-        },
-        {
-          "name": "Google AdMob",
-          "url": "https://support.google.com/admob/answer/6128543"
+          "name": "Supabase (authentication and cloud backup, used only if you sign in)",
+          "url": "https://supabase.com/privacy"
         }
       ],
-      "showsAds": true,
+      "showsAds": false,
       "usesAnalytics": false,
       "accountRequired": false,
       "childDirected": false,
-      "dataDeletionNote": "Workout history is stored only on your device. You can delete individual workouts inside the app, or remove everything by clearing the app's storage or uninstalling it."
+      "dataDeletionNote": "All records live in TinySteps' own storage on your device. Deleting an entry removes it, and uninstalling the app or clearing its storage removes everything local. If you signed in for backup, signing out stops any further upload, and you can ask us to delete your account and every backed-up row by writing to the contact address on this page."
     }
   }
 ]

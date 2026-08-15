@@ -3,6 +3,7 @@ import { motion, type Variants } from "framer-motion";
 import { ArrowDown, Send, FileText, Mail } from "lucide-react";
 import { personalDetails, socialLinks } from "../data/profile";
 import { GithubIcon, LinkedinIcon } from "./SocialIcons";
+import { scrollToSection } from "../lib/sectionNav";
 // Terminal card hidden for now — restore the import and the block below to bring it back
 // import TerminalAnimation from "./terminal/TerminalAnimation";
 
@@ -125,7 +126,7 @@ export default function Hero() {
             href="#hobby-apps"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("#hobby-apps")?.scrollIntoView({ behavior: "smooth" });
+              scrollToSection("#hobby-apps");
             }}
             className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-primary-600 to-accent-purple px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-600/20 transition-all duration-300 hover:shadow-xl hover:shadow-primary-600/30 hover:-translate-y-0.5"
           >
@@ -139,7 +140,7 @@ export default function Hero() {
             href="#contact"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+              scrollToSection("#contact");
             }}
             className="inline-flex items-center gap-2 rounded-xl border border-white/[0.12] bg-white/[0.03] px-6 py-3 text-sm font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.06] hover:border-white/20 hover:-translate-y-0.5"
           >

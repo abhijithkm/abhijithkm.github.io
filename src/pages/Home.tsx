@@ -1,10 +1,11 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 import CommandPalette from "../components/search/CommandPalette";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { personalDetails } from "../data/profile";
+import { scrollToSectionWhenReady } from "../lib/sectionNav";
 
 const ImpactMetrics = lazy(() => import("../components/metrics/ImpactMetrics"));
 const About = lazy(() => import("../components/About"));
@@ -33,6 +34,34 @@ export default function Home() {
       "Full-Stack Software Engineer building enterprise React + .NET applications with AWS cloud infrastructure.",
     path: "/",
   });
+
+  // Land on the section named in the URL — on a shared link, and on the
+  // back button from an app page, where the entry we left carries the
+  // hash the scroll-spy last wrote. Sections are lazy, so this waits for
+  // the target to mount.
+  useEffect(() => {
+    // The browser's own restoration would fight the scroll below.
+    if ("scrollRestoration" in window.history)
+      window.history.scrollRestoration = "manual";
+
+    let cancel: (() => void) | undefined;
+
+    const jumpToHash = () => {
+      cancel?.();
+      const hash = window.location.hash;
+      if (!hash || hash === "#") return;
+      cancel = scrollToSectionWhenReady(hash);
+    };
+
+    jumpToHash();
+    window.addEventListener("popstate", jumpToHash);
+    return () => {
+      cancel?.();
+      window.removeEventListener("popstate", jumpToHash);
+      if ("scrollRestoration" in window.history)
+        window.history.scrollRestoration = "auto";
+    };
+  }, []);
 
   return (
     <>

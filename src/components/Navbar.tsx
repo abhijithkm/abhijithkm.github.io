@@ -10,6 +10,7 @@ import {
 } from "../data/profile";
 import { androidApps } from "../data/androidApps";
 import { useScrollSpy } from "../hooks/useScrollSpy";
+import { scrollToSection, syncHashToSection } from "../lib/sectionNav";
 import { CommandPaletteHint } from "./search/CommandPalette";
 import { useTheme, type ThemeName } from "../context/ThemeContext";
 
@@ -45,9 +46,16 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Keep the address bar on the section being read (replace, not push —
+  // scrolling must not fill the history stack). This is also what makes
+  // the back button from an app page land on the section you left from.
+  useEffect(() => {
+    syncHashToSection(rawActive);
+  }, [rawActive]);
+
   const handleClick = (href: string) => {
     setMobileOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    scrollToSection(href);
   };
 
   return (

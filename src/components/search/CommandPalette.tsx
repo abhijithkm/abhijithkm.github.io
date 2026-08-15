@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { navLinks, allSectionIds, skills, projects } from "../../data/profile";
 import { hobbyApps } from "../../data/hobbyApps";
 import { androidApps } from "../../data/androidApps";
+import { scrollToSection } from "../../lib/sectionNav";
 
 interface SearchItem {
   label: string;
@@ -23,7 +24,7 @@ export default function CommandPalette() {
   const items = useMemo<SearchItem[]>(() => {
     const scrollTo = (id: string) => {
       setOpen(false);
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      scrollToSection(id);
     };
     return [
       // Nav sections

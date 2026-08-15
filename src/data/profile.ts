@@ -295,23 +295,25 @@ export const achievements = [
 
 // ─── Navigation ─────────────────────────────────────────────────────
 
+// Order must match the section order rendered in pages/Home.tsx, so the
+// nav reads top-to-bottom the way the page scrolls.
 export const navLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Android Apps", href: "#android-apps" },
+  { label: "Projects", href: "#hobby-apps" },
   { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#hobby-apps" },
   { label: "Contact", href: "#contact" },
 ];
 
-/** All section ids for scroll-spy (includes sections not in nav) */
+/** All section ids for scroll-spy, in page order (includes sections not in nav) */
 export const allSectionIds = [
   "home",
   "about",
   "android-apps",
-  "skills",
   "hobby-apps",
+  "skills",
   "experience",
   "achievements",
   "education",

@@ -11,10 +11,10 @@
   ],
   "icon": "/apps/tinysteps/icon.png",
   "screenshots": [
-    "/apps/tinysteps/1.png",
-    "/apps/tinysteps/2.png",
-    "/apps/tinysteps/3.png",
-    "/apps/tinysteps/4.png"
+    "/apps/tinysteps/1.jpg",
+    "/apps/tinysteps/2.jpg",
+    "/apps/tinysteps/3.jpg",
+    "/apps/tinysteps/4.jpg"
   ],
   "playStoreUrl": null,
   "packageId": "com.envisagesystems.tinysteps",

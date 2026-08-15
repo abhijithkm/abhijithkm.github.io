@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { ShieldCheck, ArrowLeft, Mail } from "lucide-react";
 import type { ReactNode } from "react";
 import AppPageLayout from "../../components/apps/AppPageLayout";
+import AppImage from "../../components/apps/AppImage";
 import { getAndroidApp } from "../../data/androidApps";
 import { usePageMeta } from "../../hooks/usePageMeta";
 import { personalDetails } from "../../data/profile";
@@ -63,9 +64,11 @@ export default function AppPrivacy() {
         </Link>
 
         <div className="mt-6 flex items-start gap-4">
-          <img
+          <AppImage
             src={app.icon}
-            alt=""
+            alt={`${app.name} icon`}
+            variant="icon"
+            loading="eager"
             className="h-14 w-14 shrink-0 rounded-xl border border-white/[0.08] object-cover"
           />
           <div>

@@ -1,13 +1,13 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Smartphone } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import {
   androidCategoryStyles,
   fallbackCategoryStyle,
   type AndroidApp,
 } from "../../data/androidApps";
 import { isAutomated } from "../../lib/motion";
+import AppImage from "./AppImage";
 
 export default function AndroidAppCard({
   app,
@@ -17,7 +17,6 @@ export default function AndroidAppCard({
   i: number;
 }) {
   const badgeClass = androidCategoryStyles[app.category] ?? fallbackCategoryStyle;
-  const [iconError, setIconError] = useState(false);
 
   return (
     <motion.div
@@ -35,19 +34,12 @@ export default function AndroidAppCard({
       >
         {/* Header: icon + name + category */}
         <div className="flex items-start gap-4">
-          {!iconError ? (
-            <img
-              src={app.icon}
-              alt=""
-              loading="lazy"
-              onError={() => setIconError(true)}
-              className="h-12 w-12 shrink-0 rounded-xl border border-white/[0.08] bg-white/[0.04] object-cover"
-            />
-          ) : (
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.04]">
-              <Smartphone size={20} className="text-primary-400/60" />
-            </div>
-          )}
+          <AppImage
+            src={app.icon}
+            alt={`${app.name} icon`}
+            variant="icon"
+            className="h-12 w-12 shrink-0 rounded-xl border border-white/[0.08] bg-white/[0.04] object-cover"
+          />
           <div className="min-w-0">
             <h3 className="truncate text-base font-semibold leading-snug text-white">
               {app.name}
@@ -67,12 +59,11 @@ export default function AndroidAppCard({
         {/* Mini screenshot strip */}
         {app.screenshots.length > 0 && (
           <div className="mt-4 flex gap-2">
-            {app.screenshots.slice(0, 3).map((shot) => (
-              <img
+            {app.screenshots.slice(0, 3).map((shot, i) => (
+              <AppImage
                 key={shot}
                 src={shot}
-                alt=""
-                loading="lazy"
+                alt={`${app.name} screenshot ${i + 1}`}
                 className="h-24 w-12 rounded-md border border-white/[0.08] object-cover object-top opacity-80 transition-opacity duration-300 group-hover:opacity-100"
               />
             ))}

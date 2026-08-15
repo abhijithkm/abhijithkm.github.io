@@ -77,11 +77,12 @@
       "TypeScript"
     ],
     "icon": "/apps/tinysteps/icon.png",
+    "accent": "#98D2C0",
     "screenshots": [
-      "/apps/tinysteps/1.png",
-      "/apps/tinysteps/2.png",
-      "/apps/tinysteps/3.png",
-      "/apps/tinysteps/4.png"
+      "/apps/tinysteps/1.jpg",
+      "/apps/tinysteps/2.jpg",
+      "/apps/tinysteps/3.jpg",
+      "/apps/tinysteps/4.jpg"
     ],
     "playStoreUrl": "https://play.google.com/store/apps/details?id=com.envisagesystems.tinysteps",
     "packageId": "com.envisagesystems.tinysteps",

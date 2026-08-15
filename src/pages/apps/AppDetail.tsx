@@ -153,7 +153,7 @@ export default function AppDetail() {
   const badgeClass = androidCategoryStyles[app.category] ?? fallbackCategoryStyle;
 
   return (
-    <AppPageLayout>
+    <AppPageLayout accent={app.accent}>
       <div className="mx-auto max-w-5xl px-6 py-14 md:py-20">
         {/* ── Hero ── */}
         <motion.div

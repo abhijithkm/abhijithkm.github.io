@@ -5,6 +5,7 @@
   "category": "Productivity",
   "tags": ["Android", "Kotlin", "Jetpack Compose"],
   "icon": "/apps/my-app-name/icon.png",
+  "accent": "#818cf8",
   "screenshots": [
     "/apps/my-app-name/1.png",
     "/apps/my-app-name/2.png",

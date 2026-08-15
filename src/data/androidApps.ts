@@ -59,8 +59,33 @@ export interface AndroidApp {
   features: string[];
   tech: string[];
   privacy: AndroidAppPrivacy;
+  /**
+   * The app's own brand colour, as a hex string — every accent on its
+   * pages (links, buttons, icons, hover borders) is derived from it, so
+   * /apps/<slug> feels like the app it documents. Pick a tone that reads
+   * on a near-black background; a deep brand colour will disappear.
+   * Omit to use the site's default indigo.
+   */
+  accent?: string;
   /** Dev-only placeholder entry — never rendered in production */
   sample?: boolean;
+}
+
+/**
+ * Tailwind's `primary-*` utilities read these variables, so overriding
+ * them on a wrapper element re-tints everything inside it without
+ * touching a single component. Steps are mixed from the one hex the
+ * JSON supplies: 400 is the colour itself, lighter above, darker below.
+ */
+export function accentVars(accent?: string): Record<string, string> {
+  if (!accent) return {};
+  return {
+    "--color-primary-300": `color-mix(in oklab, ${accent}, white 32%)`,
+    "--color-primary-400": accent,
+    "--color-primary-500": `color-mix(in oklab, ${accent}, black 14%)`,
+    "--color-primary-600": `color-mix(in oklab, ${accent}, black 30%)`,
+    "--color-primary-700": `color-mix(in oklab, ${accent}, black 44%)`,
+  };
 }
 
 const allApps = raw as AndroidApp[];

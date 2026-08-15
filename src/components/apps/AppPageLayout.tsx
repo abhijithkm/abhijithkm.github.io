@@ -1,16 +1,29 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { personalDetails } from "../../data/profile";
+import { accentVars } from "../../data/androidApps";
 import Footer from "../Footer";
 
 /**
  * Shared shell for /apps pages — lightweight sticky header (no scroll-spy
  * navbar, which only works on the single-page home) + the global footer.
+ *
+ * `accent` re-tints the whole page in the documented app's own brand
+ * colour; without it the page keeps the site's indigo.
  */
-export default function AppPageLayout({ children }: { children: ReactNode }) {
+export default function AppPageLayout({
+  children,
+  accent,
+}: {
+  children: ReactNode;
+  accent?: string;
+}) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div
+      className="flex min-h-screen flex-col"
+      style={accentVars(accent) as CSSProperties}
+    >
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-surface-950/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link to="/" className="flex items-center gap-2">

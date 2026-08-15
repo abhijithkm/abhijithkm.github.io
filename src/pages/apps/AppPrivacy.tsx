@@ -53,7 +53,7 @@ export default function AppPrivacy() {
   const contactEmail = personalDetails.email;
 
   return (
-    <AppPageLayout>
+    <AppPageLayout accent={app.accent}>
       <article className="mx-auto max-w-3xl px-6 py-14 md:py-20">
         {/* ── Header ── */}
         <Link

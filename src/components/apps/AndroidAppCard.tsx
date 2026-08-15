@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
+import type { CSSProperties } from "react";
 import {
+  accentVars,
   androidCategoryStyles,
   fallbackCategoryStyle,
   type AndroidApp,
@@ -25,6 +27,7 @@ export default function AndroidAppCard({
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.5, delay: 0.08 * i }}
       whileHover={{ y: -4, transition: { duration: 0.25 } }}
+      style={accentVars(app.accent) as CSSProperties}
       className="group relative flex flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm transition-all duration-300 hover:border-primary-500/20 hover:shadow-xl hover:shadow-primary-600/8"
     >
       <Link

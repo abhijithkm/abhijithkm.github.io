@@ -41,6 +41,7 @@ export default function AndroidAppCard({
             src={app.icon}
             alt={`${app.name} icon`}
             variant="icon"
+            boxClassName="h-12 w-12 shrink-0 rounded-xl"
             className="h-12 w-12 shrink-0 rounded-xl border border-white/[0.08] bg-white/[0.04] object-cover"
           />
           <div className="min-w-0">
@@ -67,6 +68,7 @@ export default function AndroidAppCard({
                 key={shot}
                 src={shot}
                 alt={`${app.name} screenshot ${i + 1}`}
+                boxClassName="h-24 w-12 rounded-md"
                 className="h-24 w-12 rounded-md border border-white/[0.08] object-cover object-top opacity-80 transition-opacity duration-300 group-hover:opacity-100"
               />
             ))}

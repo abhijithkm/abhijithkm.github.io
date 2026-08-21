@@ -50,3 +50,46 @@
     color: white;
   }
 }
+
+/* Sweep used by AppImage while an app icon or screenshot loads. */
+@keyframes app-image-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.app-image-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.06),
+    transparent
+  );
+  animation: app-image-shimmer 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-image-shimmer::after {
+    animation: none;
+  }
+}
+
+@keyframes app-image-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.app-image-fade-in {
+  animation: app-image-fade-in 0.35s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-image-fade-in {
+    animation: none;
+  }
+}

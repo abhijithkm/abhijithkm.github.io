@@ -69,6 +69,7 @@ export default function AppPrivacy() {
             alt={`${app.name} icon`}
             variant="icon"
             loading="eager"
+            boxClassName="h-14 w-14 shrink-0 rounded-xl"
             className="h-14 w-14 shrink-0 rounded-xl border border-white/[0.08] object-cover"
           />
           <div>

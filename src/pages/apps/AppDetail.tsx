@@ -101,7 +101,7 @@ function Lightbox({
           alt={`${app.name} screenshot ${index + 1}`}
           label="Screenshot coming soon"
           loading="eager"
-          placeholderClassName="h-[70vh] w-[min(340px,80vw)]"
+          boxClassName="h-[70vh] w-[min(340px,80vw)] rounded-2xl"
           className="max-h-[88vh] max-w-[92vw] rounded-2xl border border-white/10 shadow-2xl"
         />
       </motion.div>
@@ -167,6 +167,7 @@ export default function AppDetail() {
             alt={`${app.name} icon`}
             variant="icon"
             loading="eager"
+            boxClassName="h-20 w-20 shrink-0 rounded-2xl md:h-24 md:w-24"
             className="h-20 w-20 shrink-0 rounded-2xl border border-white/[0.08] bg-white/[0.04] object-cover shadow-lg md:h-24 md:w-24"
           />
           <div className="min-w-0 flex-1">
@@ -232,7 +233,7 @@ export default function AppDetail() {
                     src={shot}
                     alt={`${app.name} screenshot ${i + 1}`}
                     label="Screenshot coming soon"
-                    placeholderClassName="w-[190px] md:w-[220px]"
+                    boxClassName="h-[380px] w-[190px] rounded-2xl md:h-[440px] md:w-[220px]"
                     className="h-[380px] w-auto rounded-2xl border border-white/[0.08] object-cover transition-all duration-300 group-hover:border-primary-500/30 group-hover:shadow-lg group-hover:shadow-primary-600/10 md:h-[440px]"
                   />
                 </button>

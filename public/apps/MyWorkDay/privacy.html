@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — MyWorkDay</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --surface: #ffffff;
+    --border: #e0e4eb;
+    --fg: #181c24;
+    --muted: #646e80;
+    --primary: #2563eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.6;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 40px;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .updated {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0 0 32px;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 32px 0 10px;
+    padding-top: 4px;
+  }
+  p, li {
+    font-size: 15px;
+    color: var(--fg);
+  }
+  p.lead {
+    color: var(--muted);
+  }
+  ul {
+    padding-left: 22px;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  li:last-child {
+    margin-bottom: 0;
+  }
+  strong {
+    font-weight: 600;
+  }
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  code {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 13px;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="card">
+      <h1>Privacy Policy — MyWorkDay</h1>
+      <p class="updated">Last updated: September 17, 2026</p>
+
+      <p>MyWorkDay is a personal, local-first desktop application for a single developer to track
+      their own workday. This policy explains what data the app touches and how it is handled.</p>
+
+      <h2>Summary</h2>
+      <p>MyWorkDay does not have a server, does not collect analytics or telemetry, does not create
+      user accounts, and does not share any data with third parties. All data the app gathers stays
+      on your own computer, in a local database, for your own use.</p>
+
+      <h2>What data the app accesses</h2>
+      <p>MyWorkDay only accesses data you explicitly configure it to access, using your own
+      credentials:</p>
+      <ul>
+        <li><strong>Local Git history</strong> — commit metadata (timestamps, messages, branches)
+        from repositories you point the app at, read directly from your local <code>.git</code>
+        folders. This never leaves your machine.</li>
+        <li><strong>Jira</strong> — your assigned tickets (key, summary, status, priority, type),
+        fetched read-only using an API token you provide. MyWorkDay never edits, comments on, or
+        transitions tickets.</li>
+        <li><strong>Bitbucket</strong> — pull requests and their metadata in repositories you have
+        access to, fetched read-only via an OAuth connection you authorize. MyWorkDay never
+        creates, approves, merges, or comments on pull requests.</li>
+        <li><strong>Google Calendar</strong> — your calendar events (title, start/end time),
+        fetched read-only via a Google OAuth connection you authorize. MyWorkDay never creates,
+        edits, or deletes events.</li>
+        <li><strong>Google Chat</strong> (optional) — your own availability status
+        (Active/Away/Do&nbsp;Not&nbsp;Disturb), read via a Google OAuth connection you authorize.
+        MyWorkDay only changes your status when you explicitly click a button to do so — never
+        automatically.</li>
+      </ul>
+
+      <h2>Where your data is stored</h2>
+      <p>Everything MyWorkDay gathers is stored locally in a SQLite database on your own computer,
+      under your OS user profile. There is no cloud backend, no remote server, and no external
+      database. Nothing is uploaded anywhere except the specific, read-only API calls above, made
+      directly from your computer to Jira, Bitbucket, and Google using your own credentials.</p>
+
+      <h2>Credentials and tokens</h2>
+      <p>OAuth tokens (Bitbucket, Google Calendar, Google Chat) are encrypted at rest using your
+      operating system's own secure storage (Windows DPAPI via Electron's <code>safeStorage</code>).
+      Your Jira API token is never stored in plaintext in the database. MyWorkDay never sees or
+      stores your Google, Jira, or Bitbucket account password — authentication happens through
+      each provider's own login screen.</p>
+
+      <h2>Data sharing</h2>
+      <p>MyWorkDay does not share, sell, or transmit any of your data to any third party. The only
+      network requests the app makes are the read-only API calls listed above, directly to Jira,
+      Bitbucket, and Google, authorized by and acting on behalf of you alone.</p>
+
+      <h2>Analytics and telemetry</h2>
+      <p>None. MyWorkDay does not use analytics, crash reporting, or any telemetry service.</p>
+
+      <h2>Data retention and deletion</h2>
+      <p>Your data remains in the local database until you delete it yourself (e.g., by
+      uninstalling the app or removing its data folder). Disconnecting an integration (Bitbucket,
+      Google Calendar, Google Chat) in Settings deletes that integration's stored token from your
+      device immediately.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>If this policy changes, the updated version will be published at the same location.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this policy can be sent to:
+      <a href="mailto:abhijith.kumblasseriyil@micrologic.net">abhijith.kumblasseriyil@micrologic.net</a></p>
+    </div>
+    <footer>MyWorkDay — a personal, local-first developer workday cockpit</footer>
+  </div>
+</body>
+</html>

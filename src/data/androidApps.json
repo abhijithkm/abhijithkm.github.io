@@ -144,5 +144,80 @@
       "childDirected": false,
       "dataDeletionNote": "All records live in TinySteps' own storage on your device. Deleting an entry removes it, and uninstalling the app or clearing its storage removes everything local. If you signed in for backup, signing out stops any further upload, and you can ask us to delete your account and every backed-up row by writing to the contact address on this page."
     }
+  },
+  {
+    "slug": "fuel-tracker",
+    "name": "Fuel Tracker",
+    "tagline": "Log fuel fills in seconds and see your mileage, spending and cost per km.",
+    "category": "Auto & Vehicles",
+    "tags": [
+      "Android",
+      "React Native",
+      "Expo",
+      "TypeScript"
+    ],
+    "icon": "/apps/fuel-tracker/icon.png",
+    "accent": "#0B5BD3",
+    "screenshots": [
+      "/apps/fuel-tracker/1.png",
+      "/apps/fuel-tracker/2.png",
+      "/apps/fuel-tracker/3.png",
+      "/apps/fuel-tracker/4.png"
+    ],
+    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.fueltracker.app",
+    "packageId": "com.fueltracker.app",
+    "releaseYear": 2026,
+    "description": [
+      "Fuel Tracker is a simple, fast log for your car's fuel. Record a fill-up in a few seconds: pick the date, type the odometer reading and any two of amount, price per litre and litres, and the app works out the third for you.",
+      "Mileage (km/L) is calculated for every fill from your odometer readings, and everything is recalculated in date order, so you can add older fills at any time. Missing a value? Save what you know and complete it later. Each person has their own account, with no ads and no tracking."
+    ],
+    "features": [
+      "Add a fuel fill in about 10 seconds with a native date picker and number keyboards",
+      "Enter any two of amount, price and litres; the third is calculated",
+      "Mileage in km/L for every fill, worked out from odometer readings",
+      "Add old fills in any order; everything is recalculated by date",
+      "Save incomplete entries and finish them later",
+      "History grouped by month, with view, edit and delete",
+      "Statistics: total running, fuel, spending, average mileage, average price and cost per km",
+      "Running and mileage charts, in light and dark mode"
+    ],
+    "tech": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Expo Router",
+      "AppHub (REST API)",
+      "MySQL"
+    ],
+    "privacy": {
+      "effectiveDate": "September 28, 2026",
+      "collectsPersonalData": true,
+      "dataCollected": [
+        {
+          "type": "Email address",
+          "purpose": "Used to create your account and sign you in. Stored on the Fuel Tracker server, never shared or sold. Your password is stored only as a one-way hash."
+        },
+        {
+          "type": "Fuel entries (date, odometer reading, amount paid, price per litre, litres)",
+          "purpose": "The records you enter, used to calculate your mileage and statistics. Stored on the Fuel Tracker server, visible only to your account, and kept until you delete them."
+        },
+        {
+          "type": "Security records (user number and IP address)",
+          "purpose": "The server logs sign-ins and changes to protect accounts against abuse. Your email address is not written into these logs, and they are deleted automatically after 12 months."
+        }
+      ],
+      "permissions": [
+        {
+          "name": "Internet access",
+          "reason": "Used to sign you in and to save and load your fuel entries over an encrypted (HTTPS) connection."
+        }
+      ],
+      "thirdPartyServices": [],
+      "showsAds": false,
+      "usesAnalytics": false,
+      "accountRequired": true,
+      "childDirected": false,
+      "dataDeletionNote": "Open the app, tap the account icon at the top right of Home, then Delete account. This permanently deletes your account and all your fuel entries immediately. You can also delete single entries at any time, or use the deletion page at https://132-226-190-156.sslip.io/fuel-tracker/delete-account.html."
+    }
   }
 ]

@@ -315,8 +315,6 @@ export const allSectionIds = [
   "hobby-apps",
   "skills",
   "experience",
-  "achievements",
-  "education",
   "contact",
 ];
 
@@ -328,8 +326,6 @@ export const sectionToNav: Record<string, string> = {
   skills: "skills",
   "hobby-apps": "hobby-apps",
   experience: "experience",
-  achievements: "experience",
-  education: "about",
   contact: "contact",
 };
 

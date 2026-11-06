@@ -1,30 +1,38 @@
 @import "tailwindcss";
 
+/*
+ * Palette — "monsoon". A Kerala night after rain: green-black ground,
+ * cardamom green as the working accent, turmeric kept for rare marks.
+ * Existing component class names (primary-*, surface-*, accent-*) are
+ * remapped here, so app pages inherit the look without edits.
+ */
 @theme {
-  --font-sans: "Inter", "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", "Instrument Sans", ui-sans-serif, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --color-primary-50: #eef2ff;
-  --color-primary-100: #e0e7ff;
-  --color-primary-200: #c7d2fe;
-  --color-primary-300: #a5b4fc;
-  --color-primary-400: #818cf8;
-  --color-primary-500: #6366f1;
-  --color-primary-600: #4f46e5;
-  --color-primary-700: #4338ca;
-  --color-primary-800: #3730a3;
-  --color-primary-900: #312e81;
+  --color-primary-50: #f1f7ec;
+  --color-primary-100: #e0eed6;
+  --color-primary-200: #c6e0b4;
+  --color-primary-300: #aad08f;
+  --color-primary-400: #8fbf73;
+  --color-primary-500: #74a85a;
+  --color-primary-600: #5a8a45;
+  --color-primary-700: #476d38;
+  --color-primary-800: #3a562f;
+  --color-primary-900: #2f4627;
 
-  --color-accent-cyan: #22d3ee;
-  --color-accent-purple: #a78bfa;
+  --color-accent-cyan: #e9b44c;
+  --color-accent-purple: #b9d9a3;
+  --color-turmeric: #e9b44c;
 
-  --color-surface-50: #f8fafc;
-  --color-surface-100: #f1f5f9;
-  --color-surface-700: #334155;
-  --color-surface-800: #1e293b;
-  --color-surface-850: #162032;
-  --color-surface-900: #0f172a;
-  --color-surface-950: #020617;
+  --color-surface-50: #eef0e8;
+  --color-surface-100: #dfe4d9;
+  --color-surface-700: #2c3d34;
+  --color-surface-800: #1a2a22;
+  --color-surface-850: #14211b;
+  --color-surface-900: #101b16;
+  --color-surface-950: #0b1410;
 }
 
 @layer base {
@@ -45,10 +53,30 @@
     color: var(--color-surface-50);
   }
 
-  ::selection {
-    background-color: var(--color-primary-600);
-    color: white;
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
   }
+
+  ::selection {
+    background-color: var(--color-turmeric);
+    color: #0b1410;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-turmeric);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* Mono label used for section markers and ledger keys. */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-primary-400);
 }
 
 /* Sweep used by AppImage while an app icon or screenshot loads. */
@@ -92,4 +120,33 @@
   .app-image-fade-in {
     animation: none;
   }
+}
+
+/* One orchestrated page-load rise; each element sets --d for its delay. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+.rise {
+  animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
+
+/* Hill contours behind the hero: concentric rings, masked to fade out. */
+.contours {
+  background: repeating-radial-gradient(
+    ellipse 60% 45% at 78% 38%,
+    transparent 0 22px,
+    rgb(143 191 115 / 0.09) 22px 23px
+  );
+  mask-image: radial-gradient(ellipse 70% 70% at 78% 38%, #000 20%, transparent 75%);
 }

@@ -6,39 +6,37 @@ export default function HobbyApps() {
   return (
     <SectionWrapper
       id="hobby-apps"
-      eyebrow={`Web · ${hobbyApps.length} projects`}
+      eyebrow={`Web / ${hobbyApps.length} projects`}
       title="Projects"
-      subtitle="Small web tools and apps, each running on its own address. Most started as something I needed."
+      subtitle="Small web tools, each running on its own address. Most started as something I needed."
     >
-      <ul className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="divide-y divide-surface-50/10 border-y border-surface-50/10">
         {hobbyApps.map((app) => (
           <li key={app.name}>
             <a
               href={app.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block"
               aria-label={`${app.name} (opens in a new tab)`}
+              className="group flex items-center gap-4 px-1 py-4 transition-colors hover:bg-accent-soft sm:px-3"
             >
-              <div className="aspect-[16/10] overflow-hidden rounded-xl border border-white/[0.07] bg-surface-900">
-                <img
-                  src={app.image}
-                  alt=""
-                  loading="lazy"
-                  className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-              </div>
-              <div className="mt-4 flex items-start justify-between gap-3">
-                <h3 className="font-display text-xl font-bold leading-tight text-surface-50">
+              <img
+                src={app.image}
+                alt=""
+                loading="lazy"
+                className="h-14 w-24 shrink-0 rounded-lg border border-surface-50/10 bg-surface-900 object-cover object-top"
+              />
+              <span className="min-w-0 flex-1">
+                <span className="block font-display text-lg font-extrabold leading-tight text-surface-50">
                   {app.name}
-                </h3>
-                <ArrowUpRight
-                  size={18}
-                  className="mt-1 shrink-0 text-surface-100/30 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary-400"
-                />
-              </div>
-              <p className="label mt-1 !text-[0.64rem] !text-surface-100/45">{app.category}</p>
-              <p className="mt-2 text-sm leading-relaxed text-surface-100/65">{app.description}</p>
+                </span>
+                <span className="mt-0.5 block truncate text-sm text-surface-100/70">{app.description}</span>
+              </span>
+              <span className="label hidden shrink-0 !text-[0.64rem] !text-surface-100/55 sm:block">{app.category}</span>
+              <ArrowUpRight
+                size={18}
+                className="shrink-0 text-surface-50/30 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-ink"
+              />
             </a>
           </li>
         ))}

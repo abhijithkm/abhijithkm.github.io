@@ -46,7 +46,7 @@ export default function Navbar() {
       className={clsx(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
         scrolled || mobileOpen
-          ? "border-b border-white/[0.07] bg-surface-950/85 backdrop-blur-xl"
+          ? "border-b border-surface-50/10 bg-surface-950/85 backdrop-blur-xl"
           : "border-b border-transparent"
       )}
     >
@@ -63,7 +63,7 @@ export default function Navbar() {
           <img src="/logo.png" alt="" className="h-8 w-8 rounded-lg" />
           <span className="font-display text-lg font-extrabold tracking-tight text-surface-50">
             {personalDetails.name.split(" ")[0]}
-            <span className="text-primary-400">{personalDetails.logoSuffix}</span>
+            <span className="text-accent-ink">{personalDetails.logoSuffix}</span>
           </span>
         </a>
 
@@ -87,7 +87,7 @@ export default function Navbar() {
                   {link.label}
                   <span
                     className={clsx(
-                      "absolute inset-x-0 -bottom-0.5 h-px origin-left bg-turmeric transition-transform duration-300",
+                      "absolute inset-x-0 -bottom-0.5 h-px origin-left bg-accent transition-transform duration-300",
                       active ? "scale-x-100" : "scale-x-0"
                     )}
                   />
@@ -103,7 +103,7 @@ export default function Navbar() {
             href={personalDetails.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden rounded-full border border-primary-400/40 px-4 py-1.5 text-sm font-medium text-primary-300 transition-colors hover:bg-primary-400/10 sm:inline-block"
+            className="hidden rounded-full border border-accent/50 px-4 py-1.5 text-sm font-medium text-accent-ink transition-colors hover:bg-accent/10 sm:inline-block"
           >
             Resume
           </a>
@@ -120,7 +120,7 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <ul className="border-t border-white/[0.07] px-6 pb-5 pt-2 md:hidden">
+        <ul className="border-t border-surface-50/10 px-6 pb-5 pt-2 md:hidden">
           {[...visibleNavLinks, { label: "Resume", href: personalDetails.resumeUrl }].map((link) => (
             <li key={link.href}>
               <a
@@ -131,7 +131,7 @@ export default function Navbar() {
                     go(link.href);
                   }
                 }}
-                className="block border-b border-white/[0.05] py-3.5 font-display text-xl font-bold text-surface-50"
+                className="block border-b border-surface-50/10 py-3.5 font-display text-xl font-bold text-surface-50"
               >
                 {link.label}
               </a>

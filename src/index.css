@@ -1,15 +1,18 @@
 @import "tailwindcss";
 
 /*
- * Palette — "monsoon". A Kerala night after rain: green-black ground,
- * cardamom green as the working accent, turmeric kept for rare marks.
- * Existing component class names (primary-*, surface-*, accent-*) are
- * remapped here, so app pages inherit the look without edits.
+ * Fog: a cool, light ground with ink-navy text. The page has no fixed
+ * accent: --accent follows the app selected on the phone stage, and
+ * animates between apps (registered with @property so it can transition).
+ *
+ * surface-* are remapped, so existing class names keep working. Pages
+ * that were built for a dark ground (app pages, the command palette)
+ * sit inside .theme-night, which restores the monsoon palette.
  */
 @theme {
   --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", "Instrument Sans", ui-sans-serif, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Schibsted Grotesk Variable", "Instrument Sans", ui-sans-serif, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
 
   --color-primary-50: #f1f7ec;
   --color-primary-100: #e0eed6;
@@ -26,6 +29,38 @@
   --color-accent-purple: #b9d9a3;
   --color-turmeric: #e9b44c;
 
+  --color-surface-50: #0f1b2d;
+  --color-surface-100: #24344b;
+  --color-surface-700: #c3ccd6;
+  --color-surface-800: #dde3e9;
+  --color-surface-850: #e6ebef;
+  --color-surface-900: #f5f7f9;
+  --color-surface-950: #e9edf1;
+}
+
+@theme inline {
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+}
+
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #2f6bff;
+}
+
+:root {
+  --accent: #2f6bff;
+  --accent-ink: color-mix(in oklab, var(--accent), #0f1b2d 52%);
+  --accent-soft: color-mix(in oklab, var(--accent), white 88%);
+}
+
+.stage-root {
+  transition: --accent 0.7s ease;
+}
+
+.theme-night {
   --color-surface-50: #eef0e8;
   --color-surface-100: #dfe4d9;
   --color-surface-700: #2c3d34;
@@ -33,6 +68,8 @@
   --color-surface-850: #14211b;
   --color-surface-900: #101b16;
   --color-surface-950: #0b1410;
+  background-color: var(--color-surface-950);
+  color: var(--color-surface-50);
 }
 
 @layer base {
@@ -55,27 +92,31 @@
 
   h1, h2, h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
 
   ::selection {
-    background-color: var(--color-turmeric);
-    color: #0b1410;
+    background-color: var(--accent);
+    color: white;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-turmeric);
+    outline: 2px solid var(--accent-ink);
     outline-offset: 3px;
     border-radius: 4px;
   }
 }
 
-/* Mono label used for section markers and ledger keys. */
+/* Mono label for section markers and ledger keys. */
 .label {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.theme-night .label {
   color: var(--color-primary-400);
 }
 
@@ -139,14 +180,4 @@
   .rise {
     animation: none;
   }
-}
-
-/* Hill contours behind the hero: concentric rings, masked to fade out. */
-.contours {
-  background: repeating-radial-gradient(
-    ellipse 60% 45% at 78% 38%,
-    transparent 0 22px,
-    rgb(143 191 115 / 0.09) 22px 23px
-  );
-  mask-image: radial-gradient(ellipse 70% 70% at 78% 38%, #000 20%, transparent 75%);
 }

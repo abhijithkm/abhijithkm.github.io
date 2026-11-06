@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 import CommandPalette from "../components/search/CommandPalette";
+import { PhoneStage, StageProvider } from "../components/stage";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { personalDetails } from "../data/profile";
 import { scrollToSectionWhenReady } from "../lib/sectionNav";
@@ -17,7 +18,7 @@ const Contact = lazy(() => import("../components/Contact"));
 function SectionFallback() {
   return (
     <div className="flex items-center justify-center py-32">
-      <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary-500/30 border-t-primary-400" />
+      <div className="h-6 w-6 animate-spin rounded-full border-2 border-surface-50/15 border-t-accent" />
     </div>
   );
 }
@@ -56,23 +57,32 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <StageProvider>
       <Navbar />
-      <main>
-        <Hero />
-        <Suspense fallback={<SectionFallback />}>
-          <About />
-          <AndroidApps />
-          <HobbyApps />
-          <Skills />
-          <Experience />
-          <Contact />
-        </Suspense>
-      </main>
+      <div className="mx-auto max-w-7xl px-6 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-20">
+        <main className="min-w-0">
+          <Hero />
+          <Suspense fallback={<SectionFallback />}>
+            <About />
+            <AndroidApps />
+            <HobbyApps />
+            <Skills />
+            <Experience />
+            <Contact />
+          </Suspense>
+        </main>
+        <aside className="hidden lg:block" aria-label="App preview">
+          <div className="sticky top-20 flex h-[calc(100vh-6rem)] items-center justify-center">
+            <PhoneStage />
+          </div>
+        </aside>
+      </div>
       <Footer />
-      <Suspense fallback={null}>
-        <CommandPalette />
-      </Suspense>
-    </>
+      <div className="theme-night">
+        <Suspense fallback={null}>
+          <CommandPalette />
+        </Suspense>
+      </div>
+    </StageProvider>
   );
 }

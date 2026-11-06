@@ -219,5 +219,93 @@
       "childDirected": false,
       "dataDeletionNote": "Open the app, tap the account icon at the top right of Home, then Delete account. This permanently deletes your account and all your fuel entries immediately. You can also delete single entries at any time, or use the deletion page at https://132-226-190-156.sslip.io/fuel-tracker/delete-account.html."
     }
+  },
+  {
+    "slug": "readrhythm",
+    "name": "ReadRhythm",
+    "tagline": "A quiet reading log — pages, streaks and finish dates",
+    "category": "Books & Reference",
+    "tags": [
+      "Android",
+      "React Native",
+      "Expo",
+      "TypeScript"
+    ],
+    "icon": "/apps/readrhythm/icon.png",
+    "screenshots": [
+      "/apps/readrhythm/1.jpg",
+      "/apps/readrhythm/2.jpg",
+      "/apps/readrhythm/3.jpg",
+      "/apps/readrhythm/4.jpg",
+      "/apps/readrhythm/5.jpg"
+    ],
+    "playStoreUrl": "https://play.google.com/store/apps/details?id=space.abhijithkm.readrhythm",
+    "packageId": "space.abhijithkm.readrhythm",
+    "releaseYear": 2026,
+    "description": [
+      "ReadRhythm is a quiet reading log. Add the books you are reading, log the pages after each sitting, and see how your reading adds up — a finish date that follows your own pace, a streak, and analytics for every week.",
+      "It uses the same account as the ReadRhythm website, so your shelf is already there when you sign in. A log you make with no connection waits on your phone and is sent when you are back online. Free, with no ads and no tracking."
+    ],
+    "features": [
+      "Log pages in seconds, for today or any earlier day",
+      "Log offline — it syncs when you are back online",
+      "A finish date predicted from your own reading pace",
+      "Daily page goal and reading streak on the dashboard",
+      "Your shelf: want to read, reading, finished or paused",
+      "Search Google Books to add a book with its cover, author and page count",
+      "Reading calendar and analytics by day, week and weekday",
+      "Badges to earn as you read",
+      "Optional gentle reminders and a weekly recap, planned on your phone",
+      "Download your data or delete your account from Settings"
+    ],
+    "tech": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Expo Router",
+      "SQLite",
+      "TanStack Query",
+      "AppHub (REST API)",
+      "MySQL"
+    ],
+    "privacy": {
+      "effectiveDate": "October 28, 2026",
+      "collectsPersonalData": true,
+      "dataCollected": [
+        {
+          "type": "Email address and name",
+          "purpose": "Used to create your account and sign you in. Stored on the ReadRhythm server, never shared or sold. Your password is stored only as a one-way hash."
+        },
+        {
+          "type": "Books, reading logs, reviews, badges and notifications you add",
+          "purpose": "The records you enter, used to show your progress, streak and finish dates. Stored on the ReadRhythm server, visible only to your account, and kept until you delete them. The app also keeps a copy on your phone so it works offline."
+        },
+        {
+          "type": "Sign-in records (IP address and browser details)",
+          "purpose": "The server records each sign-in to keep accounts secure. They are kept with the sign-in until it expires, then cleared out. They are not used for anything else and are not shared."
+        }
+      ],
+      "permissions": [
+        {
+          "name": "Internet access",
+          "reason": "Used to sign you in and to save and load your books and reading logs over an encrypted (HTTPS) connection."
+        },
+        {
+          "name": "Notifications",
+          "reason": "Used only to show the optional reminders and weekly recap you turn on. They are worked out and scheduled on your phone; nothing about them is sent to a server."
+        }
+      ],
+      "thirdPartyServices": [
+        {
+          "name": "Google Books (book search and cover images)",
+          "url": "https://policies.google.com/privacy"
+        }
+      ],
+      "showsAds": false,
+      "usesAnalytics": false,
+      "accountRequired": true,
+      "childDirected": false,
+      "dataDeletionNote": "Open the app, go to Settings, then Danger zone, type DELETE and choose Delete account. This removes your profile, books, reading logs, reviews, badges and notifications. Your profile picture file and sign-in records are cleared out later by the site owner. Uninstalling the app removes what it keeps on your phone. You can also see https://read.abhijithkm.space/delete-account, or write to meabhijithkm@gmail.com."
+    }
   }
 ]

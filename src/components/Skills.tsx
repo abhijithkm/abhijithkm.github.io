@@ -13,7 +13,7 @@ export default function Skills() {
       id="skills"
       eyebrow="Toolbox"
       title="What I work with"
-      subtitle="The tools I use at work every day. Bold means I reach for it first."
+      subtitle="What I use at work and in my own projects. Bold means I reach for it first."
     >
       <dl className="border-t border-surface-50/10">
         {Object.entries(groups).map(([category, items]) => (

@@ -1,10 +1,10 @@
 # Project status: abhijithkm.github.io
 
-Last updated: Nov 10, 2026 (after the restyle was verified). This file is the handoff: read it first when continuing on another machine or in a new chat.
+Last updated: Nov 10, 2026 (design A merged and live). This file is the handoff: read it first when continuing on another machine or in a new chat.
 
 ## What this is
 
-Personal portfolio for Abhijith K M, a full-stack software engineer: https://abhijithkm.github.io.
+Personal portfolio for Abhijith K M, a full-stack software engineer: https://abhijithkm.space (custom domain; abhijithkm.github.io redirects to it).
 A static React single-page app, deployed to GitHub Pages from the `dev` branch by GitHub Actions
 (`.github/workflows/deploy.yml`: `tsc -b`, `vite build`, Puppeteer prerender of the `/apps` routes, publish `dist`).
 
@@ -22,7 +22,7 @@ A static React single-page app, deployed to GitHub Pages from the `dev` branch b
 
 | Branch | What it is | On remote |
 |---|---|---|
-| `feature/phone-stage` | Chosen design A (current work) | yes |
+| `feature/phone-stage` | Design A. Merged to `dev` in PR #2 (merge commit `42e1da4`), live | yes |
 | `feature/portfolio-redesign` | Design "Monsoon": dark green, career trail | yes |
 | `feature/logbook` | Design B: ruled ledger | local only |
 | `feature/datasheet` | Design C: blueprint datasheet | local only |
@@ -39,7 +39,7 @@ Not in one file:
 - Some copy is written inside components (Hero blurb, section titles, Contact text). `index.html` has page meta (its share description is out of date).
 - Adding an Android app: see `README.md` (JSON entry plus assets under `public/apps/<slug>/`).
 
-## Design: A, "phone stage" (on `feature/phone-stage`)
+## Design: A, "phone stage" (live; source branch `feature/phone-stage`)
 
 - Light cool "fog" theme with ink-navy text. `surface-*` tokens in `src/index.css` are remapped light.
 - One pinned phone (`src/components/stage.tsx`) shows the selected Android app's screenshots; selecting an app (tap, or scrolling its row to the middle) re-tints the page with that app's `accent` colour (`--accent`, animated via `@property`).
@@ -48,32 +48,33 @@ Not in one file:
 
 ## Current status
 
-Done and pushed to `feature/phone-stage` (up to commit `9ea10c9`):
-- ReadRhythm added to the Android apps list (also on `dev`, live).
-- Monsoon redesign, then design A, then the skills refresh.
+Design A is merged to `dev` (PR #2, Nov 10, 2026) and live. The deploy workflow for `42e1da4` finished successfully.
 
-Done, verified in the browser and committed (restyle of the non-home pages and popups to match design A):
-- `/apps`, app detail, privacy, 404, shared app header, app card and image placeholder are on the light style.
-- Popups: the Ctrl+K command palette (search, arrow keys, Esc) and the screenshot lightbox (arrow keys, Esc, counter) are on the light style. `.theme-night` CSS was removed.
-- Checked: every route at 375px has no horizontal overflow; the app header fits on one line.
-- Not checked: Tab-order and screen-reader behaviour of the dialogs (the lightbox has no real focus trap).
+Checked on the live site (desktop): home renders, the phone stage lists Motora, TinySteps, Fuel Tracker and ReadRhythm, the three fonts load, and `/resume.pdf` and the app privacy URLs return 200 (the four privacy pages are prerendered with their text). An unknown path returns a real 404.
+
+Before merging, in the local build: every route had no horizontal overflow at 375px; the Ctrl+K palette (search, arrows, Esc) and the screenshot lightbox (arrows, Esc) work in the light style.
+
+Not checked: the live app pages at phone width, Tab order and screen-reader behaviour of the dialogs (the lightbox has no real focus trap).
+
+Known quirk: if one script chunk fails to load (seen once as a network error), the SPA stays blank until a reload; there is no retry.
 
 ## What's left
 
-1. Owner decisions before anything goes live:
-   - Confirm the current-employer line in `profile.ts` (it may be out of date).
+1. Owner decisions:
+   - Confirm the current-employer line in `profile.ts` (it may be out of date; the hero repeats it).
    - Rename the "C# / .NET 8" skill (the work spans several .NET versions)?
    - Give Motora its own `accent` colour in `androidApps.json`.
    - Review the skill levels set on the new entries.
-2. Cleanup: move the hard-coded component text into `profile.ts`; update the stale description in `index.html`.
-3. When approved: open a PR from `feature/phone-stage`, then merge to `dev` to deploy.
-4. Decide what to do with the unused design branches (keep, push, or delete).
-5. Optional: add more projects to the Projects list (needs a live URL and an image per entry). The owner is also considering making some repos public; that review lives outside this repo.
+2. Cleanup: move the hard-coded component text into `profile.ts`; update the stale share description in `index.html`.
+3. Use the `abhijithkm.space` privacy URLs in Play Console (the github.io ones add a 301 before the 200).
+4. Add `robots.txt` and a sitemap (both return 404 today).
+5. Decide what to do with the unused design branches (keep, push `feature/logbook` and `feature/datasheet`, or delete).
+6. Optional: add more projects to the Projects list (needs a live URL and an image per entry). The owner is also considering making some repos public; that review lives outside this repo.
 
 ## Running it locally
 
 - `npm install`, then `npm run dev -- --port 3456 --strictPort` (port 5173 was blocked on the owner's Windows machine with EACCES).
-- `.claude/launch.json` has a `dev` entry for the preview tooling.
+- A local `.claude/launch.json` (not committed) holds a `dev` entry for the preview tooling; recreate it if missing.
 - `npm run build:quick` (typecheck + build). `npm run build` also regenerates screenshots/OG image and prerenders (needs Chrome via Puppeteer).
 - Extra worktrees for side-by-side design previews need a `node_modules` junction and a git-ignored `vite.config.local.ts` that allows the parent folder in `server.fs.allow`, otherwise fonts return 403.
 
@@ -87,3 +88,4 @@ Done, verified in the browser and committed (restyle of the non-home pages and p
 - Nov 6, 2026: added ReadRhythm to the Android apps and pushed to `dev` (live).
 - Nov 6 to 7, 2026: redesigned the site (Monsoon), then built alternatives A, B, C and a game-map idea (dropped). Chose A.
 - Nov 7 to 10, 2026: pushed A, refreshed the skills section from the owner's project folders, restyled app pages and popups to match A, audited GitHub repos (outside this repo), wrote this file, verified and committed the restyle.
+- Nov 10, 2026: opened and merged PR #2 (design A to `dev`), checked the live site on `abhijithkm.space`, updated this file through a PR.

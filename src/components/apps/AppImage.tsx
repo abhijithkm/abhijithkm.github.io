@@ -53,11 +53,11 @@ export default function AppImage({
       <div
         role="img"
         aria-label={alt}
-        className={`flex flex-col items-center justify-center gap-2 border-white/[0.08] bg-white/[0.04] text-primary-400/50 ${className ?? ""} ${boxClassName ?? ""}`}
+        className={`flex flex-col items-center justify-center gap-2 border-surface-50/10 bg-surface-50/[0.04] text-accent-ink/60 ${className ?? ""} ${boxClassName ?? ""}`}
       >
         <Icon size={variant === "icon" ? 20 : 22} aria-hidden="true" />
         {variant === "screenshot" && label && (
-          <span className="px-2 text-center text-[10px] font-medium leading-tight text-surface-100/30">
+          <span className="px-2 text-center text-[10px] font-medium leading-tight text-surface-100/60">
             {label}
           </span>
         )}
@@ -76,7 +76,7 @@ export default function AppImage({
       {isLoading && (
         <span
           aria-hidden="true"
-          className={`app-image-shimmer absolute inset-0 overflow-hidden bg-white/[0.03] ${boxClassName ?? ""}`}
+          className={`app-image-shimmer absolute inset-0 overflow-hidden bg-surface-50/[0.05] ${boxClassName ?? ""}`}
         />
       )}
       <img

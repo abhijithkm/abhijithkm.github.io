@@ -78,11 +78,9 @@ export default function Home() {
         </aside>
       </div>
       <Footer />
-      <div className="theme-night">
-        <Suspense fallback={null}>
-          <CommandPalette />
-        </Suspense>
-      </div>
+      <Suspense fallback={null}>
+        <CommandPalette />
+      </Suspense>
     </StageProvider>
   );
 }

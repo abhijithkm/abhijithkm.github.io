@@ -5,9 +5,7 @@
  * accent: --accent follows the app selected on the phone stage, and
  * animates between apps (registered with @property so it can transition).
  *
- * surface-* are remapped, so existing class names keep working. Pages
- * that were built for a dark ground (app pages, the command palette)
- * sit inside .theme-night, which restores the monsoon palette.
+ * surface-* are remapped, so existing class names keep working.
  */
 @theme {
   --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
@@ -60,18 +58,6 @@
   transition: --accent 0.7s ease;
 }
 
-.theme-night {
-  --color-surface-50: #eef0e8;
-  --color-surface-100: #dfe4d9;
-  --color-surface-700: #2c3d34;
-  --color-surface-800: #1a2a22;
-  --color-surface-850: #14211b;
-  --color-surface-900: #101b16;
-  --color-surface-950: #0b1410;
-  background-color: var(--color-surface-950);
-  color: var(--color-surface-50);
-}
-
 @layer base {
   * {
     scrollbar-width: thin;
@@ -114,10 +100,6 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent-ink);
-}
-
-.theme-night .label {
-  color: var(--color-primary-400);
 }
 
 /* Sweep used by AppImage while an app icon or screenshot loads. */
@@ -180,4 +162,14 @@
   .rise {
     animation: none;
   }
+}
+
+/* Light-ground shimmer for AppImage (overrides the dark-ground sweep above). */
+.app-image-shimmer::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.7),
+    transparent
+  );
 }

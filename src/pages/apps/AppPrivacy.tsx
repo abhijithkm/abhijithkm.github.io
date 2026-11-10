@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { ShieldCheck, ArrowLeft, Mail } from "lucide-react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import AppPageLayout from "../../components/apps/AppPageLayout";
 import AppImage from "../../components/apps/AppImage";
 import { getAndroidApp } from "../../data/androidApps";
@@ -9,9 +9,9 @@ import { personalDetails } from "../../data/profile";
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="mt-10">
-      <h2 className="text-lg font-semibold text-white">{title}</h2>
-      <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-surface-100/55">
+    <section className="mt-8 border-t border-surface-50/10 pt-6 print:break-inside-avoid">
+      <h2 className="label">{title}</h2>
+      <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-surface-100/80">
         {children}
       </div>
     </section>
@@ -36,10 +36,10 @@ export default function AppPrivacy() {
     return (
       <AppPageLayout>
         <div className="flex flex-col items-center gap-4 px-6 py-32 text-center">
-          <h1 className="text-2xl font-bold text-white">Page not found</h1>
+          <h1 className="font-display text-3xl font-extrabold text-surface-50">Page not found</h1>
           <Link
             to="/apps"
-            className="text-sm font-medium text-primary-400 hover:text-primary-300"
+            className="text-sm font-semibold text-accent-ink underline-offset-4 hover:underline"
           >
             Browse all Android apps →
           </Link>
@@ -54,13 +54,16 @@ export default function AppPrivacy() {
 
   return (
     <AppPageLayout accent={app.accent}>
-      <article className="mx-auto max-w-3xl px-6 py-14 md:py-20">
+      <article
+        className="mx-auto max-w-2xl px-4 py-12 sm:px-6 md:py-20"
+        style={{ "--accent": app.accent ?? "#2f6bff" } as CSSProperties}
+      >
         {/* ── Header ── */}
         <Link
           to={`/apps/${app.slug}`}
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary-400 transition-colors hover:text-primary-300"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-accent-ink underline-offset-4 hover:underline print:hidden"
         >
-          <ArrowLeft size={14} /> Back to {app.name}
+          <ArrowLeft size={14} aria-hidden="true" /> Back to {app.name}
         </Link>
 
         <div className="mt-6 flex items-start gap-4">
@@ -70,26 +73,26 @@ export default function AppPrivacy() {
             variant="icon"
             loading="eager"
             boxClassName="h-14 w-14 shrink-0 rounded-xl"
-            className="h-14 w-14 shrink-0 rounded-xl border border-white/[0.08] object-cover"
+            className="h-14 w-14 shrink-0 rounded-xl border border-surface-50/10 bg-surface-50/[0.04] object-cover"
           />
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-white md:text-3xl">
+            <h1 className="font-display text-3xl font-extrabold tracking-tight text-surface-50 md:text-4xl">
               {app.name} — Privacy Policy
             </h1>
-            <p className="mt-1.5 text-sm text-surface-100/40">
+            <p className="label mt-2 !text-surface-100/70">
               Effective date: {p.effectiveDate}
             </p>
           </div>
         </div>
 
-        <p className="mt-8 text-[15px] leading-relaxed text-surface-100/55">
+        <p className="mt-8 text-[15px] leading-relaxed text-surface-100/80">
           This privacy policy applies to the <strong>{app.name}</strong>{" "}
           mobile application
           {app.packageId ? (
             <>
               {" "}
               (package{" "}
-              <code className="rounded bg-white/[0.06] px-1.5 py-0.5 font-mono text-[13px] text-surface-100/70">
+              <code className="break-all rounded bg-surface-50/[0.06] px-1.5 py-0.5 font-mono text-[13px] text-surface-50">
                 {app.packageId}
               </code>
               )
@@ -105,14 +108,11 @@ export default function AppPrivacy() {
           {p.collectsPersonalData && p.dataCollected.length > 0 ? (
             <>
               <p>The app collects the following information:</p>
-              <ul className="space-y-3">
+              <ul className="divide-y divide-surface-50/10 border-y border-surface-50/10">
                 {p.dataCollected.map((d) => (
-                  <li
-                    key={d.type}
-                    className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3"
-                  >
-                    <span className="font-medium text-white">{d.type}</span>
-                    <p className="mt-1 text-sm text-surface-100/50">
+                  <li key={d.type} className="py-3">
+                    <span className="font-semibold text-surface-50">{d.type}</span>
+                    <p className="mt-1 text-sm text-surface-100/80">
                       {d.purpose}
                     </p>
                   </li>
@@ -146,14 +146,11 @@ export default function AppPrivacy() {
               The app requests the following Android permissions, used only for
               the purposes described:
             </p>
-            <ul className="space-y-3">
+            <ul className="divide-y divide-surface-50/10 border-y border-surface-50/10">
               {p.permissions.map((perm) => (
-                <li
-                  key={perm.name}
-                  className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3"
-                >
-                  <span className="font-medium text-white">{perm.name}</span>
-                  <p className="mt-1 text-sm text-surface-100/50">
+                <li key={perm.name} className="py-3">
+                  <span className="font-semibold text-surface-50">{perm.name}</span>
+                  <p className="mt-1 text-sm text-surface-100/80">
                     {perm.reason}
                   </p>
                 </li>
@@ -201,11 +198,11 @@ export default function AppPrivacy() {
                     href={svc.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-primary-400 underline-offset-4 transition-colors hover:text-primary-300 hover:underline"
+                    className="font-semibold text-accent-ink underline underline-offset-4 hover:no-underline"
                   >
                     {svc.name}
                   </a>{" "}
-                  <span className="text-surface-100/35">— privacy policy</span>
+                  <span className="text-surface-100/70">— privacy policy</span>
                 </li>
               ))}
             </ul>
@@ -268,18 +265,18 @@ export default function AppPrivacy() {
             If you have any questions or suggestions about this privacy policy,
             or about how {app.name} handles your data, contact:
           </p>
-          <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">
-            <p className="font-medium text-white">{developer}</p>
+          <div className="border-y border-surface-50/10 py-3">
+            <p className="font-semibold text-surface-50">{developer}</p>
             <a
               href={`mailto:${contactEmail}`}
-              className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-primary-400 transition-colors hover:text-primary-300"
+              className="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-ink underline-offset-4 hover:underline"
             >
-              <Mail size={13} /> {contactEmail}
+              <Mail size={13} aria-hidden="true" /> {contactEmail}
             </a>
           </div>
         </Section>
 
-        <div className="mt-14 flex items-center gap-2 border-t border-white/[0.06] pt-6 text-xs text-surface-100/30">
+        <div className="mt-14 flex items-center gap-2 border-t border-surface-50/10 pt-6 font-mono text-xs text-surface-100/70">
           <ShieldCheck size={14} />
           <span>
             Privacy policy for {app.name} · Last updated {p.effectiveDate}

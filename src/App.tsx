@@ -19,21 +19,15 @@ function ScrollToTop() {
 function PageFallback() {
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary-500/30 border-t-primary-500" />
+      <div className="h-6 w-6 animate-spin rounded-full border-2 border-surface-50/15 border-t-accent-ink" />
     </div>
   );
 }
 
 export default function App() {
-  const { pathname } = useLocation();
-  // Home is the light "fog" page. Every other page was built for a dark
-  // ground, so it sits inside .theme-night (see index.css).
-  const night = pathname !== "/";
-
   return (
     <ThemeProvider>
       <ScrollToTop />
-      <div className={night ? "theme-night min-h-screen" : undefined}>
       <Suspense fallback={<PageFallback />}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -43,7 +37,6 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-      </div>
     </ThemeProvider>
   );
 }

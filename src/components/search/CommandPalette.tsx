@@ -129,20 +129,23 @@ export default function CommandPalette() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setOpen(false)}
-            className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] bg-surface-50/30 backdrop-blur-sm"
           />
 
           {/* Palette */}
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Search the portfolio"
             initial={{ opacity: 0, y: -20, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.96 }}
             transition={{ duration: 0.15 }}
-            className="fixed left-1/2 top-[20%] z-[61] w-[90%] max-w-lg -translate-x-1/2 overflow-hidden rounded-2xl border border-white/[0.08] bg-surface-950/95 backdrop-blur-xl shadow-2xl"
+            className="fixed left-1/2 top-[20%] z-[61] w-[90%] max-w-lg -translate-x-1/2 overflow-hidden rounded-2xl border border-surface-50/10 bg-surface-900/95 shadow-[0_24px_60px_-20px_rgba(15,27,45,0.35)] backdrop-blur-xl"
           >
             {/* Search input */}
-            <div className="flex items-center gap-3 border-b border-white/[0.06] px-5 py-4">
-              <Search size={18} className="text-surface-100/30" />
+            <div className="flex items-center gap-3 border-b border-surface-50/10 px-5 py-4">
+              <Search size={18} className="text-surface-100/60" aria-hidden="true" />
               <input
                 ref={inputRef}
                 value={query}
@@ -152,9 +155,9 @@ export default function CommandPalette() {
                 }}
                 onKeyDown={handleKeyDown}
                 placeholder="Search sections, skills, projects..."
-                className="flex-1 bg-transparent text-sm text-white placeholder-surface-100/30 outline-none"
+                className="flex-1 bg-transparent text-sm text-surface-50 placeholder-surface-100/50 outline-none"
               />
-              <kbd className="hidden sm:inline-flex items-center gap-0.5 rounded-md border border-white/[0.08] bg-white/[0.03] px-2 py-0.5 text-[10px] text-surface-100/30">
+              <kbd className="hidden sm:inline-flex items-center gap-0.5 rounded-md border border-surface-50/15 bg-surface-50/[0.04] px-2 py-0.5 font-mono text-[10px] text-surface-100/70">
                 ESC
               </kbd>
             </div>
@@ -162,7 +165,7 @@ export default function CommandPalette() {
             {/* Results */}
             <div className="max-h-72 overflow-y-auto py-2">
               {results.length === 0 ? (
-                <p className="px-5 py-6 text-center text-sm text-surface-100/30">
+                <p className="px-5 py-6 text-center text-sm text-surface-100/70">
                   No results found
                 </p>
               ) : (
@@ -173,12 +176,13 @@ export default function CommandPalette() {
                     onMouseEnter={() => setSelected(i)}
                     className={`flex w-full items-center justify-between px-5 py-2.5 text-left text-sm transition-colors ${
                       i === selected
-                        ? "bg-white/[0.05] text-white"
-                        : "text-surface-100/50 hover:bg-white/[0.03]"
+                        ? "bg-accent-soft text-surface-50"
+                        : "text-surface-100/80 hover:bg-surface-50/[0.04]"
                     }`}
                   >
                     <span className="truncate">{item.label}</span>
-                    <span className="shrink-0 text-surface-100/20">
+                    <span className="label flex shrink-0 items-center gap-2 !text-[0.62rem] !text-surface-100/60">
+                      {item.type}
                       {typeIcon(item.type)}
                     </span>
                   </button>
@@ -187,7 +191,7 @@ export default function CommandPalette() {
             </div>
 
             {/* Footer hint */}
-            <div className="flex items-center justify-between border-t border-white/[0.06] px-5 py-2.5 text-[11px] text-surface-100/25">
+            <div className="flex items-center justify-between border-t border-surface-50/10 px-5 py-2.5 font-mono text-[11px] text-surface-100/60">
               <span>↑↓ Navigate</span>
               <span>↵ Select</span>
             </div>
@@ -201,12 +205,13 @@ export default function CommandPalette() {
 export function CommandPaletteHint() {
   return (
     <button
+      aria-label="Open search"
       onClick={() =>
         window.dispatchEvent(
           new KeyboardEvent("keydown", { key: "k", ctrlKey: true })
         )
       }
-      className="hidden md:inline-flex items-center gap-1.5 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-1.5 text-xs text-surface-100/30 transition-colors hover:text-surface-100/50 hover:border-white/10"
+      className="hidden md:inline-flex items-center gap-1.5 rounded-lg border border-surface-50/15 bg-surface-50/[0.03] px-3 py-1.5 text-xs text-surface-100/70 transition-colors hover:border-surface-50/30 hover:text-surface-50"
     >
       <Command size={12} />
       <span>K</span>

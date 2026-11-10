@@ -10,20 +10,20 @@ export default function NotFound() {
   });
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
-      <span className="bg-gradient-to-r from-primary-400 to-accent-purple bg-clip-text text-6xl font-bold text-transparent">
-        404
-      </span>
-      <h1 className="text-xl font-semibold text-white">Page not found</h1>
-      <p className="max-w-md text-sm text-surface-100/50">
+    <main className="flex min-h-screen flex-col items-start justify-center gap-4 px-6 mx-auto max-w-xl">
+      <p className="label">404</p>
+      <h1 className="font-display text-4xl font-extrabold tracking-tight text-surface-50">
+        Page not found
+      </h1>
+      <p className="text-base leading-relaxed text-surface-100/80">
         The page you're looking for doesn't exist or may have moved.
       </p>
       <Link
         to="/"
-        className="mt-2 rounded-lg border border-primary-500/20 bg-primary-600/15 px-5 py-2.5 text-sm font-medium text-primary-400 transition-colors hover:bg-primary-600/25"
+        className="mt-2 inline-flex rounded-full bg-surface-50 px-6 py-2.5 text-sm font-semibold text-surface-950 transition-opacity hover:opacity-85"
       >
         Back to portfolio
       </Link>
-    </div>
+    </main>
   );
 }

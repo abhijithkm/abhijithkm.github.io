@@ -1,6 +1,6 @@
 # Project status: abhijithkm.github.io
 
-Last updated: Nov 10, 2026. This file is the handoff: read it first when continuing on another machine or in a new chat.
+Last updated: Nov 10, 2026 (after the restyle was verified). This file is the handoff: read it first when continuing on another machine or in a new chat.
 
 ## What this is
 
@@ -52,24 +52,23 @@ Done and pushed to `feature/phone-stage` (up to commit `9ea10c9`):
 - ReadRhythm added to the Android apps list (also on `dev`, live).
 - Monsoon redesign, then design A, then the skills refresh.
 
-Done but NOT committed (working tree of `feature/phone-stage`, made by an agent, only partly verified):
-- The non-home pages restyled to the light style: `/apps`, app detail, privacy, 404, shared app header, app card and image placeholder.
-- The popups restyled to light: the Ctrl+K command palette and the screenshot lightbox. `.theme-night` CSS removed.
-- Verified in the browser so far: app detail page, apps index (4 cards), 404.
-- Still to verify: privacy page, command palette, lightbox, mobile width (375px), keyboard behaviour.
+Done, verified in the browser and committed (restyle of the non-home pages and popups to match design A):
+- `/apps`, app detail, privacy, 404, shared app header, app card and image placeholder are on the light style.
+- Popups: the Ctrl+K command palette (search, arrow keys, Esc) and the screenshot lightbox (arrow keys, Esc, counter) are on the light style. `.theme-night` CSS was removed.
+- Checked: every route at 375px has no horizontal overflow; the app header fits on one line.
+- Not checked: Tab-order and screen-reader behaviour of the dialogs (the lightbox has no real focus trap).
 
 ## What's left
 
-1. Verify the uncommitted restyle (list above), fix anything off, then commit it on `feature/phone-stage`.
-2. Owner decisions before anything goes live:
+1. Owner decisions before anything goes live:
    - Confirm the current-employer line in `profile.ts` (it may be out of date).
    - Rename the "C# / .NET 8" skill (the work spans several .NET versions)?
    - Give Motora its own `accent` colour in `androidApps.json`.
    - Review the skill levels set on the new entries.
-3. Cleanup: move the hard-coded component text into `profile.ts`; update the stale description in `index.html`.
-4. When approved: open a PR from `feature/phone-stage`, then merge to `dev` to deploy.
-5. Decide what to do with the unused design branches (keep, push, or delete).
-6. Optional: add more projects to the Projects list (needs a live URL and an image per entry). The owner is also considering making some repos public; that review lives outside this repo.
+2. Cleanup: move the hard-coded component text into `profile.ts`; update the stale description in `index.html`.
+3. When approved: open a PR from `feature/phone-stage`, then merge to `dev` to deploy.
+4. Decide what to do with the unused design branches (keep, push, or delete).
+5. Optional: add more projects to the Projects list (needs a live URL and an image per entry). The owner is also considering making some repos public; that review lives outside this repo.
 
 ## Running it locally
 
@@ -87,4 +86,4 @@ Done but NOT committed (working tree of `feature/phone-stage`, made by an agent,
 
 - Nov 6, 2026: added ReadRhythm to the Android apps and pushed to `dev` (live).
 - Nov 6 to 7, 2026: redesigned the site (Monsoon), then built alternatives A, B, C and a game-map idea (dropped). Chose A.
-- Nov 7 to 10, 2026: pushed A, refreshed the skills section from the owner's project folders, restyled app pages and popups to match A (uncommitted), audited GitHub repos (outside this repo), wrote this file.
+- Nov 7 to 10, 2026: pushed A, refreshed the skills section from the owner's project folders, restyled app pages and popups to match A, audited GitHub repos (outside this repo), wrote this file, verified and committed the restyle.

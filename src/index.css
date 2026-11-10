@@ -1,30 +1,61 @@
 @import "tailwindcss";
 
+/*
+ * Fog: a cool, light ground with ink-navy text. The page has no fixed
+ * accent: --accent follows the app selected on the phone stage, and
+ * animates between apps (registered with @property so it can transition).
+ *
+ * surface-* are remapped, so existing class names keep working.
+ */
 @theme {
-  --font-sans: "Inter", "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Schibsted Grotesk Variable", "Instrument Sans", ui-sans-serif, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
 
-  --color-primary-50: #eef2ff;
-  --color-primary-100: #e0e7ff;
-  --color-primary-200: #c7d2fe;
-  --color-primary-300: #a5b4fc;
-  --color-primary-400: #818cf8;
-  --color-primary-500: #6366f1;
-  --color-primary-600: #4f46e5;
-  --color-primary-700: #4338ca;
-  --color-primary-800: #3730a3;
-  --color-primary-900: #312e81;
+  --color-primary-50: #f1f7ec;
+  --color-primary-100: #e0eed6;
+  --color-primary-200: #c6e0b4;
+  --color-primary-300: #aad08f;
+  --color-primary-400: #8fbf73;
+  --color-primary-500: #74a85a;
+  --color-primary-600: #5a8a45;
+  --color-primary-700: #476d38;
+  --color-primary-800: #3a562f;
+  --color-primary-900: #2f4627;
 
-  --color-accent-cyan: #22d3ee;
-  --color-accent-purple: #a78bfa;
+  --color-accent-cyan: #e9b44c;
+  --color-accent-purple: #b9d9a3;
+  --color-turmeric: #e9b44c;
 
-  --color-surface-50: #f8fafc;
-  --color-surface-100: #f1f5f9;
-  --color-surface-700: #334155;
-  --color-surface-800: #1e293b;
-  --color-surface-850: #162032;
-  --color-surface-900: #0f172a;
-  --color-surface-950: #020617;
+  --color-surface-50: #0f1b2d;
+  --color-surface-100: #24344b;
+  --color-surface-700: #c3ccd6;
+  --color-surface-800: #dde3e9;
+  --color-surface-850: #e6ebef;
+  --color-surface-900: #f5f7f9;
+  --color-surface-950: #e9edf1;
+}
+
+@theme inline {
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+}
+
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #2f6bff;
+}
+
+:root {
+  --accent: #2f6bff;
+  --accent-ink: color-mix(in oklab, var(--accent), #0f1b2d 52%);
+  --accent-soft: color-mix(in oklab, var(--accent), white 88%);
+}
+
+.stage-root {
+  transition: --accent 0.7s ease;
 }
 
 @layer base {
@@ -45,10 +76,30 @@
     color: var(--color-surface-50);
   }
 
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+
   ::selection {
-    background-color: var(--color-primary-600);
+    background-color: var(--accent);
     color: white;
   }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-ink);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* Mono label for section markers and ledger keys. */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
 }
 
 /* Sweep used by AppImage while an app icon or screenshot loads. */
@@ -92,4 +143,33 @@
   .app-image-fade-in {
     animation: none;
   }
+}
+
+/* One orchestrated page-load rise; each element sets --d for its delay. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+.rise {
+  animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
+
+/* Light-ground shimmer for AppImage (overrides the dark-ground sweep above). */
+.app-image-shimmer::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.7),
+    transparent
+  );
 }

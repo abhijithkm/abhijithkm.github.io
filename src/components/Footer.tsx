@@ -1,43 +1,13 @@
-import { Mail } from "lucide-react";
-import { personalDetails, socialLinks } from "../data/profile";
-import { GithubIcon, LinkedinIcon } from "./SocialIcons";
-
-const socials = [
-  { icon: GithubIcon, href: socialLinks.github, label: "GitHub" },
-  { icon: LinkedinIcon, href: socialLinks.linkedin, label: "LinkedIn" },
-  { icon: Mail, href: socialLinks.email, label: "Email" },
-];
+import { personalDetails } from "../data/profile";
 
 export default function Footer() {
   return (
-    <footer className="relative mt-16 px-6 pb-10 pt-0">
-      {/* Gradient divider */}
-      <div className="mx-auto mb-10 h-px max-w-7xl bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 sm:flex-row">
-        <div className="flex flex-col items-center gap-1 sm:items-start">
-          <span className="text-sm font-medium bg-gradient-to-r from-primary-400 to-accent-cyan bg-clip-text text-transparent">
-            {personalDetails.name}
-          </span>
-          <p className="text-xs text-surface-100/30">
-            © {new Date().getFullYear()} All rights reserved.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3">
-          {socials.map(({ icon: Icon, href, label }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-surface-100/40 transition-all duration-300 hover:border-primary-500/30 hover:text-white hover:bg-white/[0.06] hover:-translate-y-0.5"
-            >
-              <Icon size={15} />
-            </a>
-          ))}
-        </div>
+    <footer className="border-t border-surface-50/10 px-6 py-8">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 text-sm text-surface-100/60">
+        <p>
+          {personalDetails.name} &middot; {new Date().getFullYear()}
+        </p>
+        <p className="font-mono text-xs">Built with React, Vite and Tailwind. Hosted on GitHub Pages.</p>
       </div>
     </footer>
   );

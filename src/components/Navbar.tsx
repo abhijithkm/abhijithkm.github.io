@@ -1,39 +1,22 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Palette } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import clsx from "clsx";
-import {
-  navLinks,
-  allSectionIds,
-  sectionToNav,
-  personalDetails,
-} from "../data/profile";
+import { navLinks, allSectionIds, sectionToNav, personalDetails } from "../data/profile";
 import { androidApps } from "../data/androidApps";
 import { useScrollSpy } from "../hooks/useScrollSpy";
 import { scrollToSection, syncHashToSection } from "../lib/sectionNav";
 import { CommandPaletteHint } from "./search/CommandPalette";
-import { useTheme, type ThemeName } from "../context/ThemeContext";
 
 const NAVBAR_HEIGHT = 72;
 
-const themeLabels: { name: ThemeName; label: string }[] = [
-  { name: "dark", label: "Dark" },
-  { name: "cyberpunk", label: "Cyber" },
-  { name: "minimal", label: "Minimal" },
-];
-
-// Hide the Android Apps link until real (non-sample) apps exist
-const visibleNavLinks = androidApps.length
-  ? navLinks
-  : navLinks.filter((l) => l.href !== "#android-apps");
+const visibleNavLinks = (
+  androidApps.length ? navLinks : navLinks.filter((l) => l.href !== "#android-apps")
+).filter((l) => l.href !== "#home");
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
 
-  // Track all sections, then map to the parent nav item
   const rawActive = useScrollSpy(allSectionIds, {
     navbarOffset: NAVBAR_HEIGHT,
     defaultSection: "home",
@@ -42,176 +25,120 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Keep the address bar on the section being read (replace, not push —
-  // scrolling must not fill the history stack). This is also what makes
-  // the back button from an app page land on the section you left from.
+  // Keep the address bar on the section being read (replace, not push) so the
+  // back button from an app page lands on the section you left from.
   useEffect(() => {
     syncHashToSection(rawActive);
   }, [rawActive]);
 
-  const handleClick = (href: string) => {
+  const go = (href: string) => {
     setMobileOpen(false);
     scrollToSection(href);
   };
 
   return (
-    <motion.nav
-      initial={{ y: -80 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+    <nav
       className={clsx(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-black/30 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/10"
-          : "bg-transparent"
+        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
+        scrolled || mobileOpen
+          ? "border-b border-surface-50/10 bg-surface-950/85 backdrop-blur-xl"
+          : "border-b border-transparent"
       )}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        {/* Logo */}
+      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-6">
         <a
           href="#home"
           onClick={(e) => {
             e.preventDefault();
-            handleClick("#home");
+            go("#home");
           }}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2.5"
+          aria-label={`${personalDetails.name} - back to top`}
         >
-          <img src="/logo.png" alt={personalDetails.name} className="h-8 w-8 rounded-lg" />
-          <span className="text-lg font-bold tracking-tight bg-gradient-to-r from-primary-400 to-accent-cyan bg-clip-text text-transparent">
+          <img src="/logo.png" alt="" className="h-8 w-8 rounded-lg" />
+          <span className="font-display text-lg font-extrabold tracking-tight text-surface-50">
             {personalDetails.name.split(" ")[0]}
-            <span className="text-white/70">{personalDetails.logoSuffix}</span>
+            <span className="text-accent-ink">{personalDetails.logoSuffix}</span>
           </span>
         </a>
 
-        {/* Desktop nav — centered */}
-        <ul className="hidden md:flex items-center gap-0.5 rounded-xl border border-white/[0.06] bg-white/[0.02] p-1">
+        <ul className="hidden items-center gap-8 md:flex">
           {visibleNavLinks.map((link) => {
-            const id = link.href.slice(1);
-            const isActive = activeNav === id;
+            const active = activeNav === link.href.slice(1);
             return (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    handleClick(link.href);
+                    go(link.href);
                   }}
+                  aria-current={active ? "true" : undefined}
                   className={clsx(
-                    "relative block rounded-lg px-3.5 py-1.5 text-[13px] font-medium transition-colors duration-200",
-                    isActive ? "text-white" : "text-surface-100/50 hover:text-white"
+                    "relative py-1 text-sm font-medium transition-colors",
+                    active ? "text-surface-50" : "text-surface-100/55 hover:text-surface-50"
                   )}
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="nav-pill"
-                      className="absolute inset-0 rounded-lg bg-white/10"
-                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{link.label}</span>
+                  {link.label}
+                  <span
+                    className={clsx(
+                      "absolute inset-x-0 -bottom-0.5 h-px origin-left bg-accent transition-transform duration-300",
+                      active ? "scale-x-100" : "scale-x-0"
+                    )}
+                  />
                 </a>
               </li>
             );
           })}
         </ul>
 
-        {/* Right controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <CommandPaletteHint />
-
-          {/* Theme switcher */}
-          <div className="relative">
-            <button
-              onClick={() => setThemeMenuOpen(!themeMenuOpen)}
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-surface-100/35 transition-colors hover:text-white hover:border-white/10"
-              aria-label="Switch theme"
-            >
-              <Palette size={14} />
-            </button>
-            <AnimatePresence>
-              {themeMenuOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 4, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 4, scale: 0.95 }}
-                  transition={{ duration: 0.12 }}
-                  className="absolute right-0 top-full mt-2 overflow-hidden rounded-xl border border-white/[0.08] bg-surface-950/95 backdrop-blur-xl shadow-xl"
-                >
-                  {themeLabels.map((t) => (
-                    <button
-                      key={t.name}
-                      onClick={() => {
-                        setTheme(t.name);
-                        setThemeMenuOpen(false);
-                      }}
-                      className={clsx(
-                        "block w-full px-5 py-2.5 text-left text-xs font-medium transition-colors",
-                        theme === t.name
-                          ? "text-primary-400 bg-white/[0.04]"
-                          : "text-surface-100/50 hover:text-white hover:bg-white/[0.03]"
-                      )}
-                    >
-                      {t.label}
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Mobile toggle */}
+          <a
+            href={personalDetails.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden rounded-full border border-accent/50 px-4 py-1.5 text-sm font-medium text-accent-ink transition-colors hover:bg-accent/10 sm:inline-block"
+          >
+            Resume
+          </a>
           <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-surface-100/50 hover:text-white transition-colors"
-            aria-label="Toggle menu"
+            type="button"
+            className="rounded-lg p-2 text-surface-100/70 md:hidden"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden bg-surface-950/95 backdrop-blur-xl border-b border-white/[0.06] overflow-hidden"
-          >
-            <ul className="flex flex-col px-6 py-4 gap-1">
-              {visibleNavLinks.map((link) => {
-                const id = link.href.slice(1);
-                const isActive = activeNav === id;
-                return (
-                  <li key={link.href}>
-                    <a
-                      href={link.href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleClick(link.href);
-                      }}
-                      className={clsx(
-                        "block px-4 py-3 rounded-lg text-sm font-medium transition-colors",
-                        isActive
-                          ? "text-white bg-white/[0.06]"
-                          : "text-surface-100/50 hover:text-white hover:bg-white/[0.03]"
-                      )}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+      {mobileOpen && (
+        <ul className="border-t border-surface-50/10 px-6 pb-5 pt-2 md:hidden">
+          {[...visibleNavLinks, { label: "Resume", href: personalDetails.resumeUrl }].map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                onClick={(e) => {
+                  if (link.href.startsWith("#")) {
+                    e.preventDefault();
+                    go(link.href);
+                  }
+                }}
+                className="block border-b border-surface-50/10 py-3.5 font-display text-xl font-bold text-surface-50"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </nav>
   );
 }

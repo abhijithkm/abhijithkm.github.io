@@ -1,107 +1,78 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { CSSProperties } from "react";
-import {
-  accentVars,
-  androidCategoryStyles,
-  fallbackCategoryStyle,
-  type AndroidApp,
-} from "../../data/androidApps";
+import type { AndroidApp } from "../../data/androidApps";
 import { isAutomated } from "../../lib/motion";
 import AppImage from "./AppImage";
 
-export default function AndroidAppCard({
-  app,
-  i,
-}: {
-  app: AndroidApp;
-  i: number;
-}) {
-  const badgeClass = androidCategoryStyles[app.category] ?? fallbackCategoryStyle;
-
+export default function AndroidAppCard({ app, i }: { app: AndroidApp; i: number }) {
   return (
     <motion.div
-      initial={isAutomated ? false : { opacity: 0, y: 30 }}
+      initial={isAutomated ? false : { opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.5, delay: 0.08 * i }}
-      whileHover={{ y: -4, transition: { duration: 0.25 } }}
-      style={accentVars(app.accent) as CSSProperties}
-      className="group relative flex flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm transition-all duration-300 hover:border-primary-500/20 hover:shadow-xl hover:shadow-primary-600/8"
+      transition={{ duration: 0.5, delay: 0.05 * i }}
+      style={{ "--accent": app.accent ?? "#2f6bff" } as CSSProperties}
+      className="group"
     >
       <Link
         to={`/apps/${app.slug}`}
-        className="flex flex-1 flex-col p-5"
+        className="grid gap-5 py-7 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8"
         aria-label={`View details for ${app.name}`}
       >
-        {/* Header: icon + name + category */}
-        <div className="flex items-start gap-4">
-          <AppImage
-            src={app.icon}
-            alt={`${app.name} icon`}
-            variant="icon"
-            boxClassName="h-12 w-12 shrink-0 rounded-xl"
-            className="h-12 w-12 shrink-0 rounded-xl border border-white/[0.08] bg-white/[0.04] object-cover"
-          />
-          <div className="min-w-0">
-            <h3 className="truncate text-base font-semibold leading-snug text-white">
-              {app.name}
-            </h3>
-            <span
-              className={`mt-1.5 inline-block w-fit rounded-full border px-2.5 py-0.5 text-[10px] font-medium ${badgeClass}`}
-            >
-              {app.category}
+        <div className="min-w-0">
+          <div className="flex items-center gap-3.5">
+            <AppImage
+              src={app.icon}
+              alt=""
+              variant="icon"
+              boxClassName="h-12 w-12 shrink-0 rounded-[14px]"
+              className="h-12 w-12 shrink-0 rounded-[14px] border border-surface-50/10 bg-surface-50/[0.04] object-cover"
+            />
+            <div className="min-w-0">
+              <h2 className="truncate font-display text-xl font-extrabold leading-tight text-surface-50">
+                {app.name}
+              </h2>
+              <p className="label mt-0.5 !text-[0.64rem]">
+                {app.category}
+                {app.releaseYear ? ` · ${app.releaseYear}` : ""}
+              </p>
+            </div>
+            <ArrowUpRight
+              size={18}
+              aria-hidden="true"
+              className="ml-auto shrink-0 text-surface-100/50 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-ink"
+            />
+          </div>
+
+          <p className="mt-4 text-sm leading-relaxed text-surface-100/80">{app.tagline}</p>
+
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1">
+            <span className="font-mono text-[0.7rem] text-surface-100/70">
+              {app.tech.slice(0, 2).join(" · ")}
             </span>
+            {app.playStoreUrl && (
+              <span className="inline-flex items-center gap-1.5 font-mono text-[0.68rem] text-accent-ink">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent" /> Live on Play
+              </span>
+            )}
           </div>
         </div>
 
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-surface-100/45">
-          {app.tagline}
-        </p>
-
-        {/* Mini screenshot strip */}
         {app.screenshots.length > 0 && (
-          <div className="mt-4 flex gap-2">
-            {app.screenshots.slice(0, 3).map((shot, i) => (
+          <div className="flex gap-2 overflow-hidden">
+            {app.screenshots.slice(0, 4).map((shot) => (
               <AppImage
                 key={shot}
                 src={shot}
-                alt={`${app.name} screenshot ${i + 1}`}
-                boxClassName="h-24 w-12 rounded-md"
-                className="h-24 w-12 rounded-md border border-white/[0.08] object-cover object-top opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                alt=""
+                boxClassName="h-28 w-[3.9rem] rounded-lg"
+                className="h-28 w-[3.9rem] rounded-lg border border-surface-50/10 object-cover object-top opacity-90 transition-opacity duration-300 group-hover:opacity-100"
               />
             ))}
           </div>
         )}
-
-        {/* Tags */}
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {app.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full border border-white/[0.06] bg-white/[0.03] px-2.5 py-0.5 text-[10px] font-medium text-surface-100/35"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Footer row */}
-        <div className="mt-4 flex items-center justify-between">
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-primary-400 transition-colors group-hover:text-primary-300">
-            View details
-            <ArrowRight
-              size={14}
-              className="transition-transform duration-300 group-hover:translate-x-0.5"
-            />
-          </span>
-          {app.playStoreUrl && (
-            <span className="inline-flex items-center gap-1 text-[10px] font-medium text-surface-100/30">
-              <Play size={10} /> On Google Play
-            </span>
-          )}
-        </div>
       </Link>
     </motion.div>
   );

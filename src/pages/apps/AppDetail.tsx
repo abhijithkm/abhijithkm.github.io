@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Play,
   ShieldCheck,
-  CheckCircle2,
   Smartphone,
   Calendar,
   Package,
@@ -16,8 +15,6 @@ import AppPageLayout from "../../components/apps/AppPageLayout";
 import AppImage from "../../components/apps/AppImage";
 import {
   getAndroidApp,
-  androidCategoryStyles,
-  fallbackCategoryStyle,
   type AndroidApp,
 } from "../../data/androidApps";
 import { usePageMeta } from "../../hooks/usePageMeta";
@@ -49,17 +46,20 @@ function Lightbox({
 
   return (
     <motion.div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${app.name} screenshots`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.15 }}
       onClick={onClose}
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-surface-950/95 backdrop-blur-sm"
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-surface-950/85 backdrop-blur-md"
     >
       <button
         onClick={onClose}
         aria-label="Close"
-        className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-surface-100/60 transition-colors hover:text-white"
+        className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-surface-50/15 bg-surface-900 text-surface-50 shadow-sm transition-colors hover:bg-surface-800"
       >
         <X size={18} />
       </button>
@@ -72,7 +72,7 @@ function Lightbox({
               onNavigate((index - 1 + app.screenshots.length) % app.screenshots.length);
             }}
             aria-label="Previous screenshot"
-            className="absolute left-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-surface-100/60 transition-colors hover:text-white md:left-8"
+            className="absolute left-4 flex h-10 w-10 items-center justify-center rounded-full border border-surface-50/15 bg-surface-900 text-surface-50 shadow-sm transition-colors hover:bg-surface-800 md:left-8"
           >
             <ChevronLeft size={18} />
           </button>
@@ -82,7 +82,7 @@ function Lightbox({
               onNavigate((index + 1) % app.screenshots.length);
             }}
             aria-label="Next screenshot"
-            className="absolute right-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-surface-100/60 transition-colors hover:text-white md:right-8"
+            className="absolute right-4 flex h-10 w-10 items-center justify-center rounded-full border border-surface-50/15 bg-surface-900 text-surface-50 shadow-sm transition-colors hover:bg-surface-800 md:right-8"
           >
             <ChevronRight size={18} />
           </button>
@@ -102,11 +102,11 @@ function Lightbox({
           label="Screenshot coming soon"
           loading="eager"
           boxClassName="h-[70vh] w-[min(340px,80vw)] rounded-2xl"
-          className="max-h-[88vh] max-w-[92vw] rounded-2xl border border-white/10 shadow-2xl"
+          className="max-h-[88vh] max-w-[92vw] rounded-2xl border border-surface-50/10 shadow-[0_24px_60px_-20px_rgba(15,27,45,0.45)]"
         />
       </motion.div>
 
-      <div className="absolute bottom-5 text-xs font-medium text-surface-100/40">
+      <div className="absolute bottom-5 text-xs font-medium font-mono text-xs text-surface-100/80">
         {index + 1} / {app.screenshots.length}
       </div>
     </motion.div>
@@ -117,14 +117,14 @@ function AppNotFound() {
   return (
     <AppPageLayout>
       <div className="flex flex-col items-center gap-4 px-6 py-32 text-center">
-        <Smartphone size={36} className="text-primary-400/40" />
-        <h1 className="text-2xl font-bold text-white">App not found</h1>
-        <p className="max-w-md text-sm text-surface-100/50">
+        <Smartphone size={36} className="text-accent-ink/60" aria-hidden="true" />
+        <h1 className="font-display text-3xl font-extrabold text-surface-50">App not found</h1>
+        <p className="max-w-md text-sm text-surface-100/80">
           The app you're looking for doesn't exist or may have been removed.
         </p>
         <Link
           to="/apps"
-          className="mt-2 rounded-lg border border-primary-500/20 bg-primary-600/15 px-5 py-2.5 text-sm font-medium text-primary-400 transition-colors hover:bg-primary-600/25"
+          className="mt-2 rounded-full bg-surface-50 px-6 py-2.5 text-sm font-semibold text-surface-950 transition-opacity hover:opacity-85"
         >
           Browse all Android apps
         </Link>
@@ -150,12 +150,13 @@ export default function AppDetail() {
 
   if (!app) return <AppNotFound />;
 
-  const badgeClass = androidCategoryStyles[app.category] ?? fallbackCategoryStyle;
-
   return (
     <AppPageLayout accent={app.accent}>
-      <div className="mx-auto max-w-5xl px-6 py-14 md:py-20">
-        {/* ── Hero ── */}
+      <div
+        className="mx-auto max-w-4xl px-4 py-12 sm:px-6 md:py-20"
+        style={{ "--accent": app.accent ?? "#2f6bff" } as CSSProperties}
+      >
+        {/* Header */}
         <motion.div
           initial={isAutomated ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -168,65 +169,62 @@ export default function AppDetail() {
             variant="icon"
             loading="eager"
             boxClassName="h-20 w-20 shrink-0 rounded-2xl md:h-24 md:w-24"
-            className="h-20 w-20 shrink-0 rounded-2xl border border-white/[0.08] bg-white/[0.04] object-cover shadow-lg md:h-24 md:w-24"
+            className="h-20 w-20 shrink-0 rounded-2xl border border-surface-50/10 bg-surface-50/[0.04] object-cover md:h-24 md:w-24"
           />
           <div className="min-w-0 flex-1">
-            <span
-              className={`inline-block rounded-full border px-3 py-1 text-[11px] font-medium ${badgeClass}`}
-            >
+            <p className="label">
               {app.category}
-            </span>
-            <h1 className="mt-2 text-3xl font-bold tracking-tight text-white md:text-4xl">
+              {app.releaseYear ? ` · ${app.releaseYear}` : ""}
+            </p>
+            <h1 className="mt-2 font-display text-4xl font-extrabold tracking-tight text-surface-50 md:text-5xl">
               {app.name}
             </h1>
-            <p className="mt-2 text-lg text-surface-100/60">{app.tagline}</p>
+            <p className="mt-3 text-lg leading-relaxed text-surface-100/80">{app.tagline}</p>
 
-            <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs text-surface-100/35">
+            <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs text-surface-100/70">
               {app.releaseYear && (
                 <span className="inline-flex items-center gap-1.5">
-                  <Calendar size={12} /> Released {app.releaseYear}
+                  <Calendar size={12} aria-hidden="true" /> Released {app.releaseYear}
                 </span>
               )}
               {app.packageId && (
-                <span className="inline-flex items-center gap-1.5 font-mono">
-                  <Package size={12} /> {app.packageId}
+                <span className="inline-flex items-center gap-1.5 break-all font-mono">
+                  <Package size={12} aria-hidden="true" /> {app.packageId}
                 </span>
               )}
             </div>
 
-            <div className="mt-5 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               {app.playStoreUrl && (
-                <motion.a
+                <a
                   href={app.playStoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 rounded-lg border border-primary-500/20 bg-primary-600/15 px-5 py-2.5 text-sm font-medium text-primary-400 transition-colors hover:bg-primary-600/25"
+                  className="inline-flex items-center gap-2 rounded-full bg-surface-50 px-6 py-2.5 text-sm font-semibold text-surface-950 transition-opacity hover:opacity-85"
                 >
-                  <Play size={15} /> Get it on Google Play
-                </motion.a>
+                  <Play size={15} aria-hidden="true" /> Get it on Google Play
+                </a>
               )}
               <Link
                 to={`/apps/${app.slug}/privacy`}
-                className="inline-flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] px-5 py-2.5 text-sm font-medium text-surface-100/60 transition-colors hover:border-white/15 hover:text-white"
+                className="inline-flex items-center gap-2 rounded-full border border-surface-50/20 px-6 py-2.5 text-sm font-medium text-surface-50 transition-colors hover:border-surface-50/40 hover:bg-surface-50/[0.04]"
               >
-                <ShieldCheck size={15} /> Privacy Policy
+                <ShieldCheck size={15} aria-hidden="true" /> Privacy Policy
               </Link>
             </div>
           </div>
         </motion.div>
 
-        {/* ── Screenshots ── */}
+        {/* Screenshots */}
         {app.screenshots.length > 0 && (
           <section className="mt-14">
-            <h2 className="text-xl font-semibold text-white">Screenshots</h2>
+            <h2 className="label">Screenshots</h2>
             <div className="mt-5 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4">
               {app.screenshots.map((shot, i) => (
                 <button
                   key={shot}
                   onClick={() => setLightbox(i)}
-                  className="group shrink-0 snap-start focus:outline-none"
+                  className="group shrink-0 snap-start rounded-2xl"
                   aria-label={`Open screenshot ${i + 1} of ${app.name}`}
                 >
                   <AppImage
@@ -234,7 +232,7 @@ export default function AppDetail() {
                     alt={`${app.name} screenshot ${i + 1}`}
                     label="Screenshot coming soon"
                     boxClassName="h-[380px] w-[190px] rounded-2xl md:h-[440px] md:w-[220px]"
-                    className="h-[380px] w-auto rounded-2xl border border-white/[0.08] object-cover transition-all duration-300 group-hover:border-primary-500/30 group-hover:shadow-lg group-hover:shadow-primary-600/10 md:h-[440px]"
+                    className="h-[380px] w-auto rounded-2xl border border-surface-50/10 object-cover transition-all duration-300 group-hover:border-accent/60 group-hover:shadow-lg group-hover:shadow-surface-50/10 md:h-[440px]"
                   />
                 </button>
               ))}
@@ -242,33 +240,30 @@ export default function AppDetail() {
           </section>
         )}
 
-        {/* ── About ── */}
+        {/* About */}
         <section className="mt-14">
-          <h2 className="text-xl font-semibold text-white">About this app</h2>
-          <div className="mt-4 space-y-4">
+          <h2 className="label">About this app</h2>
+          <div className="mt-4 max-w-2xl space-y-4">
             {app.description.map((paragraph, i) => (
-              <p key={i} className="leading-relaxed text-surface-100/55">
+              <p key={i} className="leading-relaxed text-surface-100/80">
                 {paragraph}
               </p>
             ))}
           </div>
         </section>
 
-        {/* ── Features ── */}
+        {/* Features */}
         {app.features.length > 0 && (
           <section className="mt-14">
-            <h2 className="text-xl font-semibold text-white">Key features</h2>
-            <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+            <h2 className="label">Key features</h2>
+            <ul className="mt-4 divide-y divide-surface-50/10 border-y border-surface-50/10">
               {app.features.map((feature) => (
-                <li
-                  key={feature}
-                  className="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3"
-                >
-                  <CheckCircle2
-                    size={17}
-                    className="mt-0.5 shrink-0 text-primary-400"
+                <li key={feature} className="flex items-start gap-3 py-3.5">
+                  <span
+                    aria-hidden="true"
+                    className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
                   />
-                  <span className="text-sm leading-relaxed text-surface-100/60">
+                  <span className="text-sm leading-relaxed text-surface-100/80">
                     {feature}
                   </span>
                 </li>
@@ -277,15 +272,15 @@ export default function AppDetail() {
           </section>
         )}
 
-        {/* ── Tech stack ── */}
+        {/* Tech stack */}
         {app.tech.length > 0 && (
           <section className="mt-14">
-            <h2 className="text-xl font-semibold text-white">Built with</h2>
+            <h2 className="label">Built with</h2>
             <div className="mt-4 flex flex-wrap gap-2">
               {app.tech.map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-full border border-white/[0.06] bg-white/[0.03] px-3.5 py-1.5 text-xs font-medium text-surface-100/50"
+                  className="rounded-full border border-surface-50/20 px-3.5 py-1.5 text-xs font-medium text-surface-100/80"
                 >
                   {tech}
                 </span>
@@ -294,16 +289,16 @@ export default function AppDetail() {
           </section>
         )}
 
-        {/* ── Footer links ── */}
-        <div className="mt-16 flex flex-col items-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.02] px-6 py-8 text-center">
-          <ShieldCheck size={22} className="text-primary-400/70" />
-          <p className="max-w-lg text-sm text-surface-100/50">
+        {/* Privacy link */}
+        <div className="mt-16 flex flex-col gap-3 border-y border-surface-50/10 py-8">
+          <p className="label">Privacy</p>
+          <p className="max-w-lg text-sm leading-relaxed text-surface-100/80">
             {app.name} respects your privacy. Read the full policy covering
             data collection, permissions, and third-party services.
           </p>
           <Link
             to={`/apps/${app.slug}/privacy`}
-            className="text-sm font-medium text-primary-400 transition-colors hover:text-primary-300"
+            className="w-fit text-sm font-semibold text-accent-ink underline-offset-4 hover:underline"
           >
             View Privacy Policy →
           </Link>

@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import type { CSSProperties, ReactNode } from "react";
 import { personalDetails } from "../../data/profile";
-import { accentVars } from "../../data/androidApps";
 import Footer from "../Footer";
 
 /**
- * Shared shell for /apps pages — lightweight sticky header (no scroll-spy
- * navbar, which only works on the single-page home) + the global footer.
+ * Shared shell for /apps pages: a light blurred header in the same look as
+ * the home Navbar (no scroll-spy, which only works on the single-page home)
+ * plus the global footer.
  *
- * `accent` re-tints the whole page in the documented app's own brand
- * colour; without it the page keeps the site's indigo.
+ * `accent` re-tints the page in the documented app's own brand colour;
+ * without it the page keeps the site's default accent.
  */
 export default function AppPageLayout({
   children,
@@ -22,35 +22,43 @@ export default function AppPageLayout({
   return (
     <div
       className="flex min-h-screen flex-col"
-      style={accentVars(accent) as CSSProperties}
+      style={accent ? ({ "--accent": accent } as CSSProperties) : undefined}
     >
-      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-surface-950/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link to="/" className="flex items-center gap-2">
+      <header className="sticky top-0 z-50 border-b border-surface-50/10 bg-surface-950/85 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+          <Link to="/" className="flex shrink-0 items-center gap-2.5">
             <img
               src="/logo.png"
               alt={personalDetails.name}
               className="h-8 w-8 rounded-lg"
             />
-            <span className="bg-gradient-to-r from-primary-400 to-accent-cyan bg-clip-text text-lg font-bold tracking-tight text-transparent">
+            <span className="font-display text-lg font-extrabold tracking-tight text-surface-50">
               {personalDetails.name.split(" ")[0]}
-              <span className="text-white/70">{personalDetails.logoSuffix}</span>
+              <span className="text-accent-ink">{personalDetails.logoSuffix}</span>
             </span>
           </Link>
 
-          <nav className="flex items-center gap-2">
+          <nav className="flex items-center gap-3 sm:gap-5">
             <Link
               to="/"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3.5 py-1.5 text-[13px] font-medium text-surface-100/50 transition-colors hover:border-white/10 hover:text-white"
+              className="inline-flex items-center gap-1 whitespace-nowrap text-[13px] font-medium text-surface-100/70 transition-colors hover:text-surface-50 sm:text-sm"
             >
-              <ArrowLeft size={14} /> Portfolio
+              <ArrowLeft size={14} aria-hidden="true" /> Portfolio
             </Link>
             <Link
               to="/apps"
-              className="rounded-lg border border-primary-500/20 bg-primary-600/15 px-3.5 py-1.5 text-[13px] font-medium text-primary-400 transition-colors hover:bg-primary-600/25"
+              className="whitespace-nowrap text-[13px] font-medium text-surface-100/70 transition-colors hover:text-surface-50 sm:text-sm"
             >
-              All Android Apps
+              All Android apps
             </Link>
+            <a
+              href={personalDetails.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden whitespace-nowrap rounded-full border border-accent/50 px-4 py-1.5 text-sm font-medium text-accent-ink transition-colors hover:bg-accent/10 sm:inline-block"
+            >
+              Resume
+            </a>
           </nav>
         </div>
       </header>

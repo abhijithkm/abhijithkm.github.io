@@ -18,7 +18,7 @@
       "/apps/motora/4.jpg",
       "/apps/motora/5.jpg"
     ],
-    "playStoreUrl": null,
+    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.motora.app",
     "packageId": "com.motora.app",
     "releaseYear": 2026,
     "description": [
@@ -306,6 +306,162 @@
       "accountRequired": true,
       "childDirected": false,
       "dataDeletionNote": "Open the app, go to Settings, then Danger zone, type DELETE and choose Delete account. This removes your profile, books, reading logs, reviews, badges and notifications. Your profile picture file and sign-in records are cleared out later by the site owner. Uninstalling the app removes what it keeps on your phone. You can also see https://read.abhijithkm.space/delete-account, or write to meabhijithkm@gmail.com."
+    }
+  },
+  {
+    "slug": "price-calculator",
+    "name": "Price Calculator",
+    "tagline": "Unit price times quantity, worked out instantly — one screen, fully offline",
+    "category": "Productivity",
+    "tags": [
+      "Android"
+    ],
+    "icon": "/apps/price-calculator/icon.png",
+    "accent": "#2A9D8F",
+    "screenshots": [
+      "/apps/price-calculator/1.jpg",
+      "/apps/price-calculator/2.jpg"
+    ],
+    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.envisagesystems.pricecalculator",
+    "packageId": "com.envisagesystems.pricecalculator",
+    "releaseYear": 2026,
+    "description": [
+      "Price Calculator does one job: it tells you what something actually costs. Enter the price per kilogram, per gram, or per item and the quantity or weight, and the total appears instantly. No menus to dig through and nothing to sign up for.",
+      "It is a single clean screen that works with no internet connection. You can make the text larger or smaller for easy reading and switch the interface between English and Malayalam. It collects, stores, and shares nothing: no login, no ads, no tracking, and no database."
+    ],
+    "features": [
+      "Total price from unit price × quantity or weight, instantly",
+      "Works for a rate per kilogram, per gram, or per item",
+      "A large result card that is easy to read at a glance",
+      "Small, medium, and large text sizes",
+      "English and Malayalam interface",
+      "Works fully offline — no internet needed",
+      "No login, no ads, no tracking"
+    ],
+    "tech": [],
+    "privacy": {
+      "effectiveDate": "November 11, 2026",
+      "collectsPersonalData": false,
+      "dataCollected": [],
+      "permissions": [],
+      "thirdPartyServices": [],
+      "showsAds": false,
+      "usesAnalytics": false,
+      "accountRequired": false,
+      "childDirected": false,
+      "dataDeletionNote": "Price Calculator keeps no records of what you calculate and has no account, database, or server. Uninstalling the app removes everything it stored on your device."
+    }
+  },
+  {
+    "slug": "pregapp",
+    "name": "PregApp",
+    "tagline": "A gentle week-by-week companion through pregnancy",
+    "category": "Parenting",
+    "tags": [
+      "Android"
+    ],
+    "icon": "/apps/pregapp/icon.png",
+    "accent": "#E8668A",
+    "screenshots": [
+      "/apps/pregapp/1.jpg",
+      "/apps/pregapp/2.jpg",
+      "/apps/pregapp/3.jpg",
+      "/apps/pregapp/4.jpg"
+    ],
+    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.envisagesystems.pregapp",
+    "packageId": "com.envisagesystems.pregapp",
+    "description": [
+      "PregApp is a calm companion for the weeks of pregnancy. Set your due date and it works out the week and day you are in, shows how your baby is growing with a size comparison for each of weeks 1 to 40, and keeps the milestones that matter in one place.",
+      "Alongside the weekly guide it holds the everyday records: a kick counter, a mood log, notes you can tag and pin, a weight chart, and doctor appointments with a reminder 24 hours before. Most features work offline, and the app does not share your data."
+    ],
+    "features": [
+      "Week-by-week baby development for weeks 1 to 40, with size comparisons",
+      "Week and day progress worked out from your due date",
+      "Kick counter with daily tracking and weekly summaries",
+      "Mood tracker with notes",
+      "Notes with tags, pinning, colours, and search",
+      "Weight tracker with weekly charts",
+      "Doctor appointments with a calendar view and a reminder 24 hours before",
+      "Automatic light and dark theme",
+      "Most features work offline"
+    ],
+    "tech": [],
+    "privacy": {
+      "effectiveDate": "November 11, 2026",
+      "collectsPersonalData": false,
+      "dataCollected": [],
+      "permissions": [
+        {
+          "name": "Notifications",
+          "reason": "Used only to deliver the appointment reminders you set, 24 hours before each appointment."
+        }
+      ],
+      "thirdPartyServices": [],
+      "showsAds": false,
+      "usesAnalytics": false,
+      "accountRequired": false,
+      "childDirected": false,
+      "dataDeletionNote": "PregApp does not collect your data or share it with third parties, so there is no copy held by us to delete. You can delete any entry inside the app, and uninstalling the app removes what it stored on your device."
+    }
+  },
+  {
+    "slug": "panam",
+    "name": "Panam",
+    "tagline": "Track income, expenses, budgets, and bills — all stored on your device",
+    "category": "Finance",
+    "tags": [
+      "Android"
+    ],
+    "icon": "/apps/panam/icon.png",
+    "accent": "#6D5BE8",
+    "screenshots": [
+      "/apps/panam/1.jpg",
+      "/apps/panam/2.jpg",
+      "/apps/panam/3.jpg",
+      "/apps/panam/4.jpg",
+      "/apps/panam/5.jpg"
+    ],
+    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.panam",
+    "packageId": "com.panam",
+    "description": [
+      "Panam is a privacy-focused personal finance tracker. Record your income and expenses, keep cash, bank, and credit card balances side by side, and see where the money goes with category breakdowns and monthly summaries.",
+      "Set monthly budgets by category and follow your spending against them, keep a calendar of bills and recurring payments so none slips, and lock the app behind a PIN or your fingerprint or face. Everything is stored on your device, it works without an internet connection, and it has no ads, tracking, or analytics."
+    ],
+    "features": [
+      "Income and expense entry with a custom numeric keypad, notes, and tags",
+      "Cash, bank, and credit card accounts with live balances",
+      "Built-in and custom categories with icons and colours",
+      "Monthly budgets by category, with progress indicators and alerts",
+      "Bill reminders, a bill calendar, and recurring transactions",
+      "Monthly summaries, category charts, and spending trends",
+      "Multiple currencies",
+      "PIN and biometric (fingerprint or face) lock",
+      "Light and dark themes",
+      "Fully offline, with no ads, tracking, or analytics"
+    ],
+    "tech": [
+      "SQLite"
+    ],
+    "privacy": {
+      "effectiveDate": "November 11, 2026",
+      "collectsPersonalData": false,
+      "dataCollected": [],
+      "permissions": [
+        {
+          "name": "Notifications",
+          "reason": "Used only to deliver the bill reminders and budget alerts you set."
+        },
+        {
+          "name": "Biometrics",
+          "reason": "Used only to unlock Panam with your fingerprint or face."
+        }
+      ],
+      "thirdPartyServices": [],
+      "showsAds": false,
+      "usesAnalytics": false,
+      "accountRequired": false,
+      "childDirected": false,
+      "dataDeletionNote": "Panam keeps your records in its own storage on your device and sends nothing to external servers. Deleting an entry removes it, and uninstalling the app removes everything it stored."
     }
   }
 ]

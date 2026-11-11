@@ -1,6 +1,6 @@
 # Project status: abhijithkm.github.io
 
-Last updated: Nov 10, 2026 (design A merged and live). This file is the handoff: read it first when continuing on another machine or in a new chat.
+Last updated: Nov 11, 2026 (Motora live on Google Play). This file is the handoff: read it first when continuing on another machine or in a new chat.
 
 ## What this is
 
@@ -89,3 +89,4 @@ Known quirk: if one script chunk fails to load (seen once as a network error), t
 - Nov 6 to 7, 2026: redesigned the site (Monsoon), then built alternatives A, B, C and a game-map idea (dropped). Chose A.
 - Nov 7 to 10, 2026: pushed A, refreshed the skills section from the owner's project folders, restyled app pages and popups to match A, audited GitHub repos (outside this repo), wrote this file, verified and committed the restyle.
 - Nov 10, 2026: opened and merged PR #2 (design A to `dev`), checked the live site on `abhijithkm.space`, updated this file through a PR.
+- Nov 11, 2026: Motora went live on Google Play; set its `playStoreUrl` in `androidApps.json` (the site now shows 4 live apps). The Play Console also lists Price Calculator, PregApp and Panam, which are not on the site yet.

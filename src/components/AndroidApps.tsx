@@ -69,8 +69,9 @@ export default function AndroidApps() {
                     </span>
                     <span className="mt-1 block text-sm leading-snug text-surface-100/70">{a.tagline}</span>
                     <span className="label mt-2 block !text-[0.64rem] !text-surface-100/55">
-                      {a.category} / {a.releaseYear}
-                      {a.playStoreUrl ? " / Live on Play" : ""}
+                      {[a.category, a.releaseYear, a.playStoreUrl ? "Live on Play" : null]
+                        .filter(Boolean)
+                        .join(" / ")}
                     </span>
                   </span>
                 </button>

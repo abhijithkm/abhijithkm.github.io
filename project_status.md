@@ -65,6 +65,7 @@ Known quirk: if one script chunk fails to load (seen once as a network error), t
    - Rename the "C# / .NET 8" skill (the work spans several .NET versions)?
    - Give Motora its own `accent` colour in `androidApps.json`.
    - Review the skill levels set on the new entries.
+   - Check the three new app entries: copy, privacy text and `effectiveDate` (Nov 11, 2026) were written from the Play listing and its Data safety section (no data collected or shared), not from source code. `releaseYear` is left out for PregApp and Panam (unknown), `tech` is empty for Price Calculator and PregApp (stack unknown), and Panam lists only SQLite. Panam's screenshots are AI-style promo graphics with garbled text; swap in real screens if wanted.
 2. Cleanup: move the hard-coded component text into `profile.ts`; update the stale share description in `index.html`.
 3. Use the `abhijithkm.space` privacy URLs in Play Console (the github.io ones add a 301 before the 200).
 4. Add `robots.txt` and a sitemap (both return 404 today).
@@ -89,4 +90,4 @@ Known quirk: if one script chunk fails to load (seen once as a network error), t
 - Nov 6 to 7, 2026: redesigned the site (Monsoon), then built alternatives A, B, C and a game-map idea (dropped). Chose A.
 - Nov 7 to 10, 2026: pushed A, refreshed the skills section from the owner's project folders, restyled app pages and popups to match A, audited GitHub repos (outside this repo), wrote this file, verified and committed the restyle.
 - Nov 10, 2026: opened and merged PR #2 (design A to `dev`), checked the live site on `abhijithkm.space`, updated this file through a PR.
-- Nov 11, 2026: Motora went live on Google Play; set its `playStoreUrl` in `androidApps.json` (the site now shows 4 live apps). The Play Console also lists Price Calculator, PregApp and Panam, which are not on the site yet.
+- Nov 11, 2026: Motora went live on Google Play; set its `playStoreUrl` in `androidApps.json`. Added Price Calculator, PregApp and Panam (all by Envisage Systems Inc on Play) with their icons and screenshots from the Play listings, so the site now shows 7 live apps. Fixed the stray empty segment in the apps list meta line when `releaseYear` is missing.

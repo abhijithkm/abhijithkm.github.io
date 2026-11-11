@@ -125,6 +125,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
+                {...(link.href.startsWith("#") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                 onClick={(e) => {
                   if (link.href.startsWith("#")) {
                     e.preventDefault();
